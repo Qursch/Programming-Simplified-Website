@@ -32,11 +32,16 @@
       },
       "dev": {
         "cache": false
-      }
+      },
+	  "test": {
+		  "dependsOn": [
+			  "build"
+		  ]
+	  }
     }
   },
   "engines": {
     "npm": ">=7.0.0",
-    "node": ">=14.0.0"
+    "node": ">=16.1.0"
   }
 }

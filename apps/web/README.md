@@ -1,30 +1,38 @@
-## Getting Started
+# Read me
 
-First, run the development server:
+Proper Readme will follow
 
-```bash
-yarn dev
-```
+## Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   Typescript
+-   ChakraUI
+-   NextJS
+-   Styled Components
+-   Lightweight
+-   Google Analytics
+-   ESLint
+-   Jest
+-   React Icons
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Setup
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Click use this template or clone with
+`git clone https://github.com/HazimAr/Nextjs-ChakraUI-Boilerplate`
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+install dependencies `npm i` or `yarn`
 
-## Learn More
+install prettier globally `npm i -g prettier`
 
-To learn more about Next.js, take a look at the following resources:
+## Commands
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To run on local development server `npm run dev`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To format with prettier `npm run clean`
 
-## Deploy on Vercel
+To run Tests with Jest `npm run test`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme) from the creators of Next.js.
+To create a production build `npm run build`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+
+MIT Licensed template
