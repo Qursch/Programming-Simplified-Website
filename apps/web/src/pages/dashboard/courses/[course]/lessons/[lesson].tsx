@@ -47,6 +47,7 @@ export default function LessonPage({
 	course: Course;
 	blog: any;
 }) {
+	if (typeof window === "undefined") return null;
 	const router = useRouter();
 	const [loading, setLoading] = useState(true);
 	const [animationId, setAnimationId] = useState(0);
@@ -57,10 +58,9 @@ export default function LessonPage({
 		socket.io.opts.extraHeaders.Authorization = `Bearer ${localStorage.getItem(
 			"token"
 		)}`;
-		console.log(socket.io.opts.extraHeaders.Authorization)
+		console.log(socket.io.opts.extraHeaders.Authorization);
 	}, [user]);
 
-	if (typeof window === "undefined") return null;
 	useEffect(() => {
 		if (finished) {
 			const duration = 2 * 1000;

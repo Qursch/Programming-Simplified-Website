@@ -24,7 +24,7 @@ export default function Button({
 			_hover={
 				!isSubmitting && {
 					// transform: "scale(0.95)",
-					background: "background",
+					background: "transparent",
 					color: "primary",
 				}
 			}

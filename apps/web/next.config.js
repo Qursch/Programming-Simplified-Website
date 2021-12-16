@@ -1,4 +1,9 @@
-//@ts-ignore
+// @ts-check
+
+/**
+ * @type {import('next').NextConfig}
+ **/
+
 module.exports = {
 	async redirects() {
 		return [
