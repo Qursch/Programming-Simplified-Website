@@ -24,7 +24,6 @@ import {
 import { useRouter } from "next/router";
 import { enrollInCourse, getUserCourse, updateCourse } from "api";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 export default function CoursePage({ course }: { course?: Course }) {
 	if (typeof window === "undefined") return null;
