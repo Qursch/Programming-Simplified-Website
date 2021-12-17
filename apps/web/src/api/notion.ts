@@ -134,7 +134,6 @@ export async function getLesson(page_id: string, lessonId: string) {
 		course = courseResolved;
 	});
 
-
 	const lesson: Lesson = {
 		id: lessonId,
 		courseId: page_id,
@@ -146,7 +145,8 @@ export async function getLesson(page_id: string, lessonId: string) {
 		nextLesson: lessons[parseInt(lessonId) - 1].nextLesson,
 		previousLesson: lessons[parseInt(lessonId) - 1].previousLesson,
 	};
-	return { lesson, course };
+	const blog = await getLessonContent(lesson.blockId);
+	return { lesson, course, blog };
 }
 
 export async function getLessonContent(lesson_id: string) {

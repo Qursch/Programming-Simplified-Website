@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "config";
+import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 import { User } from "types";
 axios.defaults.baseURL = API_URL;
@@ -16,13 +17,16 @@ export function AuthProvider({ children }) {
 	const [user, setUser] = useState(null);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+	const router = useRouter();
 
 	// @ts-ignore
 	useEffect(async () => {
 		const token = localStorage.getItem("token");
 		if (token) {
 			axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-			const res = await axios.get("/users/profile").catch(() => {});
+			const res = await axios.get("/users/profile").catch(() => {
+				router.push("/login");
+			});
 			// @ts-ignore
 			setUser(res?.data);
 			setIsAuthenticated(true);

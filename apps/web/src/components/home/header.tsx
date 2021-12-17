@@ -1,4 +1,4 @@
-import { HStack, Text } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import Container from "@components/container";
 import ContainerInside from "@components/containerInside";
 import Button from "@components/home/button";
@@ -7,7 +7,7 @@ import { useAuth } from "@providers/authContext";
 import NextImage from "next/image";
 
 export default function Header() {
-	const { user, logout } = useAuth();
+	const { user } = useAuth();
 
 	return (
 		<Container
@@ -37,26 +37,20 @@ export default function Header() {
 						</NextChakraLink>
 
 						{user ? (
-							<>
-								<NextChakraLink href="/dashboard">
-									Dashboard
-								</NextChakraLink>
-								<Text
-									type="white"
-									onClick={() => {
-										logout();
-									}}
-									_hover={{ cursor: "pointer" }}
-								>
-									Logout
-								</Text>
-							</>
-						) : (
-							<NextChakraLink href="/register">
-								<Button _hover={{ cursor: "pointer" }}>
-									Register
-								</Button>
+							<NextChakraLink href="/dashboard">
+								Dashboard
 							</NextChakraLink>
+						) : (
+							<>
+								<NextChakraLink href="/login">
+									Login
+								</NextChakraLink>
+								<NextChakraLink href="/register">
+									<Button _hover={{ cursor: "pointer" }}>
+										Register
+									</Button>
+								</NextChakraLink>
+							</>
 						)}
 					</HStack>
 				</HStack>

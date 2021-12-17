@@ -20,7 +20,7 @@ import Layout from "@components/dashboard/layout";
 import NextChakraLink from "@components/nextChakraLink";
 import { rounded, shadow } from "@styles/theme";
 import { parsePage } from "@utils/parseNotion";
-import { getCourse, getCourses, getLesson, getLessonContent } from "api/notion";
+import { getCourse, getCourses, getLesson } from "api/notion";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { FaArrowLeft, FaCheck, FaTimes } from "react-icons/fa";
@@ -358,18 +358,7 @@ export default function LessonPage({
 }
 
 export async function getStaticProps({ params }) {
-	let lesson;
-	let course;
-	let blog;
-
-	await Promise.all([
-		getLesson(params.course, params.lesson),
-		getLessonContent(lesson.blockId),
-	]).then(([lessonResolved, blogResolved]) => {
-		lesson = lessonResolved.lesson;
-		course = lessonResolved.course;
-		blog = blogResolved;
-	});
+	const { lesson, course, blog } = await getLesson(params.course, params.lesson);
 
 	return {
 		props: {
