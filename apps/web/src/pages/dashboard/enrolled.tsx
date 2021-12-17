@@ -1,7 +1,9 @@
 import { Center, Heading, Stack, VStack, Text } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
+import NextChakraLink from "@components/nextChakraLink";
 import { getUserCourses } from "api";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Enrolled() {
@@ -33,7 +35,11 @@ export default function Enrolled() {
 									maxW="600px"
 								>
 									<Heading size="md">{course.name}</Heading>
-									<Button>Continue</Button>
+									<Link
+										href={`/dashboard/courses/${course.id}/lessons`}
+									>
+										<Button>Continue</Button>
+									</Link>
 								</VStack>
 							))}
 					</Stack>

@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
-import NextChakraLink from "@components/nextChakraLink";
+// import NextChakraLink from "@components/nextChakraLink";
 import { rounded, shadow } from "@styles/theme";
 import { parsePage } from "@utils/parseNotion";
 import { getCourse, getCourses, getLesson } from "api/notion";
@@ -175,7 +175,7 @@ export default function LessonPage({
 			</Modal>
 			<Layout>
 				<>
-					<NextChakraLink
+					{/* <NextChakraLink
 						href={`/dashboard/courses/${router.query.course}`}
 					>
 						<Button
@@ -186,8 +186,8 @@ export default function LessonPage({
 						>
 							Back to Course
 						</Button>
-					</NextChakraLink>
-					<Center as={VStack} mt="85px" mb="50px">
+					</NextChakraLink> */}
+					<Center as={VStack} /*mt="85px"*/ my="50px">
 						<VStack spacing={0} w="100%">
 							{lesson?.videoUrl ? (
 								<Skeleton
@@ -358,7 +358,10 @@ export default function LessonPage({
 }
 
 export async function getStaticProps({ params }) {
-	const { lesson, course, blog } = await getLesson(params.course, params.lesson);
+	const { lesson, course, blog } = await getLesson(
+		params.course,
+		params.lesson
+	);
 
 	return {
 		props: {
