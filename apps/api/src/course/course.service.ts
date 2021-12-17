@@ -30,13 +30,14 @@ export class CourseService {
 	}
 
 	public async findOne_User(email: string): Promise<Partial<User & Document>> {
-		const user = await this.userModel.findOne({ email: email });
+		const user = await this.userModel.findOne({ email });
 		if (!user) throw new NotFoundException('Buy a lottery ticket because you just triggered the fattest race condition known to man');
 		return user;
 	}
 
-	public async findOne_UserCourse(user: User, courseName: string) {
-		const userCourse = this.userCourseModel.findOne({ user: user, name: courseName });
+	public async findOne_UserCourse(user: User, id: string) {
+		// TODO: keeps throwing not found
+		const userCourse = await this.userCourseModel.findOne({ user: user._id, id });
 		if (!userCourse) throw new NotFoundException('User Course not found');
 		return userCourse;
 	}
@@ -101,7 +102,7 @@ export class CourseService {
 			} catch {
 				return false;
 			}
-			
+
 		}));
 		if (!course) throw new NotFoundException('Course not found');
 		// make sure we don't query out of range
@@ -109,7 +110,7 @@ export class CourseService {
 
 		// store the lesson etc.
 		const lesson = await this.lessonModel.findById(course.lessons[lessonId]);
-		if(lesson) {
+		if (lesson) {
 			lesson.progress = progress;
 			lesson.completed = progress >= 1;
 			return lesson.save();
@@ -124,20 +125,19 @@ export class CourseService {
 		]);
 	}
 
-	public async getProgress (
+	public async getProgress(
 		user: User
 	) {
 		const courses = await Promise.all(user.courses.map(async i => this.userCourseModel.findById(i))) as UserCourse[];
 
 		const lessons = new Map<UserCourse, Lesson[]>();
-
 		courses.forEach(i => lessons.set(i, i.lessons));
-		const nextLessons: Record<string, Lesson> = { };
+		const nextLessons: Record<string, Lesson> = {};
 		for (const [k, v] of lessons) {
-			if(k.status != 2) {
+			if (k.status != 2) {
 				nextLessons[k.id] = (
 					await Promise.all(
-						v.map(i => 
+						v.map(i =>
 							this.lessonModel.findById(i)
 						)
 					)
@@ -146,4 +146,5 @@ export class CourseService {
 		}
 		return nextLessons;
 	}
+
 }

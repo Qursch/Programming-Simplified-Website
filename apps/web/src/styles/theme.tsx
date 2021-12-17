@@ -15,9 +15,6 @@ const theme = extendTheme({
 	},
 	styles: {
 		global: () => ({
-			html: {
-				height: "100%",
-			},
 			body: {
 				fontFamily:
 					"-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",

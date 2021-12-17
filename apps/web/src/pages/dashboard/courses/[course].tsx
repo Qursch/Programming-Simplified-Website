@@ -8,6 +8,7 @@ import {
 	VStack,
 	Center,
 	Link,
+	useToast,
 } from "@chakra-ui/react";
 import { getCourse, getCourses } from "api/notion";
 import { Course } from "types";
@@ -21,13 +22,25 @@ import {
 	HiDocumentText,
 } from "react-icons/hi";
 import { useRouter } from "next/router";
+import { enrollInCourse, getUserCourse } from "api";
+import { useEffect, useState } from "react";
 
 export default function CoursePage({ course }: { course?: Course }) {
 	if (typeof window === "undefined") return null;
-	const userCourse = {
-		status: 0,
-	};
+	const [userCourse, setUserCourse] = useState(null);
+	useEffect(() => {
+		getUserCourse(course.id, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+		}).then(({ data }) => {
+			console.log(data);
+			setUserCourse(data);
+		});
+	}, []);
+
 	const router = useRouter();
+	const toast = useToast();
 	return (
 		<>
 			<Head>
@@ -153,24 +166,43 @@ export default function CoursePage({ course }: { course?: Course }) {
 							</Heading>
 							{userCourse?.status ? (
 								<Link
-									href={`/dashboard/courses/${
-										course?.id
-									}/lessons`}
+									href={`/dashboard/courses/${course?.id}/lessons`}
 								>
 									<Button>Lessons</Button>
 								</Link>
 							) : (
 								<Button
 									onClick={() => {
-										new Promise((resolve) => {
-											setTimeout(() => {
-												resolve("foo");
-											}, 500);
-										}).then(() => {
-											router.push(
-												`/dashboard/courses/${course.id}/lessons`
-											);
-										});
+										enrollInCourse(
+											{
+												id: course?.id,
+											},
+											{
+												headers: {
+													Authorization: `Bearer ${localStorage.getItem(
+														"token"
+													)}`,
+												},
+											}
+										)
+											.then(({ data }) => {
+												console.log(data);
+												// router.push(
+												// 	`/dashboard/courses/${course.id}/lessons`
+												// );
+											})
+											.catch((reason) => {
+												toast({
+													title: "Error",
+													description:
+														reason.response?.data
+															?.message ??
+														"Generic error. Refresh and try again. If the issue persists please contact owner",
+													status: "error",
+													duration: 5000,
+													isClosable: true,
+												});
+											});
 									}}
 								>
 									Enroll

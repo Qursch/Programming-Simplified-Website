@@ -6,6 +6,8 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
+	@Prop({ type:mongoose.mongo.ObjectId })
+		_id: string;
 	@Prop()
 		firstName: string;
 	@Prop()

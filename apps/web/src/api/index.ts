@@ -2,7 +2,6 @@ import axios from "axios";
 import { API_URL } from "config";
 
 axios.defaults.baseURL = API_URL;
-axios.defaults.headers.common["authorization"] = process.env.AUTHORIZATION;
 axios.defaults.timeout = 5000;
 
 export async function login(body) {
@@ -22,4 +21,12 @@ export async function submitBugReport(body) {
 
 export async function submitHelpRequest(body) {
 	return axios.post("/feedback/help", body);
+}
+
+export async function enrollInCourse(body, options = {}) {
+	return axios.put("/course/enroll", body, options);
+}
+
+export async function getUserCourse(courseId, options = {}) {
+	return axios.get(`/course/${courseId}`, options);
 }
