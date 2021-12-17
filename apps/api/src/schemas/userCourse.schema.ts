@@ -10,18 +10,18 @@ export type UserCourseDocument = UserCourse & Document;
 @Schema()
 export class UserCourse {
 	@Prop()
-	id: string;
+		id: string;	
 	@Prop()
-	name: string;
-	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Course' })
-	ref: Course;
+		name: string;
+	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Course'})
+		ref: Course;
 	@Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Lesson' })
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	lessons: Lesson[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		lessons: Lesson[];
 	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Users' })
-	user: Partial<User>;
+		user: Partial<User>;
 	@Prop()
-	completed: boolean;
+		completed: boolean;
 }
 
 export const UserCourseSchema = SchemaFactory.createForClass(UserCourse);
