@@ -47,7 +47,7 @@ export class CourseService {
 		// TODO: keeps throwing not found | the user object id is not working please fix
 		const userCoursesWithoutName = await this.userCourseModel.find(/*{ user: user._id }*/);
 		if (!userCoursesWithoutName.length) throw new NotFoundException('No User Courses found');
-		
+
 		// loop through all userCourses and add the course name
 		const userCourses = await Promise.all(userCoursesWithoutName.map(async uc => {
 			const course = await this.courseModel.findOne({ id: uc.id });
@@ -77,26 +77,26 @@ export class CourseService {
 		const courseRef = await this.courseModel.findOne({ id: dto.id });
 		if (!courseRef) throw new NotFoundException('Course not found');
 
-		let lessons = new Array(courseRef.lessons).fill({});
-
-		lessons = lessons.map((_, i) => ({
+		const lessons: Lesson[] = courseRef.lessons.map((lesson, i) => ({
 			id: i,
 			completed: false,
-			progress: 0
+			progress: 0,
+			name: lesson,
 		}
 		));
 
 		const lessonsRes = await this.lessonModel.insertMany(lessons);
-
+		console.log(lessonsRes);
+		if (!lessonsRes) throw new InternalServerErrorException('Failed to create lessons');
 
 		const inserted = await this.userCourseModel.insertMany([{
-			lessons: lessonsRes.map(l => l._id),
+			lessons: lessonsRes.map(lesson => ({ name: lesson.name, id: lesson.id })),
+			currentLesson: lessonsRes[0],
 			id: courseRef.id,
 			ref: courseRef._id,
 			completed: false,
 			user: old._id
 		}]);
-
 
 		old.courses.push(inserted[0]._id);
 		await old.save();
@@ -144,10 +144,9 @@ export class CourseService {
 				lessons: course.lessons
 			},
 			{ upsert: true }
-
 		);
+		// TODO: update all userCourses that reference this course
 	}
-
 
 	public async getProgress(
 		user: User
@@ -172,5 +171,4 @@ export class CourseService {
 
 		return nextLessons;
 	}
-
 }

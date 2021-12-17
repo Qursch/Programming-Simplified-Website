@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Lesson } from './userLesson.schema';
 
 export type CourseDocument = Course & Document;
 
@@ -10,7 +11,9 @@ export class Course {
 	@Prop()
 		name: string;
 	@Prop()
-		lessons: number;	
+		lessons: string[]; // lesson names
+	@Prop()
+		currentLesson: Lesson;
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);

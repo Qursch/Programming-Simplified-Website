@@ -98,14 +98,14 @@ export function parseLessons(lessonPages) {
 		const previousLesson =
 			lessonPages?.[lessonPages.indexOf(lessonPage) - 1];
 		return {
-			id: (lessonPages.indexOf(lessonPage) + 1).toString(),
+			id: (lessonPages.indexOf(lessonPage)).toString(),
 			blockId: lessonPage.id,
 			name: lessonPage.properties?.Name?.title?.[0]?.plain_text || null,
 			videoUrl:
 				lessonPage.properties.Video?.files?.[0]?.file?.url || null,
 			nextLesson: nextLesson
 				? {
-					id: (lessonPages.indexOf(nextLesson) + 1).toString(),
+					id: (lessonPages.indexOf(nextLesson)).toString(),
 					name:
 						nextLesson?.properties?.Name?.title?.[0]
 							?.plain_text || null,
@@ -114,7 +114,7 @@ export function parseLessons(lessonPages) {
 			previousLesson: previousLesson
 				? {
 					id: (
-						lessonPages.indexOf(previousLesson) + 1
+						lessonPages.indexOf(previousLesson)
 					).toString(),
 					name:
 						previousLesson?.properties?.Name?.title?.[0]
@@ -137,13 +137,13 @@ export async function getLesson(page_id: string, lessonId: string) {
 	const lesson: Lesson = {
 		id: lessonId,
 		courseId: page_id,
-		blockId: lessons[parseInt(lessonId) - 1]?.blockId,
-		name: lessons[parseInt(lessonId) - 1].name,
-		// length: lessons[lessonNumber - 1].length,
-		videoUrl: lessons[parseInt(lessonId) - 1].videoUrl,
+		blockId: lessons[parseInt(lessonId)]?.blockId,
+		name: lessons[parseInt(lessonId)].name,
+		// length: lessons[lessonNumber].length,
+		videoUrl: lessons[parseInt(lessonId)].videoUrl,
 		length: 3600,
-		nextLesson: lessons[parseInt(lessonId) - 1].nextLesson,
-		previousLesson: lessons[parseInt(lessonId) - 1].previousLesson,
+		nextLesson: lessons[parseInt(lessonId)].nextLesson,
+		previousLesson: lessons[parseInt(lessonId)].previousLesson,
 	};
 	const blog = await getLessonContent(lesson.blockId);
 	return { lesson, course, blog };

@@ -8,6 +8,8 @@ export class Lesson {
 	@Prop()
 		id: number;
 	@Prop()
+		name: string;
+	@Prop()
 		completed: boolean;
 	@Prop()
 		progress: number; // 0 -> 1 (perc)

@@ -7,7 +7,6 @@ import {
 	Circle,
 	VStack,
 	Center,
-
 	useToast,
 } from "@chakra-ui/react";
 import { getCourse, getCourses } from "api/notion";
@@ -64,19 +63,19 @@ export default function CoursePage({ course }: { course?: Course }) {
 							w="100%"
 						>
 							{/* <Center
-							h={{
-								base: "200px",
-								lg: "200px",
-								xl: "300px",
-								"2xl": "400px",
-							}}
-							w="100%"
-							backgroundImage={course?.image}
-							backgroundSize="cover"
-							backgroundPosition="center"
-							backgroundRepeat="no-repeat"
-							rounded={rounded}
-						/> */}
+								h={{
+									base: "200px",
+									lg: "200px",
+									xl: "300px",
+									"2xl": "400px",
+								}}
+								w="100%"
+								backgroundImage={course?.image}
+								backgroundSize="cover"
+								backgroundPosition="center"
+								backgroundRepeat="no-repeat"
+								rounded={rounded}
+							/> */}
 
 							<VStack
 								textAlign="center"
@@ -178,6 +177,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 									onClick={() => {
 										enrollInCourse({
 											id: course?.id,
+											lessons: course?.lessons,
 										})
 											.then(({ data }) => {
 												console.log(data);
@@ -216,7 +216,7 @@ export async function getStaticProps({ params }) {
 	updateCourse({
 		id: course.id,
 		name: course.name,
-		lessons: course.lessons.length,
+		lessons: course.lessons.map((lesson) => lesson.name),
 	}).then(({ data }) => console.log(data));
 
 	return {
