@@ -76,7 +76,6 @@ export default function CoursePage({ course }: { course?: Course }) {
 							rounded={rounded}
 						/> */}
 							<VStack
-								w="100%"
 								textAlign="center"
 								bgImage={`linear-gradient(135deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.5)), url(${course?.image})`}
 								bgRepeat="no-repeat"
@@ -84,6 +83,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 								bgSize="cover"
 								bgPosition="center"
 								rounded={rounded}
+								w="100%"
 								h={{ base: "200px", md: "400px" }}
 								justify="flex-end"
 								p="20px"

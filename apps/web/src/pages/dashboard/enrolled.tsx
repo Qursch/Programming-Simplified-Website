@@ -1,4 +1,4 @@
-import { Center, Heading, HStack, Stack, Text } from "@chakra-ui/react";
+import { Center, Heading, HStack, Stack, VStack, Text } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import { getUserCourses } from "api";
@@ -21,19 +21,21 @@ export default function Enrolled() {
 					<Heading>Enrolled Courses</Heading>
 					<Text>Pick up where you left off.</Text>
 					<HStack>
-						{userCourses.map((course) => (
-							<Stack
-								key={course.id}
-								bgImage={`/${course.id}.png`}
-								bgSize="cover"
-								bgPosition="center"
-								rounded="lg"
-								p="20px"
-							>
-								<Heading fontSize="3xl">{course.name}</Heading>
-								<Button>Continue</Button>
-							</Stack>
-						))}
+						{userCourses.length &&
+							userCourses.map((course) => (
+								<VStack
+									key={course.id}
+									bgImage={`/${course.id}.png`}
+									bgSize="cover"
+									bgPosition="center"
+									rounded="lg"
+									p="20px"
+									maxW="600px"
+								>
+									<Heading size="md">{course.name}</Heading>
+									<Button>Continue</Button>
+								</VStack>
+							))}
 					</HStack>
 				</Stack>
 			</Center>

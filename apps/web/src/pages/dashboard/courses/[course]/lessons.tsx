@@ -12,12 +12,12 @@ export function getServerSideProps({
 	req: NextApiRequest;
 	res: NextApiResponse;
 }) {
-	const course = req.query.course;
+	const course = req.query?.course;
 
-	const lesson = "1"; // get current lesson from api
-	if (course && lesson) {
+
+	if (course && req.cookies.lesson) {
 		res.writeHead(302, {
-			Location: `/dashboard/courses/${course}/lessons/${lesson}`,
+			Location: `/dashboard/courses/${course}/lessons/${req.cookies.lesson}`,
 		});
 		res.end();
 	}

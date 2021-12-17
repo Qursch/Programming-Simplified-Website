@@ -31,40 +31,48 @@ export async function getCourses() {
 }
 
 export async function getCourse(page_id: string) {
-	const coursePage = await notion.pages.retrieve({
-		page_id,
-	});
-
-	const blockChildren = await notion.blocks.children.list({
-		block_id: page_id,
-	});
-
-	const { results: lessonPages } = await notion.databases.query({
-		database_id: blockChildren.results[0].id,
-	});
-
-	const course: Course = {
-		id: page_id,
-		//@ts-ignore
-		name: coursePage.properties?.Name?.title?.[0]?.plain_text || null,
-		authors:
-			//@ts-ignore
-			coursePage.properties?.Author?.people || null,
-		description:
-			//@ts-ignore
-			coursePage.properties?.Description?.rich_text?.[0]?.plain_text ||
-			null,
-		//@ts-ignore
-		difficulty: coursePage.properties?.Difficulty?.select?.name || null,
-		completionTime:
-			//@ts-ignore
-			coursePage.properties?.CompletionTime?.rich_text?.[0]?.plain_text ||
-			null,
-		//@ts-ignore
-		image: `/courses/${page_id}.png`,
-
-		lessons: parseLessons(lessonPages),
+	let course: Course = {
+		id: "",
+		name: "",
+		authors: [],
+		description: "",
+		difficulty: "",
+		completionTime: "",
+		lessons: []
 	};
+
+	await Promise.all([await notion.pages.retrieve({
+		page_id,
+	}), await notion.blocks.children.list({
+		block_id: page_id,
+	})]).then(async ([coursePage, blockChildren]) => {
+		const { results: lessonPages } = await notion.databases.query({
+			database_id: blockChildren.results[0].id,
+		});
+		course = {
+			id: page_id,
+			//@ts-ignore
+			name: coursePage.properties?.Name?.title?.[0]?.plain_text || null,
+			authors:
+				//@ts-ignore
+				coursePage.properties?.Author?.people || null,
+			description:
+				//@ts-ignore
+				coursePage.properties?.Description?.rich_text?.[0]?.plain_text ||
+				null,
+			//@ts-ignore
+			difficulty: coursePage.properties?.Difficulty?.select?.name || null,
+			completionTime:
+				//@ts-ignore
+				coursePage.properties?.CompletionTime?.rich_text?.[0]?.plain_text ||
+				null,
+			//@ts-ignore
+			image: `/courses/${page_id}.png`,
+
+			lessons: parseLessons(lessonPages),
+		};
+	});
+
 	return course;
 }
 
@@ -97,28 +105,35 @@ export function parseLessons(lessonPages) {
 				lessonPage.properties.Video?.files?.[0]?.file?.url || null,
 			nextLesson: nextLesson
 				? {
-						id: (lessonPages.indexOf(nextLesson) + 1).toString(),
-						name:
-							nextLesson?.properties?.Name?.title?.[0]
-								?.plain_text || null,
-				  }
+					id: (lessonPages.indexOf(nextLesson) + 1).toString(),
+					name:
+						nextLesson?.properties?.Name?.title?.[0]
+							?.plain_text || null,
+				}
 				: null,
 			previousLesson: previousLesson
 				? {
-						id: (
-							lessonPages.indexOf(previousLesson) + 1
-						).toString(),
-						name:
-							previousLesson?.properties?.Name?.title?.[0]
-								?.plain_text || null,
-				  }
+					id: (
+						lessonPages.indexOf(previousLesson) + 1
+					).toString(),
+					name:
+						previousLesson?.properties?.Name?.title?.[0]
+							?.plain_text || null,
+				}
 				: null,
 		};
 	});
 }
 
 export async function getLesson(page_id: string, lessonId: string) {
-	const lessons = await getLessons(page_id);
+
+	let lessons = [];
+	let course = {};
+	await Promise.all([getLessons(page_id), getCourse(page_id)]).then(([lessonsResolved, courseResolved]) => {
+		lessons = lessonsResolved;
+		course = courseResolved;
+	});
+
 
 	const lesson: Lesson = {
 		id: lessonId,
@@ -131,7 +146,6 @@ export async function getLesson(page_id: string, lessonId: string) {
 		nextLesson: lessons[parseInt(lessonId) - 1].nextLesson,
 		previousLesson: lessons[parseInt(lessonId) - 1].previousLesson,
 	};
-	const course = await getCourse(page_id);
 	return { lesson, course };
 }
 
