@@ -12,8 +12,7 @@ export class CourseController {
 
 	@Put()
 	async updateCourse(@Body() course: Course) {
-		console.log(course);
-		return await this.courseService.updateCourse(course);
+		return this.courseService.updateCourse(course);
 	}
 
 	@UseGuards(JwtAuthGuard)
