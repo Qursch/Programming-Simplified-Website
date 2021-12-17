@@ -6,7 +6,7 @@ export type UserCourse = {
 	ref: Course;
 	lessons: Lesson[];
 	user: User;
-	status: number;  // 0 (not started) | 1 (started, not finished) | 2 (finished)
+	status: number;  // 0 (not started) | 1 (started, not completed) | 2 (completed)
 };
 
 export type User = {

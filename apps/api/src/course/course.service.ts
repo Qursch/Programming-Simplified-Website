@@ -6,7 +6,6 @@ import { Course, CourseDocument } from 'src/schemas/course.schema';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { UserCourse, UserCourseDocument } from 'src/schemas/userCourse.schema';
 import { Lesson, LessonDocument } from 'src/schemas/userLesson.schema';
-import { mongo } from 'mongoose';
 
 @Injectable()
 export class CourseService {
@@ -86,7 +85,7 @@ export class CourseService {
 			name: courseRef.name,
 			id: courseRef.id,
 			ref: courseRef._id,
-			finished: false,
+			completed: false,
 			user: old._id
 		}]);
 
@@ -145,7 +144,7 @@ export class CourseService {
 		const nextLessons: Record<string, Lesson> = {};
 
 		for (const [k, v] of lessons) {
-			if (!k.finished) {
+			if (!k.completed) {
 				nextLessons[k.id] = (
 					await Promise.all(
 						v.map(i =>
