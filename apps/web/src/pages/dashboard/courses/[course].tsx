@@ -60,6 +60,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 							spacing={{ base: 0, lg: "20px" }}
 							justify="space-between"
 							flexDir={{ base: "column", lg: "row" }}
+							w="100%"
 						>
 							{/* <Center
 							h={{
@@ -75,6 +76,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 							backgroundRepeat="no-repeat"
 							rounded={rounded}
 						/> */}
+
 							<VStack
 								textAlign="center"
 								bgImage={`linear-gradient(135deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.5)), url(${course?.image})`}
@@ -83,8 +85,8 @@ export default function CoursePage({ course }: { course?: Course }) {
 								bgSize="cover"
 								bgPosition="center"
 								rounded={rounded}
-								w="100%"
 								h={{ base: "200px", md: "400px" }}
+								w="100%"
 								justify="flex-end"
 								p="20px"
 							>
