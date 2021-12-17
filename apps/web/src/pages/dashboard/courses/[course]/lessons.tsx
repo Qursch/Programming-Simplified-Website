@@ -1,26 +1,27 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default function Lessons() {
-	location.href = location.href + "/1";
 	return null;
 }
 
-// check what lesson they are on then redirect them
-// export function getServerSideProps({
-// 	req,
-// 	res,
-// }: {
-// 	req: NextApiRequest;
-// 	res: NextApiResponse;
-// }) {
-// 	const lesson = "1"; // TODO: get current lesson from db
+export function getServerSideProps({
+	req,
+	res,
+}: {
+	req: NextApiRequest;
+	res: NextApiResponse;
+}) {
+	const course = req.query?.course;
 
-// 	res.writeHead(302, {
-// 		Location: lesson,
-// 	});
-// 	res.end();
+	const lesson = "1"; // TODO: get current lesson from db
 
-// 	return {
-// 		props: {},
-// 	};
-// }
+	if (course && lesson) {
+		res.writeHead(302, {
+			Location: `/dashboard/courses/${course}/lessons/${lesson}`,
+		});
+		res.end();
+	}
+	return {
+		props: {},
+	};
+}
