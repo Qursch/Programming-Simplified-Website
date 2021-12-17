@@ -7,7 +7,7 @@ import {
 	Circle,
 	VStack,
 	Center,
-	Link,
+
 	useToast,
 } from "@chakra-ui/react";
 import { getCourse, getCourses } from "api/notion";
@@ -24,6 +24,7 @@ import {
 import { useRouter } from "next/router";
 import { enrollInCourse, getUserCourse, updateCourse } from "api";
 import { useEffect, useState } from "react";
+import NextChakraLink from "@components/nextChakraLink";
 
 export default function CoursePage({ course }: { course?: Course }) {
 	if (typeof window === "undefined") return null;
@@ -167,11 +168,11 @@ export default function CoursePage({ course }: { course?: Course }) {
 								Start your journey
 							</Heading>
 							{userCourse ? (
-								<Link
+								<NextChakraLink
 									href={`/dashboard/courses/${course?.id}/lessons`}
 								>
 									<Button>Lessons</Button>
-								</Link>
+								</NextChakraLink>
 							) : (
 								<Button
 									onClick={() => {
