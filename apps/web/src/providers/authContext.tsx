@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
 			axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 			const res = await axios.get("/users/profile").catch(() => {});
 			// @ts-ignore
-			setUser(res.data);
+			setUser(res?.data);
 			setIsAuthenticated(true);
 		}
 		setIsLoading(false);
