@@ -28,12 +28,9 @@ import { useEffect, useState } from "react";
 export default function CoursePage({ course }: { course?: Course }) {
 	if (typeof window === "undefined") return null;
 	const [userCourse, setUserCourse] = useState(null);
+
 	useEffect(() => {
-		getUserCourse(course.id, {
-			headers: {
-				Authorization: `Bearer ${localStorage.getItem("token")}`,
-			},
-		}).then(({ data }) => {
+		getUserCourse(course.id).then(({ data }) => {
 			console.log(data);
 			setUserCourse(data);
 		});
@@ -41,6 +38,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 
 	const router = useRouter();
 	const toast = useToast();
+
 	return (
 		<>
 			<Head>
@@ -164,7 +162,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 							<Heading size="xl" textAlign="center">
 								Start your journey
 							</Heading>
-							{userCourse?.status ? (
+							{userCourse ? (
 								<Link
 									href={`/dashboard/courses/${course?.id}/lessons`}
 								>
@@ -173,18 +171,9 @@ export default function CoursePage({ course }: { course?: Course }) {
 							) : (
 								<Button
 									onClick={() => {
-										enrollInCourse(
-											{
-												id: course?.id,
-											},
-											{
-												headers: {
-													Authorization: `Bearer ${localStorage.getItem(
-														"token"
-													)}`,
-												},
-											}
-										)
+										enrollInCourse({
+											id: course?.id,
+										})
 											.then(({ data }) => {
 												console.log(data);
 												// router.push(

@@ -23,10 +23,26 @@ export async function submitHelpRequest(body) {
 	return axios.post("/feedback/help", body);
 }
 
-export async function enrollInCourse(body, options = {}) {
-	return axios.put("/course/enroll", body, options);
+export async function enrollInCourse(body) {
+	return axios.put("/course/enroll", body, {
+		headers: {
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
+	});
 }
 
-export async function getUserCourse(courseId, options = {}) {
-	return axios.get(`/course/${courseId}`, options);
+export async function getUserCourse(courseId) {
+	return axios.get(`/course/${courseId}`, {
+		headers: {
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
+	});
+}
+
+export async function getUserCourses() {
+	return axios.get("/course/all", {
+		headers: {
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
+	});
 }

@@ -6,6 +6,8 @@ import { Course, CourseDocument } from 'src/schemas/course.schema';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { UserCourse, UserCourseDocument } from 'src/schemas/userCourse.schema';
 import { Lesson, LessonDocument } from 'src/schemas/userLesson.schema';
+import { Types } from 'mongoose';
+
 @Injectable()
 export class CourseService {
 	constructor(
@@ -37,9 +39,18 @@ export class CourseService {
 
 	public async findOne_UserCourse(user: User, id: string) {
 		// TODO: keeps throwing not found
-		const userCourse = await this.userCourseModel.findOne({ user: user._id, id });
+		// console.log(user)
+		const userCourse = await this.userCourseModel.findOne({ user: new Types.ObjectId(user._id), id });
 		if (!userCourse) throw new NotFoundException('User Course not found');
 		return userCourse;
+	}
+
+	
+
+	public async find_UserCourses(user: User) {
+		const userCourses = await this.userCourseModel.find({ user: new Types.ObjectId(user._id) });
+		if (!userCourses) throw new NotFoundException('No User Courses found');
+		return userCourses;
 	}
 
 	/* Helpers */
@@ -55,6 +66,7 @@ export class CourseService {
 				}
 			]
 		});
+
 		if (has) throw new ConflictException('User already enrolled');
 		const courseRef = await this.courseModel.findOne({ id: dto.id });
 		if (!courseRef) throw new NotFoundException('Course not found');
@@ -75,11 +87,9 @@ export class CourseService {
 			lessons: lessonsRes.map(l => l._id),
 			id: courseRef.id,
 			ref: courseRef._id,
-			status: 0,
+			finished: false,
 			user: old._id
 		}]);
-
-		console.log(inserted[0].lessons);
 
 
 		old.courses.push(inserted[0]._id);
@@ -102,8 +112,8 @@ export class CourseService {
 			} catch {
 				return false;
 			}
-
 		}));
+
 		if (!course) throw new NotFoundException('Course not found');
 		// make sure we don't query out of range
 		if (course.lessons.length <= lessonId || lessonId < 0) throw new NotFoundException('Lesson not found');
@@ -125,6 +135,7 @@ export class CourseService {
 		]);
 	}
 
+
 	public async getProgress(
 		user: User
 	) {
@@ -133,8 +144,9 @@ export class CourseService {
 		const lessons = new Map<UserCourse, Lesson[]>();
 		courses.forEach(i => lessons.set(i, i.lessons));
 		const nextLessons: Record<string, Lesson> = {};
+
 		for (const [k, v] of lessons) {
-			if (k.status != 2) {
+			if (!k.finished) {
 				nextLessons[k.id] = (
 					await Promise.all(
 						v.map(i =>
@@ -144,6 +156,7 @@ export class CourseService {
 				).find(i => i.progress < 1);
 			}
 		}
+
 		return nextLessons;
 	}
 

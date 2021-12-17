@@ -10,11 +10,9 @@ export class CourseController {
 	constructor(private courseService: CourseService) { }
 
 	@UseGuards(JwtAuthGuard)
-	@Get('/:id')
-	@HttpCode(200)
-	async getCourse(@Req() req) {
-		console.log(JSON.stringify(req.params));
-		return this.courseService.findOne_UserCourse(req.user, req.params['id']).catch((res) => { console.log(res); });
+	@Get('/all')
+	async getCourses(@Req() req) {
+		return this.courseService.find_UserCourses(req.user).catch((res) => { console.log(res); });
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -37,10 +35,15 @@ export class CourseController {
 
 	@UseGuards(JwtAuthGuard)
 	@Get('progress')
-	@HttpCode(200)
 	async getProgress(@Req() req) {
 		const user = await this.courseService.findOne_User(req.user.email) as User;
 		return this.courseService.getProgress(user).catch((res) => { console.log(res); });
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get('/:id')
+	async getCourse(@Req() req) {
+		return this.courseService.findOne_UserCourse(req.user, req.params['id']).catch((res) => { console.log(res); });
 	}
 
 	// @Put('newCourse')
