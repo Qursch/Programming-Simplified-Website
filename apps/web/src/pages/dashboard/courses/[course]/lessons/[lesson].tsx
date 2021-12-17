@@ -358,13 +358,24 @@ export default function LessonPage({
 }
 
 export async function getStaticProps({ params }) {
-	const { lesson, course } = await getLesson(params.course, params.lesson);
+	let lesson;
+	let course;
+	let blog;
+
+	await Promise.all([
+		getLesson(params.course, params.lesson),
+		getLessonContent(lesson.blockId),
+	]).then(([lessonResolved, blogResolved]) => {
+		lesson = lessonResolved.lesson;
+		course = lessonResolved.course;
+		blog = blogResolved;
+	});
 
 	return {
 		props: {
 			lesson,
 			course,
-			blog: await getLessonContent(lesson.blockId),
+			blog,
 		},
 		revalidate: 5,
 	};
