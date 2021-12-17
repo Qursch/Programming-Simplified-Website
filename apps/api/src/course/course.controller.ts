@@ -2,12 +2,19 @@
 import { Body, Controller, Put, UseGuards, HttpCode, Get, Post, Req } from '@nestjs/common';
 import EnrollDto from 'src/dto/enroll.dto';
 import { JwtAuthGuard } from 'src/guards/auth/jwt.guard';
+import { Course } from 'src/schemas/course.schema';
 import { User } from 'src/schemas/user.schema';
 import { CourseService } from './course.service';
 
 @Controller('course')
 export class CourseController {
 	constructor(private courseService: CourseService) { }
+
+	@Put()
+	async updateCourse(@Body() course: Course) {
+		console.log(course);
+		return await this.courseService.updateCourse(course);
+	}
 
 	@UseGuards(JwtAuthGuard)
 	@Post('progress')
@@ -44,11 +51,6 @@ export class CourseController {
 	@UseGuards(JwtAuthGuard)
 	@Get('/:id')
 	async getCourse(@Req() req) {
-		return this.courseService.findOne_UserCourse(req.user, req.params['id']).catch((res) => { console.log(res); });
+		return this.courseService.findOne_UserCourse(req.user, req.params['id']);
 	}
-
-	// @Put('newCourse')
-	// async newCourse(@Body() course: Course) {
-	// 	await this.courseService.newCourse(course);
-	// }
 }

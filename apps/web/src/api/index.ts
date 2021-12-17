@@ -31,6 +31,14 @@ export async function enrollInCourse(body) {
 	});
 }
 
+export async function updateCourse(course) {
+	return axios.put("/course", course, {
+		headers: {
+			"Authorization": `Bearer ${process.env.API_TOKEN}`
+		}
+	});
+}
+
 export async function getUserCourse(courseId) {
 	return axios.get(`/course/${courseId}`, {
 		headers: {

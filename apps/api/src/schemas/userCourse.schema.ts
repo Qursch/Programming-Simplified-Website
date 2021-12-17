@@ -11,8 +11,6 @@ export type UserCourseDocument = UserCourse & Document;
 export class UserCourse {
 	@Prop()
 		id: string;	
-	@Prop()
-		name: string;
 	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Course'})
 		ref: Course;
 	@Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Lesson' })

@@ -22,18 +22,21 @@ import {
 	HiDocumentText,
 } from "react-icons/hi";
 import { useRouter } from "next/router";
-import { enrollInCourse, getUserCourse } from "api";
+import { enrollInCourse, getUserCourse, updateCourse } from "api";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function CoursePage({ course }: { course?: Course }) {
 	if (typeof window === "undefined") return null;
 	const [userCourse, setUserCourse] = useState(null);
 
 	useEffect(() => {
-		getUserCourse(course.id).then(({ data }) => {
-			console.log(data);
-			setUserCourse(data);
-		});
+		getUserCourse(course.id)
+			.then(({ data }) => {
+				console.log(data);
+				setUserCourse(data);
+			})
+			.catch(() => {});
 	}, []);
 
 	const router = useRouter();
@@ -206,11 +209,19 @@ export default function CoursePage({ course }: { course?: Course }) {
 }
 
 export async function getStaticProps({ params }) {
+	const course = await getCourse(params.course);
+
+	updateCourse({
+		id: course.id,
+		name: course.name,
+		lessons: course.lessons.length,
+	}).then(({ data }) => console.log(data));
+
 	return {
 		props: {
-			course: await getCourse(params.course),
+			course,
 		},
-		revalidate: 120,
+		revalidate: 300,
 	};
 }
 
