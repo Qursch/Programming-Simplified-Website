@@ -10,12 +10,6 @@ export class CourseController {
 	constructor(private courseService: CourseService) { }
 
 	@UseGuards(JwtAuthGuard)
-	@Get('/all')
-	async getCourses(@Req() req) {
-		return this.courseService.find_UserCourses(req.user).catch((res) => { console.log(res); });
-	}
-
-	@UseGuards(JwtAuthGuard)
 	@Post('progress')
 	async postProgress(@Req() req, @Body() data) {
 		await this.courseService.progress(
@@ -40,6 +34,13 @@ export class CourseController {
 		return this.courseService.getProgress(user).catch((res) => { console.log(res); });
 	}
 
+	@UseGuards(JwtAuthGuard)
+	@Get('/all')
+	async getCourses(@Req() req) {
+		return this.courseService.find_UserCourses(req.user).catch((res) => { console.log(res); });
+	}
+
+	// make sure anything that takes ids in the url is at the end of the controller to not override the other routes
 	@UseGuards(JwtAuthGuard)
 	@Get('/:id')
 	async getCourse(@Req() req) {

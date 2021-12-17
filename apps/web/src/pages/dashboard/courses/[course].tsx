@@ -176,9 +176,9 @@ export default function CoursePage({ course }: { course?: Course }) {
 										})
 											.then(({ data }) => {
 												console.log(data);
-												// router.push(
-												// 	`/dashboard/courses/${course.id}/lessons`
-												// );
+												router.push(
+													`/dashboard/courses/${course.id}/lessons`
+												);
 											})
 											.catch((reason) => {
 												toast({

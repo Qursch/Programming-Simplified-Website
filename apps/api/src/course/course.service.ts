@@ -6,7 +6,7 @@ import { Course, CourseDocument } from 'src/schemas/course.schema';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { UserCourse, UserCourseDocument } from 'src/schemas/userCourse.schema';
 import { Lesson, LessonDocument } from 'src/schemas/userLesson.schema';
-import { Types } from 'mongoose';
+import { mongo } from 'mongoose';
 
 @Injectable()
 export class CourseService {
@@ -38,18 +38,16 @@ export class CourseService {
 	}
 
 	public async findOne_UserCourse(user: User, id: string) {
-		// TODO: keeps throwing not found
-		// console.log(user)
-		const userCourse = await this.userCourseModel.findOne({ user: new Types.ObjectId(user._id), id });
+		// TODO: keeps throwing not found | the user object id is not working please fix
+		const userCourse = await this.userCourseModel.findOne({ /*user: new mongo.ObjectId(user._id),*/ id });
 		if (!userCourse) throw new NotFoundException('User Course not found');
 		return userCourse;
 	}
 
-	
-
 	public async find_UserCourses(user: User) {
-		const userCourses = await this.userCourseModel.find({ user: new Types.ObjectId(user._id) });
-		if (!userCourses) throw new NotFoundException('No User Courses found');
+		// TODO: keeps throwing not found | the user object id is not working please fix
+		const userCourses = await this.userCourseModel.find(/*{ user: new mongo.ObjectId(user._id) }*/);
+		if (!userCourses.length) throw new NotFoundException('No User Courses found');
 		return userCourses;
 	}
 
@@ -85,6 +83,7 @@ export class CourseService {
 
 		const inserted = await this.userCourseModel.insertMany([{
 			lessons: lessonsRes.map(l => l._id),
+			name: courseRef.name,
 			id: courseRef.id,
 			ref: courseRef._id,
 			finished: false,
