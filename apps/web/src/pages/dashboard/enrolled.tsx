@@ -12,6 +12,7 @@ import {
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import NextChakraLink from "@components/nextChakraLink";
+import { rounded, shadow } from "@styles/theme";
 import { getUserCourses } from "api";
 import { useEffect, useState } from "react";
 
@@ -72,7 +73,8 @@ export default function Enrolled() {
 										bgImage={`linear-gradient(135deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.5)), url('/courses/${userCourse?.id}.png')`}
 										bgSize="cover"
 										bgPosition="center"
-										rounded="lg"
+										rounded={rounded}
+										shadow={shadow}
 										py="50px"
 										px="100px"
 									>
