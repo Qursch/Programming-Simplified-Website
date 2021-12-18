@@ -75,13 +75,13 @@ export default function Enrolled() {
 										bgPosition="center"
 										rounded={rounded}
 										shadow={shadow}
-										py="50px"
-										px="100px"
+										py="25px"
+										px="50px"
 									>
 										{sections.map((section) => (
 											<>
 												{section}
-												<Box py={2} w="100%">
+												<Box py={0.25} w="100%">
 													<Divider />
 												</Box>
 											</>
@@ -108,7 +108,7 @@ function Stat({ label, value }) {
 	return (
 		<HStack>
 			<Text color="darkgrey">{label}</Text>
-			<Text fontSize="4xl" display="inline">
+			<Text fontSize="4xl" display="inline" fontWeight="bold">
 				{value}
 			</Text>
 		</HStack>
