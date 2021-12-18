@@ -52,14 +52,14 @@ export default function Enrolled() {
 
 	return (
 		<Layout>
-			<Center minH="100vh">
+			<Center minH="100vh" py={20}>
 				<VStack>
 					{!isLoading ? (
 						userCourses.length ? (
 							<>
 								<Heading>Enrolled Courses</Heading>
 								<Text>Pick up where you left off.</Text>
-								<SimpleGrid columns={2}>
+								<SimpleGrid columns={2} gap={10}>
 									{userCourses.map((userCourse) => {
 										console.log(userCourse);
 										const sections = [
@@ -67,7 +67,7 @@ export default function Enrolled() {
 												{userCourse.name}
 											</Heading>,
 											<Stat
-												label="Name"
+												label="Lesson"
 												value={
 													userCourse.lessons[
 														parseInt(
@@ -75,10 +75,6 @@ export default function Enrolled() {
 														)
 													].name
 												}
-											/>,
-											<Stat
-												label="Lesson"
-												value={userCourse.currentLesson}
 											/>,
 
 											<Stat
@@ -136,6 +132,28 @@ export default function Enrolled() {
 											</Stack>
 										);
 									})}
+									{userCourses.length == 1 && (
+										<Center
+											flexDir="column"
+											textAlign="center"
+											bgImage={`linear-gradient(0deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)), url('/logo_primary.png')`}
+											bgSize="cover"
+											bgPosition="center"
+											rounded={rounded}
+											shadow={shadow}
+											py="25px"
+											px="50px"
+										>
+											<Heading>
+												Enroll In More Courses
+											</Heading>
+											<NextChakraLink href="/dashboard/courses">
+												<Button>
+													Enroll in a course
+												</Button>
+											</NextChakraLink>
+										</Center>
+									)}
 								</SimpleGrid>
 							</>
 						) : (
