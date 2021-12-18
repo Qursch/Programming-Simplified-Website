@@ -24,9 +24,7 @@ export function AuthProvider({ children }) {
 		const token = localStorage.getItem("token");
 		if (token) {
 			axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-			const res = await axios.get("/users/profile").catch(() => {
-				router.push("/login");
-			});
+			const res = await axios.get("/users/profile").catch(() => {});
 			// @ts-ignore
 			setUser(res?.data);
 			setIsAuthenticated(true);
@@ -35,6 +33,7 @@ export function AuthProvider({ children }) {
 	}, []);
 
 	const logout = () => {
+		router.push("/");
 		localStorage.removeItem("token");
 		setUser(null);
 		setIsAuthenticated(false);
@@ -52,21 +51,18 @@ export function AuthProvider({ children }) {
 	);
 }
 
-export function useAuth(options = { required: false }) {
+export function useAuth(required = false) {
 	const context = useContext(AuthContext);
+	if (!context) {
+		throw new Error("useAuth must be used within an AuthProvider");
+	}
+
 	useEffect(() => {
-		if (
-			options.required &&
-			!context.isAuthenticated &&
-			!context.isLoading
-		) {
+		if (required && !context.isAuthenticated && !context.isLoading) {
 			window.location.href = "/login";
 		}
 	}, [context.isLoading]);
 
-	if (!context) {
-		throw new Error("useAuth must be used within an AuthProvider");
-	}
 	return context;
 }
 

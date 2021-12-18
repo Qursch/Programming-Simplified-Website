@@ -30,7 +30,7 @@ import LessonsMenu from "@components/dashboard/lessonsMenu";
 import confetti from "canvas-confetti";
 import { API_URL } from "config";
 import { io } from "socket.io-client";
-import { setCurrentLesson } from "api";
+import { enrollInCourse, setCurrentLesson } from "api";
 
 const socket = io(API_URL);
 
@@ -82,6 +82,20 @@ export default function LessonPage({
 		setCurrentLesson({
 			courseId: course.id,
 			lessonId: lesson.id,
+		}).catch(() => {
+			enrollInCourse({
+				id: course?.id,
+				lessons: course?.lessons,
+			})
+				.then(({ data }) => {
+					setCurrentLesson({
+						courseId: course.id,
+						lessonId: lesson.id,
+					});
+				})
+				.catch((reason) => {
+					console.log(reason);
+				});
 		});
 		socket.on("progress", (data: any) => {
 			console.log("Lesson Progress Updated", data);

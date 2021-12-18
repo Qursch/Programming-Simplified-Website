@@ -37,15 +37,15 @@ export class CourseService {
 	}
 
 	public async findOne_UserCourse(user: User, id: string) {
-		// TODO: keeps throwing not found | the user object id is not working please fix
-		const userCourse = await this.userCourseModel.findOne({ /*user: user._id,*/ id });
+		// @ts-ignore
+		const userCourse = await this.userCourseModel.findOne({ user: user._id, id });
 		if (!userCourse) throw new NotFoundException('User Course not found');
 		return userCourse;
 	}
 
-	public async find_UserCourses(user: User) {
-		// TODO: keeps throwing not found | the user object id is not working please fix
-		const userCoursesWithoutName = await this.userCourseModel.find(/*{ user: user._id }*/);
+	public async find_UserCourses(user: User ) {
+		// @ts-ignore
+		const userCoursesWithoutName = await this.userCourseModel.find({ user: user._id });
 		if (!userCoursesWithoutName.length) throw new NotFoundException('No User Courses found');
 
 		// loop through all userCourses and add the course name

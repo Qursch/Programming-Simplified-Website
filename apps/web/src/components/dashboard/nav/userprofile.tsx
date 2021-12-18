@@ -21,7 +21,7 @@ import { FaCheck } from "react-icons/fa";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
 export default function UserProfile({ theme, setTheme }) {
-	const { user, isAuthenticated } = useAuth({ required: true });
+	const { user, isAuthenticated, logout } = useAuth(true);
 
 	const CLogOut = chakra(RiLogoutBoxRLine);
 
@@ -167,7 +167,9 @@ export default function UserProfile({ theme, setTheme }) {
 				boxShadow="lg"
 				rounded={rounded}
 				icon={<CLogOut />}
-				onClick={() => {}}
+				onClick={() => {
+					logout();
+				}}
 			/>
 		</HStack>
 	);
