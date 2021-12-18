@@ -91,7 +91,7 @@ export class CourseService {
 
 		const inserted = await this.userCourseModel.insertMany([{
 			lessons: lessons,
-			currentLesson: lessons[0],
+			currentLesson: lessons[0].id,
 			id: courseRef.id,
 			ref: courseRef._id,
 			completed: false,

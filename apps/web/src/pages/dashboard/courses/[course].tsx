@@ -168,7 +168,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 							</Heading>
 							{userCourse ? (
 								<Link
-									href={`/dashboard/courses/${course?.id}/lessons/${userCourse?.currentLesson.id}`}
+									href={`/dashboard/courses/${course?.id}/lessons/${userCourse?.currentLesson}`}
 								>
 									<Button>Lessons</Button>
 								</Link>
@@ -182,7 +182,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 											.then(({ data }) => {
 												console.log(data);
 												router.push(
-													`/dashboard/courses/${course.id}/lessons/${userCourse?.currentLesson.id}`
+													`/dashboard/courses/${course.id}/lessons/0`
 												);
 											})
 											.catch((reason) => {

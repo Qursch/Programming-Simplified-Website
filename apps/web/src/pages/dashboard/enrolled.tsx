@@ -35,13 +35,35 @@ export default function Enrolled() {
 							userCourses.map((userCourse) => {
 								console.log(userCourse);
 								const sections = [
-									<Heading size="md">{userCourse.name}</Heading>,
-									<>
-										<Text>Lessons Progress: {userCourse.currentLesson.progress}</Text>
-									</>,
+									<Heading size="md">
+										{userCourse.name}
+									</Heading>,
+
+									<Text>
+										Progress:{" "}
+										{
+											userCourse.lessons[
+												userCourse.currentLesson
+											].progress
+										}
+									</Text>,
+									<Text>
+										Number: {userCourse.currentLesson}
+									</Text>,
+									<Text>
+										Name:{" "}
+										{
+											userCourse.lessons[
+												userCourse.currentLesson
+											].name
+										}
+									</Text>,
+									<Text>
+										{"You've Spent: // TODO: time spent on course"}
+									</Text>,
 								];
 								return (
-									<VStack
+									<Stack
 										key={userCourse.id}
 										bgImage={`/${userCourse.id}.png`}
 										bgSize="cover"
@@ -59,12 +81,12 @@ export default function Enrolled() {
 											</>
 										))}
 										<NextChakraLink
-											href={`/dashboard/courses/${userCourse.id}/lessons/${userCourse?.currentLesson.id}`}
+											href={`/dashboard/courses/${userCourse.id}/lessons/${userCourse?.currentLesson}`}
 											pt={4}
 										>
 											<Button>Continue</Button>
 										</NextChakraLink>
-									</VStack>
+									</Stack>
 								);
 							})}
 					</SimpleGrid>
