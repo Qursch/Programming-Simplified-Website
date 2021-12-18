@@ -84,7 +84,7 @@ export default function LessonPage({
 			lessonId: lesson.id,
 		});
 		socket.on("progress", (data: any) => {
-			console.log("Lesson Progress Updated");
+			console.log("Lesson Progress Updated", data);
 		});
 	}, []);
 
@@ -347,7 +347,7 @@ export default function LessonPage({
 	);
 }
 
-export async function getStaticProps({ params } ) {
+export async function getStaticProps({ params }) {
 	const { lesson, course, blog } = await getLesson(
 		params.course,
 		parseInt(params.lesson)
