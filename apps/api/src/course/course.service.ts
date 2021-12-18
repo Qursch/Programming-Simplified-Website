@@ -145,7 +145,7 @@ export class CourseService {
 			},
 			{ upsert: true }
 		);
-		// TODO: update all userCourses that reference this course
+		// TODO: update all userCourses that reference this course (lessons)
 	}
 
 	public async getProgress(

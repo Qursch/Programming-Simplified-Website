@@ -7,6 +7,7 @@ import {
 	SimpleGrid,
 	Divider,
 	Box,
+	HStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
@@ -30,7 +31,7 @@ export default function Enrolled() {
 				<Stack>
 					<Heading>Enrolled Courses</Heading>
 					<Text>Pick up where you left off.</Text>
-					<SimpleGrid columns={2}>
+					<SimpleGrid columns={1}>
 						{userCourses.length &&
 							userCourses.map((userCourse) => {
 								console.log(userCourse);
@@ -38,39 +39,42 @@ export default function Enrolled() {
 									<Heading size="md">
 										{userCourse.name}
 									</Heading>,
-
-									<Text>
-										Progress:{" "}
-										{
-											userCourse.lessons[
-												userCourse.currentLesson
-											].progress
-										}
-									</Text>,
-									<Text>
-										Number: {userCourse.currentLesson}
-									</Text>,
-									<Text>
-										Name:{" "}
-										{
+									<Stat
+										label="Name"
+										value={
 											userCourse.lessons[
 												userCourse.currentLesson
 											].name
 										}
-									</Text>,
-									<Text>
-										{"You've Spent: // TODO: time spent on course"}
-									</Text>,
+									/>,
+									<Stat
+										label="Lesson"
+										value={userCourse.currentLesson}
+									/>,
+
+									<Stat
+										label="Progress"
+										value={
+											userCourse.lessons[
+												userCourse.currentLesson
+											].progress
+										}
+									/>,
+
+									<Stat
+										label="You've Spent"
+										value="<time>"
+									/>,
 								];
 								return (
 									<Stack
 										key={userCourse.id}
-										bgImage={`/${userCourse.id}.png`}
+										bgImage={`linear-gradient(135deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.5)), url('/courses/${userCourse?.id}.png')`}
 										bgSize="cover"
 										bgPosition="center"
 										rounded="lg"
-										p="20px"
-										maxW="600px"
+										py="50px"
+										px="100px"
 									>
 										{sections.map((section) => (
 											<>
@@ -80,12 +84,14 @@ export default function Enrolled() {
 												</Box>
 											</>
 										))}
-										<NextChakraLink
-											href={`/dashboard/courses/${userCourse.id}/lessons/${userCourse?.currentLesson}`}
-											pt={4}
-										>
-											<Button>Continue</Button>
-										</NextChakraLink>
+										<Center>
+											<NextChakraLink
+												href={`/dashboard/courses/${userCourse.id}/lessons/${userCourse?.currentLesson}`}
+												pt={4}
+											>
+												<Button>Continue</Button>
+											</NextChakraLink>
+										</Center>
 									</Stack>
 								);
 							})}
@@ -93,5 +99,16 @@ export default function Enrolled() {
 				</Stack>
 			</Center>
 		</Layout>
+	);
+}
+
+function Stat({ label, value }) {
+	return (
+		<HStack>
+			<Text color="darkgrey">{label}</Text>
+			<Text fontSize="4xl" display="inline">
+				{value}
+			</Text>
+		</HStack>
 	);
 }

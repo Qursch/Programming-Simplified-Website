@@ -79,7 +79,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 
 							<VStack
 								textAlign="center"
-								bgImage={`linear-gradient(135deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.5)), url(${course?.image})`}
+								bgImage={`linear-gradient(135deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.5)), url('/courses/${course?.id}.png')`}
 								bgRepeat="no-repeat"
 								spacing="30px"
 								bgSize="cover"
