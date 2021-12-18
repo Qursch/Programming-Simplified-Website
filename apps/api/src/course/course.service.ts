@@ -59,6 +59,12 @@ export class CourseService {
 		return userCourses;
 	}
 
+	public async setCurrentLesson(user: User, courseId: string, lessonId: string) {
+		const userCourse = await this.findOne_UserCourse(user, courseId);
+		userCourse.currentLesson = lessonId;
+		return userCourse.save();
+	}
+
 	/* Helpers */
 	public async enroll(email: string, dto: EnrollDto) {
 		const old = await this.userModel.findOne({ email });

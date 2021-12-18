@@ -16,21 +16,28 @@ export class CourseController {
 	}
 
 	@UseGuards(JwtAuthGuard)
+	@Put('enroll')
+	@HttpCode(201)
+	async enroll(@Req() req, @Body() addCourseDto: EnrollDto) {
+		await this.courseService.enroll(req.user.email, addCourseDto);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Put('currentLesson')
+	@HttpCode(201)
+	async setCurrentLesson(@Req() req, @Body() body) {
+		await this.courseService.setCurrentLesson(req.user.email, body.courseId, body.lessonId);
+	}
+
+	@UseGuards(JwtAuthGuard)
 	@Post('progress')
 	async postProgress(@Req() req, @Body() data) {
 		await this.courseService.progress(
 			req.user.email,
 			data.courseId,
-			data.lessonId - 1,
+			data.lessonId,
 			data.progress
 		);
-	}
-
-	@UseGuards(JwtAuthGuard)
-	@Put('enroll')
-	@HttpCode(201)
-	async enroll(@Req() req, @Body() addCourseDto: EnrollDto) {
-		await this.courseService.enroll(req.user.email, addCourseDto);
 	}
 
 	@UseGuards(JwtAuthGuard)

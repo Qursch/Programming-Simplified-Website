@@ -20,7 +20,7 @@ export class UserCourse {
 	@Prop()
 		completed: boolean;
 	@Prop()
-		currentLesson: number; // lesson id
+		currentLesson: string; // lesson id
 }
 
 export const UserCourseSchema = SchemaFactory.createForClass(UserCourse);

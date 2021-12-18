@@ -39,6 +39,14 @@ export async function updateCourse(course) {
 	});
 }
 
+export async function setCurrentLesson(body) {
+	return axios.put("/course/currentLesson", body, {
+		headers: {
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
+	});
+}
+
 export async function getUserCourse(courseId) {
 	return axios.get(`/course/${courseId}`, {
 		headers: {

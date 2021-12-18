@@ -32,6 +32,7 @@ import { setCookie } from "@lib/cookie";
 import { API_URL } from "config";
 import { io } from "socket.io-client";
 import { useAuth } from "@providers/authContext";
+import { setCurrentLesson } from "api";
 
 const socket = io(API_URL, {
 	extraHeaders: {},
@@ -90,7 +91,10 @@ export default function LessonPage({
 	}, [finished]);
 
 	useEffect(() => {
-		setCookie(course.id, lesson.id);
+		setCurrentLesson({
+			courseId: course.id,
+			lessonId: lesson.id,
+		});
 		socket.on("progress", (data: any) => {
 			console.log(data);
 		});
