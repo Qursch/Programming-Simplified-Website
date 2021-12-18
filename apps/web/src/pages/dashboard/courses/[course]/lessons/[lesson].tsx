@@ -207,7 +207,7 @@ export default function LessonPage({
 												courseId: router.query.course,
 												lessonId: lesson.id,
 												progress: parseFloat(
-													e.played.toFixed(2)
+													e.played.toFixed(4)
 												),
 												token: localStorage.getItem(
 													"token"

@@ -17,9 +17,23 @@ import { useEffect, useState } from "react";
 
 export default function Enrolled() {
 	const [userCourses, setUserCourses] = useState([]);
+	const [courseProgress, setCourseProgress] = useState(0);
 
 	useEffect(() => {
 		getUserCourses().then(({ data }) => {
+			data.forEach((course) => {
+				let completedLessons = 0;
+				course.lessons.forEach((lesson) => {
+					if (lesson.completed) {
+						completedLessons++;
+					}
+				});
+				setCourseProgress(
+					parseFloat(
+						(completedLessons / course.lessons.length).toFixed(4)
+					)
+				);
+			});
 			console.log(data);
 			setUserCourses(data);
 		});
@@ -72,15 +86,7 @@ export default function Enrolled() {
 									/>,
 									<Stat
 										label="Course Progress"
-										value={
-											userCourse.lessons[
-												parseInt(
-													userCourse.currentLesson
-												)
-											].progress *
-												100 +
-											"%"
-										}
+										value={courseProgress * 100 + "%"}
 									/>,
 								];
 								return (
