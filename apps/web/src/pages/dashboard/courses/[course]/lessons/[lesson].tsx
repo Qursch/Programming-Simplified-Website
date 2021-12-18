@@ -87,7 +87,7 @@ export default function LessonPage({
 				id: course?.id,
 				lessons: course?.lessons,
 			})
-				.then(({ data }) => {
+				.then(() => {
 					setCurrentLesson({
 						courseId: course.id,
 						lessonId: lesson.id,

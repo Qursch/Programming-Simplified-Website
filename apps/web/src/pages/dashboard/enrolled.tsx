@@ -23,25 +23,31 @@ export default function Enrolled() {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		getUserCourses().then(({ data }) => {
-			setIsLoading(false);
-			if (!data) return;
-			data.forEach((course) => {
-				let completedLessons = 0;
-				course.lessons.forEach((lesson) => {
-					if (lesson.completed) {
-						completedLessons++;
-					}
+		getUserCourses()
+			.then(({ data }) => {
+				setIsLoading(false);
+				if (!data) return;
+				data.forEach((course) => {
+					let completedLessons = 0;
+					course.lessons.forEach((lesson) => {
+						if (lesson.completed) {
+							completedLessons++;
+						}
+					});
+					setCourseProgress(
+						parseFloat(
+							(completedLessons / course.lessons.length).toFixed(
+								4
+							)
+						)
+					);
 				});
-				setCourseProgress(
-					parseFloat(
-						(completedLessons / course.lessons.length).toFixed(4)
-					)
-				);
+				console.log(data);
+				setUserCourses(data);
+			})
+			.catch(() => {
+				setIsLoading(false);
 			});
-			console.log(data);
-			setUserCourses(data);
-		});
 	}, []);
 
 	return (
@@ -53,7 +59,7 @@ export default function Enrolled() {
 							<>
 								<Heading>Enrolled Courses</Heading>
 								<Text>Pick up where you left off.</Text>
-								<SimpleGrid columns={1}>
+								<SimpleGrid columns={2}>
 									{userCourses.map((userCourse) => {
 										console.log(userCourse);
 										const sections = [
@@ -101,7 +107,7 @@ export default function Enrolled() {
 										return (
 											<Stack
 												key={userCourse.id}
-												bgImage={`linear-gradient(135deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.5)), url('/courses/${userCourse?.id}.png')`}
+												bgImage={`linear-gradient(0deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)), url('/courses/${userCourse?.id}.png')`}
 												bgSize="cover"
 												bgPosition="center"
 												rounded={rounded}
