@@ -44,7 +44,9 @@ export default function Enrolled() {
 										label="Name"
 										value={
 											userCourse.lessons[
-												userCourse.currentLesson
+												parseInt(
+													userCourse.currentLesson
+												)
 											].name
 										}
 									/>,
@@ -57,7 +59,9 @@ export default function Enrolled() {
 										label="Progress"
 										value={
 											userCourse.lessons[
-												userCourse.currentLesson
+												parseInt(
+													userCourse.currentLesson
+												)
 											].progress
 										}
 									/>,
