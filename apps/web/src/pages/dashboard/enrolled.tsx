@@ -78,12 +78,12 @@ export default function Enrolled() {
 										<Stat
 											label="Lesson Progress"
 											value={
-												userCourse.lessons[
+												Math.round(userCourse.lessons[
 													parseInt(
 														userCourse.currentLesson
 													)
 												].progress *
-													100 +
+													100) +
 												"%"
 											}
 										/>,
