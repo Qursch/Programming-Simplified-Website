@@ -44,14 +44,14 @@ export class CourseController {
 	@Get('progress')
 	async getProgress(@Req() req) {
 		const user = await this.courseService.findOne_User(req.user.email) as User;
-		return this.courseService.getProgress(user).catch((res) => { console.log(res); });
+		return this.courseService.getProgress(user);
 	}
 
 	@UseGuards(JwtAuthGuard)
 	@Get('/all')
 	async getCourses(@Req() req) {
 		const user = await this.courseService.findOne_User(req.user.email) as User;
-		return this.courseService.find_UserCourses(user).catch((res) => { console.log(res); });
+		return this.courseService.find_UserCourses(user);
 	}
 
 	// make sure anything that takes ids in the url is at the end of the controller to not override the other routes
