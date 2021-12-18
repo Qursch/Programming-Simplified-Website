@@ -52,13 +52,13 @@ export default function Enrolled() {
 
 	return (
 		<Layout>
-			<Center minH="100vh" py={20}>
+			<Center minH="100vh" py={10}>
 				<VStack>
 					{!isLoading ? (
 						userCourses.length ? (
 							<>
 								<Heading>Enrolled Courses</Heading>
-								<Text>Pick up where you left off.</Text>
+								<Text pb={10}>Pick up where you left off.</Text>
 								<SimpleGrid columns={2} gap={10}>
 									{userCourses.map((userCourse) => {
 										console.log(userCourse);
