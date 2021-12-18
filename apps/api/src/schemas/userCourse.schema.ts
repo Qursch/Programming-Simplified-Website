@@ -13,13 +13,14 @@ export class UserCourse {
 		id: string;	
 	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Course'})
 		ref: Course;
-	@Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Lesson' })
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	@Prop()
 		lessons: Lesson[];
 	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Users' })
 		user: Partial<User>;
 	@Prop()
 		completed: boolean;
+	@Prop()
+		currentLesson: Lesson;
 }
 
 export const UserCourseSchema = SchemaFactory.createForClass(UserCourse);

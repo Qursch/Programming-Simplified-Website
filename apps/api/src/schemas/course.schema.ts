@@ -12,8 +12,6 @@ export class Course {
 		name: string;
 	@Prop()
 		lessons: string[]; // lesson names
-	@Prop()
-		currentLesson: Lesson;
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);

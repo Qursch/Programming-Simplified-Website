@@ -22,6 +22,7 @@ import { register } from "api/index";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
+import { setCookie } from "@lib/cookie";
 
 export default function Register() {
 	const toast = useToast();
@@ -37,7 +38,7 @@ export default function Register() {
 					// await createApplication({ id: user?.id, ...values })
 					await register(values)
 						.then((res) => {
-							console.log(res);
+							setCookie("token", res.data.token);
 							localStorage.setItem("token", res.data.token);
 							location.href = "/dashboard";
 						})

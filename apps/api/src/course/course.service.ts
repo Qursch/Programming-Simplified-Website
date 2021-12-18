@@ -85,13 +85,13 @@ export class CourseService {
 		}
 		));
 
-		const lessonsRes = await this.lessonModel.insertMany(lessons);
-		console.log(lessonsRes);
-		if (!lessonsRes) throw new InternalServerErrorException('Failed to create lessons');
+		// const lessonsRes = await this.lessonModel.insertMany(lessons);
+		// console.log(lessonsRes);
+		// if (!lessonsRes) throw new InternalServerErrorException('Failed to create lessons');
 
 		const inserted = await this.userCourseModel.insertMany([{
-			lessons: lessonsRes.map(lesson => ({ name: lesson.name, id: lesson.id })),
-			currentLesson: lessonsRes[0],
+			lessons: lessons,
+			currentLesson: lessons[0],
 			id: courseRef.id,
 			ref: courseRef._id,
 			completed: false,

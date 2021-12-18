@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import NextChakraLink from "@components/nextChakraLink";
+import { setCookie } from "@lib/cookie";
 import { rounded } from "@styles/theme";
 import { login } from "api/index";
 import { Field, Form, Formik } from "formik";
@@ -36,6 +37,7 @@ export default function Login() {
 					// await createApplication({ id: user?.id, ...values })
 					await login(values)
 						.then((res) => {
+							setCookie("token", res.data.token);
 							localStorage.setItem("token", res.data.token);
 							location.href = "/dashboard";
 						})
