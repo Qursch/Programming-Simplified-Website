@@ -59,7 +59,7 @@ export class CourseService {
 		return userCourses;
 	}
 
-	public async setCurrentLesson(user: User, courseId: string, lessonId: string) {
+	public async setCurrentLesson(user: User, courseId: string, lessonId: number) {
 		const userCourse = await this.findOne_UserCourse(user, courseId);
 		userCourse.currentLesson = lessonId;
 		return userCourse.save();
@@ -118,18 +118,21 @@ export class CourseService {
 		if (!user) /* wtf */ throw new InternalServerErrorException('buy a lottery ticket');
 		const userCourse = await this.findOne_UserCourse(user, courseId);
 		if (!userCourse) throw new NotFoundException('Course not found');
+
 		// make sure we don't query out of range
 		if (userCourse.lessons.length <= lessonId || lessonId < 0) throw new NotFoundException('Lesson not found');
-
 		// store the lesson etc.
+
 		const lesson = userCourse.lessons[lessonId];
-		console.log(progress);
-		console.log(lesson);
+
+
 		if (lesson) {
 			lesson.progress = progress;
 			lesson.completed = progress >= 1;
+			userCourse.lessons[lessonId] = lesson;
 			return userCourse.save();
 		}
+
 	}
 
 	public async updateCourse(

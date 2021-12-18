@@ -42,7 +42,7 @@ export type Person = {
 };
 
 export type Lesson = {
-	id: string;
+	id: number;
 	courseId?: string;
 	blockId?: string;
 	name: string;

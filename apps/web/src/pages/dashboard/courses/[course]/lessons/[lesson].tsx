@@ -145,9 +145,7 @@ export default function LessonPage({
 									href={`/dashboard/courses/${
 										router.query.course
 										// @ts-ignore
-									}/lessons/${parseInt(
-										lesson?.nextLesson?.id
-									)}`}
+									}/lessons/${lesson?.nextLesson?.id}`}
 									onClick={() => setFinished(false)}
 								>
 									<Button
@@ -208,7 +206,9 @@ export default function LessonPage({
 											socket.emit("progress", {
 												courseId: router.query.course,
 												lessonId: lesson.id,
-												progress: parseFloat(e.played.toFixed(2)),
+												progress: parseFloat(
+													e.played.toFixed(2)
+												),
 												token: localStorage.getItem(
 													"token"
 												),
@@ -280,9 +280,7 @@ export default function LessonPage({
 									href={`/dashboard/courses/${
 										router.query.course
 										// @ts-ignore
-									}/lessons/${parseInt(
-										lesson?.previousLesson.id
-									)}`}
+									}/lessons/${lesson?.previousLesson.id}`}
 								>
 									<Button
 										isSecondary
@@ -327,9 +325,7 @@ export default function LessonPage({
 										href={`/dashboard/courses/${
 											router.query.course
 											// @ts-ignore
-										}/lessons/${parseInt(
-											lesson?.nextLesson?.id
-										)}`}
+										}/lessons/${lesson?.nextLesson?.id}`}
 									>
 										<Button
 											isSecondary
@@ -351,10 +347,10 @@ export default function LessonPage({
 	);
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params } ) {
 	const { lesson, course, blog } = await getLesson(
 		params.course,
-		params.lesson
+		parseInt(params.lesson)
 	);
 
 	return {

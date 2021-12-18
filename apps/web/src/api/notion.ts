@@ -125,8 +125,7 @@ export function parseLessons(lessonPages) {
 	});
 }
 
-export async function getLesson(page_id: string, lessonId: string) {
-
+export async function getLesson(page_id: string, lessonId: number) {
 	let lessons = [];
 	let course = {};
 	await Promise.all([getLessons(page_id), getCourse(page_id)]).then(([lessonsResolved, courseResolved]) => {
@@ -137,13 +136,13 @@ export async function getLesson(page_id: string, lessonId: string) {
 	const lesson: Lesson = {
 		id: lessonId,
 		courseId: page_id,
-		blockId: lessons[parseInt(lessonId)]?.blockId,
-		name: lessons[parseInt(lessonId)].name,
+		blockId: lessons[lessonId]?.blockId,
+		name: lessons[lessonId].name,
 		// length: lessons[lessonNumber].length,
-		videoUrl: lessons[parseInt(lessonId)].videoUrl,
+		videoUrl: lessons[lessonId].videoUrl,
 		length: 3600,
-		nextLesson: lessons[parseInt(lessonId)].nextLesson,
-		previousLesson: lessons[parseInt(lessonId)].previousLesson,
+		nextLesson: lessons[lessonId].nextLesson,
+		previousLesson: lessons[lessonId].previousLesson,
 	};
 	const blog = await getLessonContent(lesson.blockId);
 	return { lesson, course, blog };
