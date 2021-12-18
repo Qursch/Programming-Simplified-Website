@@ -28,15 +28,11 @@ import { Course, Lesson } from "types";
 import Head from "next/head";
 import LessonsMenu from "@components/dashboard/lessonsMenu";
 import confetti from "canvas-confetti";
-import { setCookie } from "@lib/cookie";
 import { API_URL } from "config";
 import { io } from "socket.io-client";
-import { useAuth } from "@providers/authContext";
 import { setCurrentLesson } from "api";
 
-const socket = io(API_URL, {
-	extraHeaders: {},
-});
+const socket = io(API_URL);
 
 export default function LessonPage({
 	lesson,
@@ -52,14 +48,6 @@ export default function LessonPage({
 	const [loading, setLoading] = useState(true);
 	const [animationId, setAnimationId] = useState(0);
 	const [finished, setFinished] = useState(false);
-	const { user } = useAuth();
-
-	useEffect(() => {
-		socket.io.opts.extraHeaders.Authorization = `Bearer ${localStorage.getItem(
-			"token"
-		)}`;
-		console.log(socket.io.opts.extraHeaders.Authorization);
-	}, [user]);
 
 	useEffect(() => {
 		if (finished) {
@@ -96,7 +84,7 @@ export default function LessonPage({
 			lessonId: lesson.id,
 		});
 		socket.on("progress", (data: any) => {
-			console.log(data);
+			console.log("Lesson Progress Updated");
 		});
 	}, []);
 
@@ -220,7 +208,10 @@ export default function LessonPage({
 											socket.emit("progress", {
 												courseId: router.query.course,
 												lessonId: lesson.id,
-												progress: e.played.toFixed(2),
+												progress: parseFloat(e.played.toFixed(2)),
+												token: localStorage.getItem(
+													"token"
+												),
 											});
 										}}
 									/>

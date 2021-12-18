@@ -116,26 +116,19 @@ export class CourseService {
 	) {
 		const user = await this.userModel.findOne({ email });
 		if (!user) /* wtf */ throw new InternalServerErrorException('buy a lottery ticket');
-		const course = await this.userCourseModel.findById(user.courses.find(async c => {
-			try {
-				const userCourse = await this.userCourseModel.findById(c);
-				const course = await this.courseModel.findById(userCourse.ref);
-				return course.id == courseId;
-			} catch {
-				return false;
-			}
-		}));
-
-		if (!course) throw new NotFoundException('Course not found');
+		const userCourse = await this.findOne_UserCourse(user, courseId);
+		if (!userCourse) throw new NotFoundException('Course not found');
 		// make sure we don't query out of range
-		if (course.lessons.length <= lessonId || lessonId < 0) throw new NotFoundException('Lesson not found');
+		if (userCourse.lessons.length <= lessonId || lessonId < 0) throw new NotFoundException('Lesson not found');
 
 		// store the lesson etc.
-		const lesson = await this.lessonModel.findById(course.lessons[lessonId]);
+		const lesson = userCourse.lessons[lessonId];
+		console.log(progress);
+		console.log(lesson);
 		if (lesson) {
 			lesson.progress = progress;
 			lesson.completed = progress >= 1;
-			return lesson.save();
+			return userCourse.save();
 		}
 	}
 

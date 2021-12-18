@@ -2,7 +2,6 @@ import {
 	Center,
 	Heading,
 	Stack,
-	VStack,
 	Text,
 	SimpleGrid,
 	Divider,
@@ -56,19 +55,32 @@ export default function Enrolled() {
 									/>,
 
 									<Stat
-										label="Progress"
+										label="You've Spent"
+										value="<time> hrs"
+									/>,
+									<Stat
+										label="Lesson Progress"
 										value={
 											userCourse.lessons[
 												parseInt(
 													userCourse.currentLesson
 												)
-											].progress
+											].progress *
+												100 +
+											"%"
 										}
 									/>,
-
 									<Stat
-										label="You've Spent"
-										value="<time>"
+										label="Course Progress"
+										value={
+											userCourse.lessons[
+												parseInt(
+													userCourse.currentLesson
+												)
+											].progress *
+												100 +
+											"%"
+										}
 									/>,
 								];
 								return (

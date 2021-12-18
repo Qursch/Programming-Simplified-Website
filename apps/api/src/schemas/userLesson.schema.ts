@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongoSchema } from 'mongoose';
 
 export type LessonDocument = Lesson & Document;
 
@@ -11,9 +11,9 @@ export class Lesson {
 		name: string;
 	@Prop()
 		completed: boolean;
-	@Prop()
+	@Prop({type: MongoSchema.Types.Decimal128})
 		progress: number; // 0 -> 1 (perc)
-	
+
 }
 
 export const LessonSchema = SchemaFactory.createForClass(Lesson);
