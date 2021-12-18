@@ -32,18 +32,18 @@ export default function Enrolled() {
 					<Text>Pick up where you left off.</Text>
 					<SimpleGrid columns={2}>
 						{userCourses.length &&
-							userCourses.map((course) => {
-								console.log(course);
+							userCourses.map((userCourse) => {
+								console.log(userCourse);
 								const sections = [
-									<Heading size="md">{course.name}</Heading>,
+									<Heading size="md">{userCourse.name}</Heading>,
 									<>
-										<Text>Lessons Progress: {course.currentLesson.progress}</Text>
+										<Text>Lessons Progress: {userCourse.currentLesson.progress}</Text>
 									</>,
 								];
 								return (
 									<VStack
-										key={course.id}
-										bgImage={`/${course.id}.png`}
+										key={userCourse.id}
+										bgImage={`/${userCourse.id}.png`}
 										bgSize="cover"
 										bgPosition="center"
 										rounded="lg"
@@ -59,7 +59,7 @@ export default function Enrolled() {
 											</>
 										))}
 										<NextChakraLink
-											href={`/dashboard/courses/${course.id}/lessons`}
+											href={`/dashboard/courses/${userCourse.id}/lessons/${userCourse?.currentLesson.id}`}
 											pt={4}
 										>
 											<Button>Continue</Button>

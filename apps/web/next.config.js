@@ -23,11 +23,11 @@ module.exports = {
 				destination: "/discord",
 				permanent: true,
 			},
-			// {
-			// 	source: "/dashboard/courses/:course/lessons",
-			// 	destination: "/dashboard/courses/:course/lessons/0",
-			// 	permanent: false,
-			// },
+			{
+				source: "/dashboard/courses/:course/lessons",
+				destination: "/dashboard/courses/:course/lessons/0",
+				permanent: true,
+			},
 		];
 	},
 	// rust compiler (5x faster build times) (3x faster refresh times)

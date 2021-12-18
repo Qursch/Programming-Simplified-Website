@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
-// import NextChakraLink from "@components/nextChakraLink";
 import { rounded, shadow } from "@styles/theme";
 import { parsePage } from "@utils/parseNotion";
 import { getCourse, getCourses, getLesson } from "api/notion";
