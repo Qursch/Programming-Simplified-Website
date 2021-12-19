@@ -31,12 +31,13 @@ export default function LessonsMenu({
 				display="flex"
 				cursor="pointer"
 				aria-label="Menu"
-				icon={<HiOutlineMenu fontSize="2rem" />}
+				icon={<HiOutlineMenu fontSize="2rem" color="black" />}
+				bg="primary"
 				position="fixed"
-				right={0}
+				right={1}
 				_active={{}}
 				_focus={{}}
-				// top="25vh"
+				top="25vh"
 			/>
 			<Drawer
 				size="xs"
