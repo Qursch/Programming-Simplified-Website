@@ -32,7 +32,7 @@ import { API_URL } from "config";
 import { io } from "socket.io-client";
 import { enrollInCourse, getUserCourse, setCurrentLesson } from "api";
 
-let socket;	
+let socket;
 if (typeof window !== "undefined") {
 	socket = io(API_URL);
 }
@@ -200,7 +200,12 @@ export default function LessonPage({
 							Back to Course
 						</Button>
 					</NextChakraLink> */}
-					<Center as={VStack} /*mt="85px"*/ my="50px">
+					<LessonsMenu lessons={course.lessons} userLessons={courseState?.lessons} />
+					<Center
+						as={VStack}
+						/*mt="85px"*/ my="50px"
+						px={{ base: 4, md: 8 }}
+					>
 						<VStack spacing={0} w="100%">
 							{lesson?.videoUrl ? (
 								<Skeleton
@@ -378,7 +383,6 @@ export default function LessonPage({
 							)}
 						</HStack>
 					</Center>
-					<LessonsMenu />
 				</>
 			</Layout>
 		</>

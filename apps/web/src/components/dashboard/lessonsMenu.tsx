@@ -1,5 +1,111 @@
-import { Box } from "@chakra-ui/react";
+import {
+	CircularProgress,
+	Drawer,
+	DrawerCloseButton,
+	DrawerContent,
+	HStack,
+	IconButton,
+	Link,
+	Stack,
+	Text,
+	useDisclosure,
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { HiOutlineMenu } from "react-icons/hi";
+import { Lesson } from "types";
 
-export default function LessonsMenu() {
-	return <Box></Box>;
+export default function LessonsMenu({
+	lessons,
+	userLessons,
+}: {
+	lessons: Lesson[];
+	userLessons: any[];
+}) {
+	const { isOpen, onClose, onOpen } = useDisclosure();
+
+	return (
+		<>
+			<IconButton
+				onClick={onOpen}
+				variant="unstyled"
+				display="flex"
+				cursor="pointer"
+				aria-label="Menu"
+				icon={<HiOutlineMenu fontSize="2rem" />}
+				position="fixed"
+				right={-1}
+				top="25vh"
+			/>
+			<Drawer
+				size="xs"
+				isOpen={isOpen}
+				blockScrollOnMount={false}
+				onClose={onClose}
+			>
+				<DrawerContent
+					bg="#1c1c1c"
+					shadow="none"
+					position="relative"
+					maxW="64"
+				>
+					<Menu lessons={lessons} userLessons={userLessons} />
+
+					<DrawerCloseButton
+						bg="background"
+						_hover={{ bg: "primary" }}
+						rounded="0"
+						position="absolute"
+						color="white"
+						left="-8"
+						top="0"
+					/>
+				</DrawerContent>
+			</Drawer>
+		</>
+	);
+}
+
+function Menu({
+	lessons,
+	userLessons,
+}: {
+	lessons: Lesson[];
+	userLessons: any[];
+}) {
+	const router = useRouter();
+	console.log(userLessons);
+	return (
+		<Stack px={2} spacing={0}>
+			{lessons?.map((lesson) => (
+				<Link
+					key={lesson.id}
+					href={`/dashboard/courses/${router.query.course}/lessons/${lesson?.id}`}
+					color="white"
+					fontSize="sm"
+					fontWeight="bold"
+					_hover={{ color: "primary" }}
+					py={1}
+				>
+					<HStack>
+						<CircularProgress
+							size={6}
+							thickness={14}
+							value={userLessons?.[lesson.id]?.progress * 100}
+						/>
+
+						<Text
+							color={
+								// @ts-ignore
+								router.query.lesson == lesson.id
+									? "primary"
+									: "inherit"
+							}
+						>
+							{lesson?.name}
+						</Text>
+					</HStack>
+				</Link>
+			))}
+		</Stack>
+	);
 }

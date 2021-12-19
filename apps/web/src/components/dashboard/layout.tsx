@@ -50,7 +50,6 @@ export default function Layout({ children = null }) {
 					bg="background"
 					boxSize="100%"
 					minH="100vh"
-					px={{ base: 4, md: 8 }}
 				>
 					{children}
 				</Box>
