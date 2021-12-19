@@ -33,8 +33,10 @@ export default function LessonsMenu({
 				aria-label="Menu"
 				icon={<HiOutlineMenu fontSize="2rem" />}
 				position="fixed"
-				right={-1}
-				top="25vh"
+				right={0}
+				_active={{}}
+				_focus={{}}
+				// top="25vh"
 			/>
 			<Drawer
 				size="xs"
