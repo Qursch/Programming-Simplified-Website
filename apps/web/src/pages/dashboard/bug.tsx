@@ -11,10 +11,11 @@ export default function Bug() {
 	return (
 		<Layout>
 			<FormBuilder
-				onSubmit={async (values, { resetForm }) => {
+				onSubmit={async ({ type, ...values }, { resetForm }) => {
 					await submitBugReport({
-						username: user.name,
+						username: user.firstName + " " + user.lastName,
 						id: user.id,
+						type: [type],
 						...values,
 					})
 						.then(() => {
@@ -23,22 +24,23 @@ export default function Bug() {
 								description:
 									"Bug report submitted successfully, thank you!",
 								status: "success",
-								duration: 9000,
+								duration: 5000,
 								isClosable: true,
 							});
+							resetForm();
 						})
 						.catch((reason) => {
+							console.log(reason);
 							toast({
 								title: "Error",
 								description:
 									reason.response?.message ??
 									"Generic error, refresh and try again. If the issue persists please contact the owner",
 								status: "error",
-								duration: 9000,
+								duration: 5000,
 								isClosable: true,
 							});
 						});
-					resetForm();
 				}}
 				title="Bug Report Form"
 				description={

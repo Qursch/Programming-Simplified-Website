@@ -14,15 +14,15 @@ import {
 	useToast,
 	VStack,
 } from "@chakra-ui/react";
-import { FaUserCircle } from "react-icons/fa";
 import Button from "@components/button";
 import NextChakraLink from "@components/nextChakraLink";
+import { setCookie } from "@lib/cookie";
 import { rounded } from "@styles/theme";
 import { register } from "api/index";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
 import * as Yup from "yup";
-import { setCookie } from "@lib/cookie";
 
 export default function Register() {
 	const toast = useToast();
@@ -49,7 +49,7 @@ export default function Register() {
 									reason.response?.data?.message ??
 									"Generic error. Refresh and try again. If the issue persists please contact owner",
 								status: "error",
-								duration: 9000,
+								duration: 5000,
 								isClosable: true,
 							});
 						});

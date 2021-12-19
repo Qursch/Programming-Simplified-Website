@@ -24,9 +24,10 @@ export default function Feedback() {
 								description:
 									"Feedback submitted successfully, thank you!",
 								status: "success",
-								duration: 9000,
+								duration: 5000,
 								isClosable: true,
 							});
+							resetForm();
 						})
 						.catch((reason) => {
 							toast({
@@ -35,11 +36,10 @@ export default function Feedback() {
 									reason.response?.message ??
 									"Generic error, refresh and try again. If the issue persists please contact the owner",
 								status: "error",
-								duration: 9000,
+								duration: 5000,
 								isClosable: true,
 							});
 						});
-					resetForm();
 				}}
 				title="Feedback Form"
 				description={

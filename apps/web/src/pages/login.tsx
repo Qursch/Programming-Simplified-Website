@@ -48,7 +48,7 @@ export default function Login() {
 									reason.response?.data?.message ??
 									"Generic error. Refresh and try again. If the issue persists please contact owner",
 								status: "error",
-								duration: 9000,
+								duration: 5000,
 								isClosable: true,
 							});
 						});
