@@ -250,9 +250,11 @@ function Card(props) {
 				<Center display={{ base: "none", md: "block" }}>
 					{props.icon}
 				</Center>
-				<Heading color="primary">{props.title}</Heading>
+				<Heading fontSize="2xl" color="primary">
+					{props.title}
+				</Heading>
 			</HStack>
-			<Text fontSize="2xl">{props.description}</Text>
+			<Text fontSize="xl">{props.description}</Text>
 		</Stack>
 	);
 }
