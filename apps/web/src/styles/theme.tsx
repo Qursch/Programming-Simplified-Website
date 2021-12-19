@@ -61,32 +61,36 @@ const theme = extendTheme({
 export default theme;
 
 export const themes = {
-	red: {
+	"Dragon Fruit": {
 		primary: "#ff3366",
 		// background: "hsl(345, 64.51612903225805%, 10%)",
 	},
-	orange: {
+	mango: {
 		primary: "#ff6b00",
 		// background: "hsl(25.176470588235293, 100%, 10%)",
 	},
-	yellow: {
+	durian: {
 		primary: "#ffbb00",
 		// background: "hsl(44, 100%, 10%)",
 	},
-	green: {
+	cucamelon: {
 		primary: "#00cc88",
 		// background: "hsl(160, 100%, 10%)"
 	},
-	blue: {
+	crowberry: {
 		primary: "#00bbff",
 		// background: "hsl(196, 100%, 10%)"
 	},
-	purple: {
+	safou: {
 		primary: "#8957ff",
 		// background: "hsl(257.85714285714283, 100%, 10%)",
 	},
-	pink: {
+	Pitanga: {
 		primary: "#fa8abb",
+		// background: "hsl(333.75, 91.80327868852459%, 10%)",
+	},
+	salak: {
+		primary: "#d89efc",
 		// background: "hsl(333.75, 91.80327868852459%, 10%)",
 	},
 	default: {
