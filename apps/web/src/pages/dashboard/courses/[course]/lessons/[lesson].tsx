@@ -21,7 +21,7 @@ import { rounded, shadow } from "@styles/theme";
 import { parsePage } from "@utils/parseNotion";
 import { getCourse, getCourses, getLesson } from "api/notion";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaArrowLeft, FaCheck, FaTimes } from "react-icons/fa";
 import ReactPlayer from "react-player";
 import { Course, Lesson } from "types";
@@ -30,9 +30,12 @@ import LessonsMenu from "@components/dashboard/lessonsMenu";
 import confetti from "canvas-confetti";
 import { API_URL } from "config";
 import { io } from "socket.io-client";
-import { enrollInCourse, setCurrentLesson } from "api";
+import { enrollInCourse, getUserCourse, setCurrentLesson } from "api";
 
-const socket = io(API_URL);
+let socket;	
+if (typeof window !== "undefined") {
+	socket = io(API_URL);
+}
 
 export default function LessonPage({
 	lesson,
@@ -48,6 +51,7 @@ export default function LessonPage({
 	const [loading, setLoading] = useState(true);
 	const [animationId, setAnimationId] = useState(0);
 	const [finished, setFinished] = useState(false);
+	const [courseState, setCourseState] = useState(null);
 
 	useEffect(() => {
 		if (finished) {
@@ -78,6 +82,8 @@ export default function LessonPage({
 		cancelAnimationFrame(animationId);
 	}, [finished]);
 
+	const videoRef = useRef(null);
+
 	useEffect(() => {
 		setCurrentLesson({
 			courseId: course.id,
@@ -97,6 +103,10 @@ export default function LessonPage({
 					console.log(reason);
 				});
 		});
+		getUserCourse(course.id).then(({ data }) => {
+			setCourseState(data);
+		});
+
 		socket.on("progress", (data: any) => {
 			console.log("Lesson Progress Updated", data);
 		});
@@ -200,6 +210,7 @@ export default function LessonPage({
 									maxW="1400px"
 								>
 									<ReactPlayer
+										ref={videoRef}
 										url={lesson?.videoUrl}
 										width="100%"
 										height="100%"
@@ -207,7 +218,20 @@ export default function LessonPage({
 											maxWidth: "1400px",
 											display: loading ? "none" : "block",
 										}}
-										onReady={() => setLoading(false)}
+										onReady={() => {
+											setLoading(false);
+											if (loading) {
+												setTimeout(() => {
+													videoRef.current.player.player.player.currentTime =
+														courseState?.lessons?.[
+															lesson.id
+														]?.progress *
+														videoRef.current.player
+															.player.player
+															.duration;
+												}, 500);
+											}
+										}}
 										onError={() =>
 											setTimeout(
 												() => window.location.reload(),
@@ -217,7 +241,7 @@ export default function LessonPage({
 										controls
 										onEnded={() => setFinished(true)}
 										onProgress={(e) => {
-											socket.emit("progress", {
+											socket?.emit("progress", {
 												courseId: router.query.course,
 												lessonId: lesson.id,
 												progress: parseFloat(
