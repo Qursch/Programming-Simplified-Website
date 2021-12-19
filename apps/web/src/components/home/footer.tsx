@@ -34,7 +34,6 @@ export default function Footer() {
 					textAlign="center"
 					spacing="15px"
 					boxShadow={`0px 0px 200px ${primary}`}
-					boxShadowColor="primary"
 				>
 					<VStack maxW="500px" px="25px" color="white">
 						<Heading
