@@ -11,7 +11,7 @@ export default function Bug() {
 	return (
 		<Layout>
 			<FormBuilder
-				onSubmit={async ({ type, ...values }, { resetForm }) => {
+				onSubmit={async ({ type, ...values }) => {
 					await submitBugReport({
 						username: user.firstName + " " + user.lastName,
 						id: user.id,
@@ -27,7 +27,7 @@ export default function Bug() {
 								duration: 5000,
 								isClosable: true,
 							});
-							resetForm();
+							location.reload();
 						})
 						.catch((reason) => {
 							console.log(reason);

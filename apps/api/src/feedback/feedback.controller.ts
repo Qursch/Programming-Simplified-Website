@@ -13,17 +13,17 @@ export type Suggestion = {
 
 export class Bug {
 	@IsNotEmpty()
-		username: string;
+	username: string;
 
 	@IsArray()
 	@IsNotEmpty()
-		type: string[];
+	type: string[];
 
 	@IsNotEmpty()
-		steps: string;
+	steps: string;
 
 	@IsNotEmpty()
-		url: string;
+	url: string;
 
 	additional: string;
 }
@@ -100,7 +100,7 @@ export class FeedbackController {
 				title: [
 					{
 						text: {
-							content: `Bug Report by ${username ?? '<username not provided>'}`,
+							content: username ?? '<username not provided>',
 						}
 					}
 				]
@@ -149,7 +149,7 @@ export class FeedbackController {
 			});
 
 			this.logger.log('Created new bug report');
-		} catch (e){
+		} catch (e) {
 			this.logger.error(e);
 
 			return new BadRequestException('we did an oopsie');

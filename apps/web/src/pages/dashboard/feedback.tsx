@@ -11,7 +11,7 @@ export default function Feedback() {
 	return (
 		<Layout>
 			<FormBuilder
-				onSubmit={async (values, { resetForm }) => {
+				onSubmit={async (values) => {
 					await submitFeedback({
 						username: user.name,
 						avatarUrl: user.image,
@@ -27,7 +27,7 @@ export default function Feedback() {
 								duration: 5000,
 								isClosable: true,
 							});
-							resetForm();
+							location.reload();
 						})
 						.catch((reason) => {
 							toast({
