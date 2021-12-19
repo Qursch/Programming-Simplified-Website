@@ -44,7 +44,7 @@ const theme = extendTheme({
 				color: "red",
 			},
 			"&::-webkit-scrollbar": {
-				width: "0.6em",
+				width: ".75em",
 			},
 			"&::-webkit-scrollbar-track": {
 				borderRadius: "0px",
