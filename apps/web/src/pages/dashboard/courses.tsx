@@ -70,8 +70,9 @@ function CourseCard({ name, authors, image }) {
 			<Center
 				rounded={rounded}
 				pos="relative"
-				width="300px"
-				height="200px"
+				
+				maxW="300px"
+				h="200px"
 			>
 				<NextImage
 					className="rounded"

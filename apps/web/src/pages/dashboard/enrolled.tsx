@@ -60,7 +60,7 @@ export default function Enrolled() {
 								<Heading>Enrolled Courses</Heading>
 								<Text pb={10}>Pick up where you left off.</Text>
 								<SimpleGrid
-									columns={{ base: 1, md: 2 }}
+									columns={{ base: 1, lg: 2 }}
 									gap={10}
 								>
 									{userCourses.map((userCourse) => {
@@ -112,7 +112,10 @@ export default function Enrolled() {
 												rounded={rounded}
 												shadow={shadow}
 												py="25px"
-												px="50px"
+												px={{
+													base: "25px",
+													lg: "50px",
+												}}
 											>
 												{sections.map((section) => (
 													<>
@@ -182,9 +185,9 @@ function Stat({ label, value }) {
 	return (
 		<HStack>
 			<Text color="darkgrey">{label}</Text>
-			<Text fontSize="4xl" display="inline" fontWeight="bold">
+			<Heading fontSize={{ base: "lg", lg: "3xl" }} display="inline">
 				{value}
-			</Text>
+			</Heading>
 		</HStack>
 	);
 }
