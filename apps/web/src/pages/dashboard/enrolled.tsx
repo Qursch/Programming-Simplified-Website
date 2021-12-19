@@ -59,7 +59,10 @@ export default function Enrolled() {
 							<>
 								<Heading>Enrolled Courses</Heading>
 								<Text pb={10}>Pick up where you left off.</Text>
-								<SimpleGrid columns={2} gap={10}>
+								<SimpleGrid
+									columns={{ base: 1, md: 2 }}
+									gap={10}
+								>
 									{userCourses.map((userCourse) => {
 										console.log(userCourse);
 										const sections = [
