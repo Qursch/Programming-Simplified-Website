@@ -62,7 +62,7 @@ export default theme;
 
 export const themes = {
 	red: {
-		primary: "#da2250",
+		primary: "#ff3366",
 		// background: "hsl(345, 64.51612903225805%, 10%)",
 	},
 	orange: {
@@ -70,15 +70,15 @@ export const themes = {
 		// background: "hsl(25.176470588235293, 100%, 10%)",
 	},
 	yellow: {
-		primary: "#cc9600",
+		primary: "#ffbb00",
 		// background: "hsl(44, 100%, 10%)",
 	},
 	green: {
-		primary: "#00b176",
+		primary: "#00cc88",
 		// background: "hsl(160, 100%, 10%)"
 	},
 	blue: {
-		primary: "#008abd",
+		primary: "#00bbff",
 		// background: "hsl(196, 100%, 10%)"
 	},
 	purple: {
@@ -86,11 +86,10 @@ export const themes = {
 		// background: "hsl(257.85714285714283, 100%, 10%)",
 	},
 	pink: {
-		primary: "#da7ba4",
+		primary: "#fa8abb",
 		// background: "hsl(333.75, 91.80327868852459%, 10%)",
 	},
 	default: {
-		// primary: "#797EF6",
 		primary: "#6C7DFE",
 		background: "#1a1a1a",
 	},

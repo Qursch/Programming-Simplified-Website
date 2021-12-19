@@ -13,17 +13,17 @@ export type Suggestion = {
 
 export class Bug {
 	@IsNotEmpty()
-	username: string;
+		username: string;
 
 	@IsArray()
 	@IsNotEmpty()
-	type: string[];
+		type: string[];
 
 	@IsNotEmpty()
-	steps: string;
+		steps: string;
 
 	@IsNotEmpty()
-	url: string;
+		url: string;
 
 	additional: string;
 }
