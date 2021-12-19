@@ -79,11 +79,6 @@ export default function Enrolled() {
 													].name
 												}
 											/>,
-
-											<Stat
-												label="You've Spent"
-												value="<time> hrs"
-											/>,
 											<Stat
 												label="Lesson Progress"
 												value={
@@ -100,6 +95,16 @@ export default function Enrolled() {
 												label="Course Progress"
 												value={
 													courseProgress * 100 + "%"
+												}
+											/>,
+											<Stat
+												label="Next Lesson"
+												value={
+													userCourse.lessons[
+														parseInt(
+															userCourse.currentLesson
+														) + 1
+													].name
 												}
 											/>,
 										];
