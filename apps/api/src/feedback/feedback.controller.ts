@@ -88,13 +88,6 @@ export class FeedbackController {
 		}
 		*/
 		const username = feedback.username;
-		const selectIds = {
-			ui: '',
-			auth: '',
-			apidb: '',
-			video: '',
-			other: ''
-		};
 		const props = {
 			Author: {
 				title: [
