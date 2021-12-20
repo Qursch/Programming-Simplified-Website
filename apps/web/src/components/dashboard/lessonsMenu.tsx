@@ -81,7 +81,7 @@ function Menu({
 	const router = useRouter();
 	console.log(userLessons);
 	return (
-		<Stack px={2} spacing={0}>
+		<Stack px={2} spacing={2}>
 			{lessons?.map((lesson) => (
 				<Link
 					key={lesson.id}
