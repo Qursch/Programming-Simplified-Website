@@ -91,12 +91,14 @@ function Menu({
 					fontWeight="bold"
 					_hover={{ color: "primary" }}
 					py={1}
+					
 				>
 					<HStack>
 						<CircularProgress
 							size={6}
 							thickness={14}
 							value={userLessons?.[lesson.id]?.progress * 100}
+							color="primary"
 						/>
 
 						<Text
