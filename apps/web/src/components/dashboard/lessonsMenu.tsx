@@ -60,7 +60,7 @@ export default function LessonsMenu({
 						_hover={{ bg: "primary" }}
 						rounded="0"
 						position="absolute"
-						size="lg"
+						boxSize={10}
 						color="white"
 						right="-10"
 						top="0"
