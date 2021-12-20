@@ -33,17 +33,19 @@ export default function LessonsMenu({
 				aria-label="Menu"
 				icon={<HiOutlineMenu fontSize="2rem" color="black" />}
 				bg="primary"
-				position="fixed"
-				right={1}
+				position="sticky"
+				top={0}
 				_active={{}}
 				_focus={{}}
-				top="25vh"
+				zIndex={100}
+				rounded={0}
 			/>
 			<Drawer
 				size="xs"
 				isOpen={isOpen}
 				blockScrollOnMount={false}
 				onClose={onClose}
+				placement="left"
 			>
 				<DrawerContent
 					bg="#1c1c1c"
@@ -58,8 +60,9 @@ export default function LessonsMenu({
 						_hover={{ bg: "primary" }}
 						rounded="0"
 						position="absolute"
+						size="lg"
 						color="white"
-						left="-8"
+						right="-10"
 						top="0"
 					/>
 				</DrawerContent>
