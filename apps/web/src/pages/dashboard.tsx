@@ -94,6 +94,7 @@ export default function Dashboard() {
 							{courses.map((course) => (
 								<Stat course={course} />
 							))}
+							{courses.length % 1 != 0 && <EnrollMore />}
 							{courses.length % 2 != 0 && <EnrollMore />}
 							{courses.length % 3 != 0 && <EnrollMore />}
 						</HStack>
