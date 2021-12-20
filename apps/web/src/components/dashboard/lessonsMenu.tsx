@@ -1,7 +1,6 @@
 import {
 	CircularProgress,
 	Drawer,
-	DrawerCloseButton,
 	DrawerContent,
 	HStack,
 	IconButton,
