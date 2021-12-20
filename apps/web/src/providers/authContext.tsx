@@ -24,10 +24,14 @@ export function AuthProvider({ children }) {
 		const token = localStorage.getItem("token");
 		if (token) {
 			axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-			const res = await axios.get("/users/profile").catch(() => {});
+			await axios
+				.get("/users/profile")
+				.then(({ data }) => {
+					setUser(data);
+					setIsAuthenticated(true);
+				})
+				.catch(() => {});
 			// @ts-ignore
-			setUser(res?.data);
-			setIsAuthenticated(true);
 		}
 		setIsLoading(false);
 	}, []);
@@ -61,6 +65,7 @@ export function useAuth(required = false) {
 		if (required && !context.isAuthenticated && !context.isLoading) {
 			window.location.href = "/login";
 		}
+		console.log(required, !context.isAuthenticated, !context.isLoading);
 	}, [context.isLoading]);
 
 	return context;
