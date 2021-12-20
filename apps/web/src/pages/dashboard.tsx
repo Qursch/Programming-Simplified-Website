@@ -92,6 +92,20 @@ export default function Dashboard() {
 							{courses.map((course) => (
 								<Stat course={course} />
 							))}
+							{courses.length % 3 != 0 && (
+								<Card>
+									<Heading size="sm">
+										Enroll in more courses.
+									</Heading>
+								</Card>
+							)}
+							{courses.length % 2 != 0 && (
+								<Card>
+									<Heading size="sm">
+										Enroll in more courses.
+									</Heading>
+								</Card>
+							)}
 						</HStack>
 					</Stack>
 				</HStack>
@@ -100,7 +114,7 @@ export default function Dashboard() {
 	);
 }
 
-function Stat({ course }) {
+function Card({ children, ...props }) {
 	return (
 		<VStack
 			px={10}
@@ -114,7 +128,16 @@ function Stat({ course }) {
 			justify="space-between"
 			transition="all 0.2s ease"
 			_hover={{ transform: "scale(1.05)", cursor: "pointer" }}
+			{...props}
 		>
+			{children}
+		</VStack>
+	);
+}
+
+function Stat({ course }) {
+	return (
+		<Card>
 			<CircularProgress
 				value={course.progress * 100}
 				color="primary"
@@ -128,6 +151,6 @@ function Stat({ course }) {
 				<Heading size="sm">{course.name}</Heading>
 				<Text>{course.lessons.length} lessons</Text>
 			</Stack>
-		</VStack>
+		</Card>
 	);
 }
