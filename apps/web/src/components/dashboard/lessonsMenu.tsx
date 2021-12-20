@@ -54,18 +54,7 @@ export default function LessonsMenu({
 					maxW="64"
 					overflowX="hidden"
 					overflowY="scroll"
-					style={{
-						"&::-webkit-scrollbar": {
-							width: ".75em",
-						},
-						"&::-webkit-scrollbar-track": {
-							borderRadius: "0px",
-							background: "transparent",
-						},
-						"&::-webkit-scrollbar-thumb": {
-							background: "primary",
-						},
-					}}
+					
 				>
 					<Menu lessons={lessons} userLessons={userLessons} />
 					{/* 
