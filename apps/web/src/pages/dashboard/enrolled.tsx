@@ -52,7 +52,7 @@ export default function Enrolled() {
 
 	return (
 		<Layout>
-			<Center minH="100vh" py={10}>
+			<Center minH="100vh" py={10} px={{base:4,md:8}}>
 				<VStack>
 					{!isLoading ? (
 						userCourses.length ? (
