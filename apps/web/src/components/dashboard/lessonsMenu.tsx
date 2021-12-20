@@ -81,7 +81,7 @@ function Menu({
 	const router = useRouter();
 	console.log(userLessons);
 	return (
-		<Stack px={2} spacing={2}>
+		<Stack px={2} spacing={4}>
 			{lessons?.map((lesson) => (
 				<Link
 					key={lesson.id}
@@ -91,7 +91,6 @@ function Menu({
 					fontWeight="bold"
 					_hover={{ color: "primary" }}
 					py={1}
-					
 				>
 					<HStack>
 						<CircularProgress
