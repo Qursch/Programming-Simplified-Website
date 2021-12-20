@@ -16,6 +16,8 @@ import { FaFire } from "react-icons/fa";
 import { rounded, shadow } from "@styles/theme";
 import { useState, useEffect } from "react";
 import { getUserCourses } from "api/index";
+import Button from "@components/button";
+import NextChakraLink from "@components/nextChakraLink";
 
 // import Highcharts, { Options } from "highcharts";
 // import HighchartsReact from "highcharts-react-official";
@@ -92,20 +94,8 @@ export default function Dashboard() {
 							{courses.map((course) => (
 								<Stat course={course} />
 							))}
-							{courses.length % 3 != 0 && (
-								<Card>
-									<Heading size="sm">
-										Enroll in more courses.
-									</Heading>
-								</Card>
-							)}
-							{courses.length % 2 != 0 && (
-								<Card>
-									<Heading size="sm">
-										Enroll in more courses.
-									</Heading>
-								</Card>
-							)}
+							{courses.length % 2 != 0 && <EnrollMore />}
+							{courses.length % 3 != 0 && <EnrollMore />}
 						</HStack>
 					</Stack>
 				</HStack>
@@ -114,30 +104,43 @@ export default function Dashboard() {
 	);
 }
 
-function Card({ children, ...props }) {
+function EnrollMore() {
 	return (
-		<VStack
-			px={10}
-			py={5}
-			bg="secondary"
-			rounded={rounded}
-			shadow={shadow}
-			maxW="400px"
-			w="100%"
-			h="250px"
-			justify="space-between"
-			transition="all 0.2s ease"
-			_hover={{ transform: "scale(1.05)", cursor: "pointer" }}
-			{...props}
-		>
-			{children}
-		</VStack>
+		<Card href="/dashboard/courses">
+			<Heading size="sm">Enroll in more courses.</Heading>
+			<Button>Enroll</Button>
+		</Card>
+	);
+}
+
+function Card({ children, href, ...props }) {
+	return (
+		<NextChakraLink href={href} w="100%">
+			<VStack
+				px={10}
+				py={5}
+				bg="secondary"
+				rounded={rounded}
+				shadow={shadow}
+				maxW="400px"
+				w="100%"
+				h="250px"
+				justify="space-between"
+				transition="all 0.2s ease"
+				_hover={{ transform: "scale(1.05)", cursor: "pointer" }}
+				{...props}
+			>
+				{children}
+			</VStack>
+		</NextChakraLink>
 	);
 }
 
 function Stat({ course }) {
 	return (
-		<Card>
+		<Card
+			href={`/dashboard/courses/${course.id}/lessons/${course.currentLesson}`}
+		>
 			<CircularProgress
 				value={course.progress * 100}
 				color="primary"
