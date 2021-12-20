@@ -46,7 +46,6 @@ export default function LessonsMenu({
 				blockScrollOnMount={false}
 				onClose={onClose}
 				placement="left"
-				
 			>
 				<DrawerContent
 					bg="#1c1c1c"
@@ -82,7 +81,7 @@ function Menu({
 	const router = useRouter();
 	console.log(userLessons);
 	return (
-		<Stack px={2} spacing={0}>
+		<Stack  spacing={0}>
 			{lessons?.map((lesson) => (
 				<Link
 					key={lesson.id}
@@ -90,8 +89,9 @@ function Menu({
 					color="white"
 					fontSize="sm"
 					fontWeight="bold"
-					_hover={{ color: "primary" }}
+					_hover={{ color: "primary", bg: "rgb(0 0 0 / 50%)" }}
 					py={4}
+					px={2}
 				>
 					<HStack>
 						<CircularProgress
