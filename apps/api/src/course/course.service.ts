@@ -43,7 +43,7 @@ export class CourseService {
 		return userCourse;
 	}
 
-	public async find_UserCourses(user: User ) {
+	public async find_UserCourses(user: User) {
 		// @ts-ignore
 		const userCoursesWithoutName = await this.userCourseModel.find({ user: user._id });
 		if (!userCoursesWithoutName.length) throw new NotFoundException('No User Courses found');
@@ -85,7 +85,6 @@ export class CourseService {
 
 		const lessons: Lesson[] = courseRef.lessons.map((lesson, i) => ({
 			id: i,
-			completed: false,
 			progress: 0,
 			name: lesson,
 		}
@@ -100,7 +99,6 @@ export class CourseService {
 			currentLesson: lessons[0].id,
 			id: courseRef.id,
 			ref: courseRef._id,
-			completed: false,
 			user: old._id
 		}]);
 
@@ -128,7 +126,6 @@ export class CourseService {
 
 		if (lesson) {
 			lesson.progress = progress;
-			lesson.completed = progress >= 1;
 			userCourse.lessons[lessonId] = lesson;
 			return userCourse.save();
 		}

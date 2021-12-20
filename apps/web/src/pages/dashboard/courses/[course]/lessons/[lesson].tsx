@@ -99,9 +99,7 @@ export default function LessonPage({
 						lessonId: lesson.id,
 					});
 				})
-				.catch((reason) => {
-					console.log(reason);
-				});
+				.catch(() => {});
 		});
 		getUserCourse(course.id).then(({ data }) => {
 			setCourseState(data);
@@ -200,7 +198,10 @@ export default function LessonPage({
 							Back to Course
 						</Button>
 					</NextChakraLink> */}
-					<LessonsMenu lessons={course.lessons} userLessons={courseState?.lessons} />
+					<LessonsMenu
+						lessons={course.lessons}
+						userLessons={courseState?.lessons}
+					/>
 					<Center
 						as={VStack}
 						/*mt="85px"*/ my="50px"
