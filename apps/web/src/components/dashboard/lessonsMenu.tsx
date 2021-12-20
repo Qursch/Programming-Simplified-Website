@@ -41,7 +41,7 @@ export default function LessonsMenu({
 				rounded={0}
 			/>
 			<Drawer
-				size="xs"
+				size="xl"
 				isOpen={isOpen}
 				blockScrollOnMount={false}
 				onClose={onClose}
@@ -52,19 +52,35 @@ export default function LessonsMenu({
 					shadow="none"
 					position="relative"
 					maxW="64"
+					overflowX="hidden"
+					overflowY="scroll"
+					style={{
+						"&::-webkit-scrollbar": {
+							width: ".75em",
+						},
+						"&::-webkit-scrollbar-track": {
+							borderRadius: "0px",
+							background: "transparent",
+						},
+						"&::-webkit-scrollbar-thumb": {
+							background: "primary",
+						},
+					}}
 				>
 					<Menu lessons={lessons} userLessons={userLessons} />
-
+					{/* 
 					<DrawerCloseButton
-						bg="background"
-						_hover={{ bg: "primary" }}
+						bg="primary"
+						_hover={{ bg: "background" }}
+						_active={{}}
+						_focus={{}}
 						rounded="0"
 						position="absolute"
 						boxSize={10}
 						color="white"
 						right="-10"
 						top="0"
-					/>
+					/> */}
 				</DrawerContent>
 			</Drawer>
 		</>
@@ -81,7 +97,7 @@ function Menu({
 	const router = useRouter();
 	console.log(userLessons);
 	return (
-		<Stack  spacing={0}>
+		<Stack spacing={0}>
 			{lessons?.map((lesson) => (
 				<Link
 					key={lesson.id}
