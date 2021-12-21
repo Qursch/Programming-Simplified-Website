@@ -1,5 +1,4 @@
-import { BadRequestException, Body, Controller, Logger, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/guards/auth/jwt.guard';
+import { BadRequestException, Body, Controller, Logger, Post } from '@nestjs/common';
 import { MessageEmbed } from 'discord.js';
 import axios from 'axios';
 import { Client } from '@notionhq/client';
