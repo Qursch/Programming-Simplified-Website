@@ -1,5 +1,4 @@
 import {
-	Box,
 	Heading,
 	HStack,
 	SkeletonText,
