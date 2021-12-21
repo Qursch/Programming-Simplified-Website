@@ -52,7 +52,7 @@ export class CourseService {
 		const userCourses = await Promise.all(userCoursesWithoutName.map(async uc => {
 			const course = await this.courseModel.findOne({ id: uc.id });
 			if (!course) throw new NotFoundException('Course not found');
-			return { ...uc.toObject(), name: course.name };
+			return { ...uc.toObject(), name: course.name, students: await this.getStudents(uc.id) };
 		}));
 		if (!userCourses) throw new NotFoundException('No User Courses found');
 

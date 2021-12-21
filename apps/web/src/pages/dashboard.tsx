@@ -34,21 +34,22 @@ export default function Dashboard() {
 
 	useEffect(() => {
 		// setTimeout(() => {
-			getUserCourses().then(({ data }) => {
-				data.forEach((course) => {
-					let completedLessons = 0;
-					course.lessons.forEach((lesson) => {
-						if (lesson.completed) {
-							completedLessons++;
-						}
-					});
-					course.progress = parseFloat(
-						(completedLessons / course.lessons.length).toFixed(4)
-					);
+		getUserCourses().then(({ data }) => {
+			data.forEach((course) => {
+				let completedLessons = 0;
+				course.lessons.forEach((lesson) => {
+					if (lesson.completed) {
+						completedLessons++;
+					}
 				});
-				setCourses(data);
-				setIsLoaded(true);
+				course.progress = parseFloat(
+					(completedLessons / course.lessons.length).toFixed(4)
+				);
 			});
+			setCourses(data);
+			setIsLoaded(true);
+			console.log(data);
+		});
 		// }, 1000);
 	}, []);
 
@@ -163,7 +164,10 @@ function Stat({ course }) {
 			</CircularProgress>
 			<Stack>
 				<Heading size="sm">{course.name}</Heading>
-				<Text>{course.lessons.length} lessons</Text>
+				<HStack justify="space-between">
+					<Text>{course.lessons.length} lessons</Text>
+					<Text>{course.students} students</Text>
+				</HStack>
 			</Stack>
 		</Card>
 	);
