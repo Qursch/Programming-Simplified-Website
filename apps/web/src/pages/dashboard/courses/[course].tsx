@@ -32,7 +32,6 @@ export default function CoursePage({ course }: { course?: Course }) {
 	useEffect(() => {
 		getUserCourse(course.id)
 			.then(({ data }) => {
-
 				setUserCourse(data);
 			})
 			.catch(() => {});
@@ -179,8 +178,7 @@ export default function CoursePage({ course }: { course?: Course }) {
 											id: course?.id,
 											lessons: course?.lessons,
 										})
-											.then(({ data }) => {
-
+											.then(() => {
 												router.push(
 													`/dashboard/courses/${course.id}/lessons/0`
 												);
