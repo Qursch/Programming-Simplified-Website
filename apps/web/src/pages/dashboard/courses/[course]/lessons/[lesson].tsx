@@ -241,7 +241,7 @@ export default function LessonPage({
 										onError={() =>
 											setTimeout(
 												() => window.location.reload(),
-												5000
+												6000
 											)
 										}
 										controls
