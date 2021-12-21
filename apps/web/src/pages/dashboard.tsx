@@ -8,6 +8,7 @@ import {
 	VStack,
 	CircularProgress,
 	CircularProgressLabel,
+	Skeleton,
 } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import { useAuth } from "@providers/authContext";
@@ -29,24 +30,43 @@ import NextChakraLink from "@components/nextChakraLink";
 export default function Dashboard() {
 	const { user, isAuthenticated } = useAuth();
 	const [courses, setCourses] = useState([]);
+	const [isLoaded, setIsLoaded] = useState(false);
 
 	useEffect(() => {
-		getUserCourses().then(({ data }) => {
-			data.forEach((course) => {
-				let completedLessons = 0;
-				course.lessons.forEach((lesson) => {
-					if (lesson.completed) {
-						completedLessons++;
-					}
+		setTimeout(() => {
+			getUserCourses().then(({ data }) => {
+				data.forEach((course) => {
+					let completedLessons = 0;
+					course.lessons.forEach((lesson) => {
+						if (lesson.completed) {
+							completedLessons++;
+						}
+					});
+					course.progress = parseFloat(
+						(completedLessons / course.lessons.length).toFixed(4)
+					);
 				});
-				course.progress = parseFloat(
-					(completedLessons / course.lessons.length).toFixed(4)
-				);
+				setCourses(data);
+				setIsLoaded(true);
 			});
-			setCourses(data);
-			console.log(data);
-		});
+		}, 1000);
 	}, []);
+
+	function EnrollMore() {
+		return (
+			<Skeleton
+				isLoaded={isLoaded}
+				rounded={rounded}
+				shadow={shadow}
+				w="100%"
+			>
+				<Card href="/dashboard/courses">
+					<Heading size="md">Enroll in more courses.</Heading>
+					<Button>Enroll</Button>
+				</Card>
+			</Skeleton>
+		);
+	}
 
 	return (
 		<Layout>
@@ -93,23 +113,16 @@ export default function Dashboard() {
 							{courses.map((course) => (
 								<Stat course={course} />
 							))}
-							{courses.length % 1 != 0 && <EnrollMore />}
-							{courses.length % 2 != 0 && <EnrollMore />}
-							{courses.length % 3 != 0 && <EnrollMore />}
+							{[1, 2, 3].map(
+								(num) =>
+									courses.length % num != 0 && <EnrollMore />
+							)}
+							
 						</HStack>
 					</Stack>
 				</HStack>
 			</Center>
 		</Layout>
-	);
-}
-
-function EnrollMore() {
-	return (
-		<Card href="/dashboard/courses">
-			<Heading size="sm">Enroll in more courses.</Heading>
-			<Button>Enroll</Button>
-		</Card>
 	);
 }
 
@@ -122,7 +135,7 @@ function Card({ children, href, ...props }) {
 				bg="secondary"
 				rounded={rounded}
 				shadow={shadow}
-				maxW="400px"
+				maxW="300px"
 				w="100%"
 				h="250px"
 				justify="space-between"
