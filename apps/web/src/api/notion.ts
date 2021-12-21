@@ -26,6 +26,9 @@ export async function getCourses() {
 				//@ts-ignore
 				course.properties?.CompletionTime?.rich_text?.[0]?.plain_text ||
 				null,
+			description:
+				//@ts-ignore
+				course.properties.Description?.rich_text?.[0]?.plain_text || null,
 		};
 	});
 }

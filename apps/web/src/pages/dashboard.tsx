@@ -20,14 +20,6 @@ import { getUserCourses } from "api/index";
 import Button from "@components/button";
 import NextChakraLink from "@components/nextChakraLink";
 
-// import Highcharts, { Options } from "highcharts";
-// import HighchartsReact from "highcharts-react-official";
-// import HighchartsExporting from "highcharts/modules/exporting";
-
-// if (typeof Highcharts === "object") {
-// 	HighchartsExporting(Highcharts);
-// }
-
 export default function Dashboard() {
 	const { user, isAuthenticated } = useAuth();
 	const [courses, setCourses] = useState([]);

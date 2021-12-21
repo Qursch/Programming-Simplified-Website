@@ -1,5 +1,5 @@
 import Stats from "@components/home/stats";
-import Courses from "@components/home/courses";
+import CoursesSection from "@components/home/courses";
 import Faq from "@components/home/faq";
 import Features from "@components/home/features";
 import Footer from "@components/home/footer";
@@ -7,8 +7,10 @@ import Header from "@components/home/header";
 import Hero from "@components/home/hero";
 import Language from "@components/home/language";
 import Testimonials from "@components/home/testimonials";
+import { Course } from "types";
+import { getCourses } from "api/notion";
 
-export default function Home() {
+export default function Home({ courses }: { courses: Course[] }) {
 	return (
 		<main style={{ color: "#101010" }}>
 			<Header />
@@ -16,7 +18,7 @@ export default function Home() {
 			<Hero />
 			<Stats />
 			<Features />
-			<Courses />
+			<CoursesSection courses={courses} />
 			<Language />
 			<Testimonials />
 			<Faq />
@@ -24,4 +26,13 @@ export default function Home() {
 			<Footer />
 		</main>
 	);
+}
+
+export async function getStaticProps() {
+	return {
+		props: {
+			courses: (await getCourses()).reverse(),
+		},
+		revalidate: 3600,
+	};
 }

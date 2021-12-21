@@ -5,9 +5,10 @@ import NextChakraLink from "@components/nextChakraLink";
 import { rounded } from "@styles/theme";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Course } from "types";
 import Button from "./button";
 
-export default function Courses() {
+export default function Courses({ courses }: { courses: Course[] }) {
 	const [slide, setSlide] = useState(0);
 	const coursesVariantsLeft = {
 		offscreen: {
@@ -105,7 +106,10 @@ export default function Courses() {
 									{courses[slide].name}
 								</Heading>
 								<Text>
-									{courses[slide].instructors.join(" & ")}
+									{console.log(courses[slide].authors)}
+									{courses[slide].authors
+										.map((author) => author.name)
+										.join(" & ")}
 								</Text>
 							</Stack>
 							<Text>{courses[slide].description}</Text>
@@ -119,30 +123,3 @@ export default function Courses() {
 		</Container>
 	);
 }
-
-const courses = [
-	{
-		name: "Website Development with Next.js",
-		description:
-			"Learn the basics of TypeScript, React, and Chakra UI to develop websites! Creating your own websites from scratch is a useful skill that can help foster creativity, help you understand code, and allow you to start your own personal projects. The course will also cover VS Code and GitHub, which are both used in professional settings.",
-		instructors: ["Hazim A."],
-	},
-	{
-		name: "Python 101: The Basics",
-		description:
-			"Learn the basics of Python and build a foundation in programming that can be applied anywhere! This course contains knowledge on storing and handling data, control flow, error handling, and even version control for your projects. Join us and start forming your professional skills!",
-		instructors: ["Hovhannes M.", "Jeffrey B."],
-	},
-	{
-		name: "Java 101: The Basics",
-		description:
-			"Learn the basics of object-oriented programming with the Java programming language! From computational thinking to recursive sorting algorithms, we've got you covered. This course contains all the information needed for the AP Computer Science exam, and more.",
-		instructors: ["Tachi M.", "Suzu P."],
-	},
-	{
-		name: "Discord: Bot Development",
-		description:
-			"A course for creating an interactive Discord Bot using the latest features exposed by the discord API (slash commands, interactions, etc) using TypeScript and NodeJS. It aims to teach the fundamentals of server side code, event listeners, strong typing and more through a fun and popular application of these techniques.",
-		instructors: ["Max M."],
-	},
-];
