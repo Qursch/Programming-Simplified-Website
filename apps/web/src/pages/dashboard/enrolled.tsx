@@ -9,6 +9,7 @@ import {
 	HStack,
 	VStack,
 	Spinner,
+	Link,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
@@ -126,14 +127,14 @@ export default function Enrolled() {
 													</>
 												))}
 												<Center>
-													<NextChakraLink
+													<Link
 														href={`/dashboard/courses/${userCourse.id}/lessons/${userCourse?.currentLesson}`}
 														pt={4}
 													>
 														<Button>
 															Continue
 														</Button>
-													</NextChakraLink>
+													</Link>
 												</Center>
 											</Stack>
 										);
