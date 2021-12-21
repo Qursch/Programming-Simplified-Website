@@ -19,7 +19,6 @@ import { useEffect, useState } from "react";
 
 export default function Enrolled() {
 	const [userCourses, setUserCourses] = useState([]);
-	const [courseProgress, setCourseProgress] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
@@ -27,20 +26,17 @@ export default function Enrolled() {
 			.then(({ data }) => {
 				setIsLoading(false);
 				if (!data) return;
-				data.forEach((course) => {
+				data.forEach((course, index) => {
 					let completedLessons = 0;
 					course.lessons.forEach((lesson) => {
-						if (lesson.completed) {
+						if (lesson.progress == 1) {
 							completedLessons++;
 						}
 					});
-					setCourseProgress(
-						parseFloat(
-							(completedLessons / course.lessons.length).toFixed(
-								4
-							)
-						)
+					data[index].progress = parseFloat(
+						(completedLessons / course.lessons.length).toFixed(4)
 					);
+					console.log(data[index].progress);
 				});
 
 				setUserCourses(data);
@@ -52,7 +48,7 @@ export default function Enrolled() {
 
 	return (
 		<Layout>
-			<Center minH="100vh" py={10} px={{base:4,md:8}}>
+			<Center minH="100vh" py={10} px={{ base: 4, md: 8 }}>
 				<VStack>
 					{!isLoading ? (
 						userCourses.length ? (
@@ -93,7 +89,8 @@ export default function Enrolled() {
 											<Stat
 												label="Course Progress"
 												value={
-													courseProgress * 100 + "%"
+													userCourse.progress * 100 +
+													"%"
 												}
 											/>,
 											<Stat
