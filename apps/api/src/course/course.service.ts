@@ -36,15 +36,13 @@ export class CourseService {
 		return user;
 	}
 
-	public async findOne_UserCourse(user: User, id: string) {
-		// @ts-ignore
+	public async findOne_UserCourse(user: UserDocument, id: string) {
 		const userCourse = await this.userCourseModel.findOne({ user: user._id, id });
 		if (!userCourse) throw new NotFoundException('User Course not found');
 		return userCourse;
 	}
 
-	public async find_UserCourses(user: User) {
-		// @ts-ignore
+	public async find_UserCourses(user: UserDocument) {
 		const userCoursesWithoutName = await this.userCourseModel.find({ user: user._id });
 		if (!userCoursesWithoutName.length) throw new NotFoundException('No User Courses found');
 
@@ -59,7 +57,7 @@ export class CourseService {
 		return userCourses;
 	}
 
-	public async setCurrentLesson(user: User, courseId: string, lessonId: number) {
+	public async setCurrentLesson(user: UserDocument, courseId: string, lessonId: number) {
 		const userCourse = await this.findOne_UserCourse(user, courseId);
 		userCourse.currentLesson = lessonId;
 		return userCourse.save();

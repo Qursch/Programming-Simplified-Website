@@ -3,7 +3,7 @@ import { Body, Controller, Put, UseGuards, HttpCode, Get, Post, Req } from '@nes
 import EnrollDto from 'src/dto/enroll.dto';
 import { JwtAuthGuard } from 'src/guards/auth/jwt.guard';
 import { Course } from 'src/schemas/course.schema';
-import { User } from 'src/schemas/user.schema';
+import { User, UserDocument } from 'src/schemas/user.schema';
 import { CourseService } from './course.service';
 
 @Controller('course')
@@ -26,7 +26,7 @@ export class CourseController {
 	@Put('currentLesson')
 	@HttpCode(201)
 	async setCurrentLesson(@Req() req, @Body() body) {
-		const user = await this.courseService.findOne_User(req.user.email) as User;
+		const user = await this.courseService.findOne_User(req.user.email) as UserDocument;
 		await this.courseService.setCurrentLesson(user, body.courseId, body.lessonId);
 	}
 
@@ -51,7 +51,7 @@ export class CourseController {
 	@UseGuards(JwtAuthGuard)
 	@Get('/all')
 	async getCourses(@Req() req) {
-		const user = await this.courseService.findOne_User(req.user.email) as User;
+		const user = await this.courseService.findOne_User(req.user.email) as UserDocument;
 		return this.courseService.find_UserCourses(user);
 	}
 
@@ -59,7 +59,7 @@ export class CourseController {
 	@UseGuards(JwtAuthGuard)
 	@Get('/:id')
 	async getCourse(@Req() req) {
-		const user = await this.courseService.findOne_User(req.user.email) as User;
+		const user = await this.courseService.findOne_User(req.user.email) as UserDocument;
 		return this.courseService.findOne_UserCourse(user, req.params['id']);
 	}
 
