@@ -35,22 +35,24 @@ export default function Dashboard() {
 
 	useEffect(() => {
 		// setTimeout(() => {
-		getUserCourses().then(({ data }) => {
-			data.forEach((course) => {
-				let completedLessons = 0;
-				course.lessons.forEach((lesson) => {
-					if (lesson.completed) {
-						completedLessons++;
-					}
+		getUserCourses()
+			.then(({ data }) => {
+				data.forEach((course) => {
+					let completedLessons = 0;
+					course.lessons.forEach((lesson) => {
+						if (lesson.completed) {
+							completedLessons++;
+						}
+					});
+					course.progress = parseFloat(
+						(completedLessons / course.lessons.length).toFixed(4)
+					);
 				});
-				course.progress = parseFloat(
-					(completedLessons / course.lessons.length).toFixed(4)
-				);
-			});
-			setCourses(data);
-			setIsLoaded(true);
-			console.log(data);
-		});
+				setCourses(data);
+				console.log(data);
+			})
+			.catch(() => {});
+		setIsLoaded(true);
 		// }, 1000);
 	}, []);
 
