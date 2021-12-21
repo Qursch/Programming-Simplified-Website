@@ -106,7 +106,7 @@ export default function Courses({ courses }: { courses: Course[] }) {
 									{courses[slide].name}
 								</Heading>
 								<Text>
-									{console.log(courses[slide].authors)}
+
 									{courses[slide].authors
 										.map((author) => author.name)
 										.join(" & ")}

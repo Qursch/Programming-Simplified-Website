@@ -83,7 +83,7 @@ function Menu({
 	userLessons: any[];
 }) {
 	const router = useRouter();
-	console.log(userLessons);
+
 	return (
 		<Stack spacing={0}>
 			{lessons?.map((lesson) => (

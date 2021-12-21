@@ -41,7 +41,7 @@ export default function Dashboard() {
 					);
 				});
 				setCourses(data);
-				console.log(data);
+
 			})
 			.catch(() => {});
 		setIsLoaded(true);

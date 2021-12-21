@@ -65,7 +65,6 @@ export function useAuth(required = false) {
 		if (required && !context.isAuthenticated && !context.isLoading) {
 			window.location.href = "/login";
 		}
-		console.log(required, !context.isAuthenticated, !context.isLoading);
 	}, [context.isLoading]);
 
 	return context;

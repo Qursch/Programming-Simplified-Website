@@ -30,7 +30,6 @@ export default function Bug() {
 							location.reload();
 						})
 						.catch((reason) => {
-							console.log(reason);
 							toast({
 								title: "Error",
 								description:

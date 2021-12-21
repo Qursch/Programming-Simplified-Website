@@ -42,7 +42,7 @@ export default function Enrolled() {
 						)
 					);
 				});
-				console.log(data);
+
 				setUserCourses(data);
 			})
 			.catch(() => {
@@ -64,7 +64,6 @@ export default function Enrolled() {
 									gap={10}
 								>
 									{userCourses.map((userCourse) => {
-										console.log(userCourse);
 										const sections = [
 											<Heading size="md">
 												{userCourse.name}
