@@ -40,6 +40,7 @@ export default function FormBuilder({
 							align="center"
 							justify="center"
 							maxW="640px"
+							py={8}
 							w="100%"
 							spacing={4}
 						>
