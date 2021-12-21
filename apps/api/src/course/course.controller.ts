@@ -26,7 +26,8 @@ export class CourseController {
 	@Put('currentLesson')
 	@HttpCode(201)
 	async setCurrentLesson(@Req() req, @Body() body) {
-		await this.courseService.setCurrentLesson(req.user.email, body.courseId, body.lessonId);
+		const user = await this.courseService.findOne_User(req.user.email) as User;
+		await this.courseService.setCurrentLesson(user, body.courseId, body.lessonId);
 	}
 
 	@UseGuards(JwtAuthGuard)
