@@ -20,7 +20,7 @@ export default function Courses({ courses }) {
 
 	return (
 		<Layout>
-			<Center>
+			<Center py={8}>
 				<SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} spacing="25px">
 					{courses.map((course) => (
 						<Skeleton
@@ -67,13 +67,7 @@ function CourseCard({ name, authors, image }) {
 				cursor: "pointer",
 			}}
 		>
-			<Center
-				rounded={rounded}
-				pos="relative"
-				
-				maxW="300px"
-				h="200px"
-			>
+			<Center rounded={rounded} pos="relative" maxW="300px" h="200px">
 				<NextImage
 					className="rounded"
 					src={image || "/logo_secondary.png"}
