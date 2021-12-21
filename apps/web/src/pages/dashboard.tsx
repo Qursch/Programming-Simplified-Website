@@ -9,6 +9,7 @@ import {
 	CircularProgress,
 	CircularProgressLabel,
 	Skeleton,
+	SimpleGrid,
 } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
 import { useAuth } from "@providers/authContext";
@@ -108,16 +109,19 @@ export default function Dashboard() {
 					</HStack>
 				</HStack>
 				<HStack>
-					<Stack>
+					<Stack maxW="1000px">
 						<Heading>Course Progress</Heading>
-						<HStack spacing={10}>
+						<SimpleGrid
+							columns={{ base: 1, lg: 2, xl: 3 }}
+							gap={10}
+						>
 							{courses.map((course) => (
 								<Stat course={course} />
 							))}
 							{[0, 1, 2].map(
 								(num) => courses.length <= num && <EnrollMore />
 							)}
-						</HStack>
+						</SimpleGrid>
 					</Stack>
 				</HStack>
 			</Center>
@@ -134,7 +138,6 @@ function Card({ children, href, ...props }) {
 				bg="secondary"
 				rounded={rounded}
 				shadow={shadow}
-				maxW="300px"
 				w="100%"
 				h="250px"
 				justify="space-between"
