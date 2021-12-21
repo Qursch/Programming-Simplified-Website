@@ -33,10 +33,10 @@ export default function Enrolled() {
 							completedLessons++;
 						}
 					});
+
 					data[index].progress = parseFloat(
 						(completedLessons / course.lessons.length).toFixed(4)
 					);
-					console.log(data[index].progress);
 				});
 
 				setUserCourses(data);
