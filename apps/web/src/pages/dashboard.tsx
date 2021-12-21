@@ -29,19 +29,18 @@ export default function Dashboard() {
 		// setTimeout(() => {
 		getUserCourses()
 			.then(({ data }) => {
-				data.forEach((course) => {
+				data.forEach((course, index) => {
 					let completedLessons = 0;
 					course.lessons.forEach((lesson) => {
-						if (lesson.completed) {
+						if (lesson.progress == 1) {
 							completedLessons++;
 						}
 					});
-					course.progress = parseFloat(
+					data[index].progress = parseFloat(
 						(completedLessons / course.lessons.length).toFixed(4)
 					);
 				});
 				setCourses(data);
-
 			})
 			.catch(() => {});
 		setIsLoaded(true);

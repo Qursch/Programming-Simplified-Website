@@ -38,7 +38,6 @@ export default function Enrolled() {
 						(completedLessons / course.lessons.length).toFixed(4)
 					);
 				});
-
 				setUserCourses(data);
 			})
 			.catch(() => {
