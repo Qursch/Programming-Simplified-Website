@@ -376,8 +376,19 @@ export default function LessonPage({
 											p="30px"
 											_hover={{}}
 											leftIcon={<FaCheck />}
+											onClick={() => {
+												socket?.emit("progress", {
+													courseId:
+														router.query.course,
+													lessonId: lesson.id,
+													progress: 1,
+													token: localStorage.getItem(
+														"token"
+													),
+												});
+											}}
 										>
-											Continue
+											Complete & Continue
 										</Button>
 									</Link>
 								</>

@@ -62,4 +62,9 @@ export class CourseController {
 		const user = await this.courseService.findOne_User(req.user.email) as User;
 		return this.courseService.findOne_UserCourse(user, req.params['id']);
 	}
+
+	@Get('/:id/students')
+	async getStudents(@Req() req) {
+		return this.courseService.getStudents(req.params['id']);
+	}
 }

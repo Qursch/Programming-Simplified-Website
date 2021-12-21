@@ -23,6 +23,10 @@ export async function submitHelpRequest(body) {
 	return axios.post("/feedback/help", body);
 }
 
+export async function getStudents(courseId) {
+	return axios.get(`/course/${courseId}/students`);
+}
+
 export async function enrollInCourse(body) {
 	return axios.put("/course/enroll", body, {
 		headers: {

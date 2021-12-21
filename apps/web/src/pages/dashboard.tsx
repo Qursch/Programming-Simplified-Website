@@ -33,7 +33,7 @@ export default function Dashboard() {
 	const [isLoaded, setIsLoaded] = useState(false);
 
 	useEffect(() => {
-		setTimeout(() => {
+		// setTimeout(() => {
 			getUserCourses().then(({ data }) => {
 				data.forEach((course) => {
 					let completedLessons = 0;
@@ -49,7 +49,7 @@ export default function Dashboard() {
 				setCourses(data);
 				setIsLoaded(true);
 			});
-		}, 1000);
+		// }, 1000);
 	}, []);
 
 	function EnrollMore() {
@@ -113,11 +113,9 @@ export default function Dashboard() {
 							{courses.map((course) => (
 								<Stat course={course} />
 							))}
-							{[1, 2, 3].map(
-								(num) =>
-									courses.length % num != 0 && <EnrollMore />
+							{[0, 1, 2].map(
+								(num) => courses.length <= num && <EnrollMore />
 							)}
-							
 						</HStack>
 					</Stack>
 				</HStack>

@@ -106,6 +106,12 @@ export class CourseService {
 		await old.save();
 	}
 
+	public async getStudents(courseId: string) {
+		const courses = await this.userCourseModel.find();
+		if (!courses) throw new NotFoundException('No courses found');
+		return courses.filter(course => course.id === courseId).length;
+	}
+
 	public async progress(
 		email: string,
 		courseId: string,
