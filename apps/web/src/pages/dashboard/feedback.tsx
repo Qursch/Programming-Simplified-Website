@@ -13,7 +13,7 @@ export default function Feedback() {
 			<FormBuilder
 				onSubmit={async (values) => {
 					await submitFeedback({
-						username: user.name,
+						username: user.firstName + " | " + user.lastName,
 						avatarUrl: user.image,
 						id: user.id,
 						...values,

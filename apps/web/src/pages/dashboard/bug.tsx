@@ -13,7 +13,7 @@ export default function Bug() {
 			<FormBuilder
 				onSubmit={async ({ type, ...values }) => {
 					await submitBugReport({
-						username: user.firstName + " " + user.lastName,
+						username: user.firstName + " | " + user.lastName,
 						id: user.id,
 						type: [type],
 						...values,
