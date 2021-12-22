@@ -80,7 +80,8 @@ const questions = [
 	},
 	{
 		type: "shortAnswer",
-		question: "How do you feel about our recorded lesson videos? Is there anything you would like us to modify?",
+		question:
+			"How do you feel about our recorded lesson videos? Is there anything you would like us to modify?",
 		value: "lessons",
 		required: true,
 	},
