@@ -13,7 +13,7 @@ export default function Feedback() {
 			<FormBuilder
 				onSubmit={async (values) => {
 					await submitFeedback({
-						username: user.name,
+						username: user.firstName + " | " + user.lastName,
 						avatarUrl: user.image,
 						id: user.id,
 						...values,
@@ -80,7 +80,8 @@ const questions = [
 	},
 	{
 		type: "shortAnswer",
-		question: "How are you liking the recorded lesson videos?",
+		question:
+			"How do you feel about our recorded lesson videos? Is there anything you would like us to modify?",
 		value: "lessons",
 		required: true,
 	},

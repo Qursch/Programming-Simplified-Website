@@ -2,6 +2,8 @@ import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
 	Box,
 	Center,
+	Divider,
+	Flex,
 	FormControl,
 	FormErrorMessage,
 	Heading,
@@ -9,15 +11,18 @@ import {
 	InputGroup,
 	InputLeftElement,
 	InputRightElement,
+	SimpleGrid,
 	Stack,
 	Text,
 	useToast,
+	VisuallyHidden,
 	VStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import NextChakraLink from "@components/nextChakraLink";
 import { setCookie } from "@lib/cookie";
 import { rounded } from "@styles/theme";
+import { FaDiscord, FaGithub, FaGoogle } from "react-icons/fa";
 import { login } from "api/index";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
@@ -165,6 +170,60 @@ export default function Login() {
 								>
 									Login
 								</Button>
+								<Flex align="center" color="gray.300">
+									<Box flex="1">
+										<Divider borderColor="currentcolor" />
+									</Box>
+									<Text
+										as="span"
+										px="3"
+										color="gray.600"
+										fontWeight="medium"
+									>
+										OR
+									</Text>
+									<Box flex="1">
+										<Divider borderColor="currentcolor" />
+									</Box>
+								</Flex>
+								<Heading textAlign="center">
+									Coming Soon
+								</Heading>
+								<SimpleGrid mt="6" columns={3} spacing="3">
+									<Button
+										color="white"
+										variant="outline"
+										rounded="md"
+										isDisabled
+									>
+										<VisuallyHidden>
+											Login with Discord
+										</VisuallyHidden>
+										<FaDiscord />
+									</Button>
+									<Button
+										color="white"
+										variant="outline"
+										rounded="md"
+										isDisabled
+									>
+										<VisuallyHidden>
+											Login with Google
+										</VisuallyHidden>
+										<FaGoogle />
+									</Button>
+									<Button
+										color="white"
+										variant="outline"
+										rounded="md"
+										isDisabled
+									>
+										<VisuallyHidden>
+											Login with Github
+										</VisuallyHidden>
+										<FaGithub />
+									</Button>
+								</SimpleGrid>
 
 								<Text textAlign="center">
 									Don't have an account?{" "}
