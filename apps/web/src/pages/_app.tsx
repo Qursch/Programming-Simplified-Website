@@ -1,10 +1,4 @@
-import {
-	ChakraProvider,
-	Alert,
-	AlertIcon,
-	AlertTitle,
-	AlertDescription,
-} from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { pageview } from "@lib/gtag";
 import theme from "@styles/theme";
 import { META } from "config";
@@ -44,20 +38,6 @@ export default function MyApp({
 			</Head>
 			<ChakraProvider theme={theme}>
 				<AuthProvider>
-					<Alert position="sticky" top="0" zIndex="100" color="black">
-						<AlertIcon />
-						<AlertTitle>
-							<strong>
-								<span role="img" aria-label="warning">
-									⚠️
-								</span>
-							</strong>
-						</AlertTitle>
-						<AlertDescription>
-							The site is currently experiencing technical
-							difficulties, please come again later.
-						</AlertDescription>
-					</Alert>
 					<Component {...pageProps} />
 				</AuthProvider>
 			</ChakraProvider>
