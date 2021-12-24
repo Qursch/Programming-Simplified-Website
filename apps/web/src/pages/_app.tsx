@@ -44,7 +44,7 @@ export default function MyApp({
 			</Head>
 			<ChakraProvider theme={theme}>
 				<AuthProvider>
-					<Alert position="fixed" zIndex="100">
+					<Alert position="sticky" top="0" zIndex="100" color="black">
 						<AlertIcon />
 						<AlertTitle>
 							<strong>
