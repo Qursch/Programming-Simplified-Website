@@ -9,31 +9,13 @@ import Language from "@components/home/language";
 import Testimonials from "@components/home/testimonials";
 import { Course } from "types";
 import { getCourses } from "api/notion";
-import {
-	Alert,
-	AlertIcon,
-	AlertTitle,
-	AlertDescription,
-} from "@chakra-ui/react";
+
 
 export default function Home({ courses }: { courses: Course[] }) {
 	return (
 		<main style={{ color: "#101010" }}>
 			<Header />
-			<Alert position="fixed" zIndex="100">
-				<AlertIcon />
-				<AlertTitle>
-					<strong>
-						<span role="img" aria-label="warning">
-							⚠️
-						</span>
-					</strong>
-				</AlertTitle>
-				<AlertDescription>
-					The site is currently experiencing technical difficulties,
-					please come again later.
-				</AlertDescription>
-			</Alert>
+			
 			<Hero />
 			<Stats />
 			<Features />
