@@ -54,11 +54,11 @@ export default function MyApp({
 							</strong>
 						</AlertTitle>
 						<AlertDescription>
-							To access courses, you simply have to make a new
-							account. However, since the database was wiped
-							entirely, we could not retrieve user data. This
-							won't happen again as we will in the future have
-							multiple layers of redundancy.
+							The database was wiped entirely, we could not
+							retrieve user data. This won't happen again as we
+							will in the future have multiple layers of
+							redundancy. To access courses, you simply have to
+							make a new account.
 						</AlertDescription>
 					</Alert>
 					<Component {...pageProps} />
