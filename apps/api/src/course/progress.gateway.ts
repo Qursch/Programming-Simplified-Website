@@ -11,11 +11,11 @@ export class ProgressGateway implements OnGatewayConnection, OnGatewayDisconnect
 
 	handleConnection(client: Socket) {
 		// client.disconnect();
-		console.log(`Client connected: ${client.id}`);
+		// console.log(`Client connected: ${client.id}`);
 	}
 
 	handleDisconnect(client: Socket) {
-		console.log(`Client disconnected: ${client.id}`);
+		// console.log(`Client disconnected: ${client.id}`);
 	}
 
 	@SubscribeMessage('progress')
