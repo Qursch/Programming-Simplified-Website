@@ -20,7 +20,7 @@ export default function Home({ courses }: { courses: Course[] }) {
 	return (
 		<main style={{ color: "#101010" }}>
 			<Header />
-			<Alert>
+			<Alert position="fixed">
 				<AlertIcon />
 				<AlertTitle>
 					<strong>
