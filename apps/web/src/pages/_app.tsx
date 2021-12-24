@@ -44,7 +44,7 @@ export default function MyApp({
 			</Head>
 			<ChakraProvider theme={theme}>
 				<AuthProvider>
-					{!router.asPath.split("dashboard").length && (
+					{router.asPath.split("dashboard").length == 1 && (
 						<Alert
 							position="sticky"
 							top="0"
