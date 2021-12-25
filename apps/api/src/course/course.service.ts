@@ -160,12 +160,15 @@ export class CourseService {
 		await this.courseModel.updateOne(
 			{ id: course.id },
 			{
+				// @ts-ignore
 				id: course.id,
 				name: course.name,
 				lessons: course.lessons,
 			},
 			{ upsert: true },
 		);
+		// TODO: update all userCourses that reference this course (lessons)
+		
 		// const allUserCourses = await this.userCourseModel.find();
 		// allUserCourses.forEach((userCourse) => {
 		//   if (userCourse.id === course.id) {
@@ -175,7 +178,6 @@ export class CourseService {
 		//     userCourse.save();
 		//   }
 		// });
-		// TODO: update all userCourses that reference this course (lessons)
 	}
 
 	public async getProgress(user: User) {
