@@ -104,11 +104,11 @@ export class CourseService {
 		if (has) throw new ConflictException('User already enrolled');
 		const courseRef = await this.courseModel.findOne({ id: dto.id });
 		if (!courseRef) throw new NotFoundException('Course not found');
-
 		const lessons: Lesson[] = courseRef.lessons.map((lesson, i) => ({
 			id: i,
 			progress: 0,
-			name: lesson,
+			name: lesson.name,
+			length: lesson.length,
 		}));
 		const inserted = await this.userCourseModel.insertMany([
 			{
@@ -168,7 +168,7 @@ export class CourseService {
 			{ upsert: true },
 		);
 		// TODO: update all userCourses that reference this course (lessons)
-		
+
 		// const allUserCourses = await this.userCourseModel.find();
 		// allUserCourses.forEach((userCourse) => {
 		//   if (userCourse.id === course.id) {

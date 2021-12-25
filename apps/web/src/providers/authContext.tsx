@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
 			// @ts-ignore
 		}
 		setIsLoading(false);
-	}, [localStorage.getItem("token")]);
+	}, []);
 
 	const logout = () => {
 		router.push("/");
