@@ -10,7 +10,7 @@ import EnrollDto from 'src/dto/enroll.dto';
 import { Course, CourseDocument } from 'src/schemas/course.schema';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { UserCourse, UserCourseDocument } from 'src/schemas/userCourse.schema';
-import { Lesson, LessonDocument } from 'src/schemas/userLesson.schema';
+import { Lesson } from 'src/schemas/userLesson.schema';
 
 @Injectable()
 export class CourseService {
@@ -23,9 +23,6 @@ export class CourseService {
 
 		@InjectModel(UserCourse.name)
 		private userCourseModel: Model<UserCourseDocument>,
-
-		@InjectModel(Lesson.name)
-		private lessonModel: Model<LessonDocument>,
 	) { }
 
 	/* Lookups */
@@ -179,23 +176,23 @@ export class CourseService {
 		// });
 	}
 
-	public async getProgress(user: User) {
-		const courses = (await Promise.all(
-			user.courses.map(async (i) => this.userCourseModel.findById(i)),
-		)) as UserCourse[];
+	// public async getProgress(user: User) {
+	// 	const courses = (await Promise.all(
+	// 		user.courses.map(async (i) => this.userCourseModel.findById(i)),
+	// 	)) as UserCourse[];
 
-		const lessons = new Map<UserCourse, Lesson[]>();
-		courses.forEach((i) => lessons.set(i, i.lessons));
-		const nextLessons: Record<string, Lesson> = {};
+	// 	const lessons = new Map<UserCourse, Lesson[]>();
+	// 	courses.forEach((i) => lessons.set(i, i.lessons));
+	// 	const nextLessons: Record<string, Lesson> = {};
 
-		for (const [k, v] of lessons) {
-			if (!k.completed) {
-				nextLessons[k.id] = (
-					await Promise.all(v.map((i) => this.lessonModel.findById(i)))
-				).find((i) => i.progress < 1);
-			}
-		}
+	// 	for (const [k, v] of lessons) {
+	// 		if (!k.completed) {
+	// 			nextLessons[k.id] = (
+	// 				await Promise.all(v.map((i) => this.lessonModel.findById(i)))
+	// 			).find((i) => i.progress < 1);
+	// 		}
+	// 	}
 
-		return nextLessons;
-	}
+	// 	return nextLessons;
+	// }
 }

@@ -41,12 +41,12 @@ export class CourseController {
 		);
 	}
 
-	@UseGuards(JwtAuthGuard)
-	@Get('progress')
-	async getProgress(@Req() req) {
-		const user = await this.courseService.findOne_User(req.user.email) as User;
-		return this.courseService.getProgress(user);
-	}
+	// @UseGuards(JwtAuthGuard)
+	// @Get('progress')
+	// async getProgress(@Req() req) {
+	// 	const user = await this.courseService.findOne_User(req.user.email) as User;
+	// 	return this.courseService.getProgress(user);
+	// }
 
 	@UseGuards(JwtAuthGuard)
 	@Get('/all')
