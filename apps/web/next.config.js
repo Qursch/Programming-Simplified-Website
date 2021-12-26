@@ -8,6 +8,11 @@ module.exports = {
 	async redirects() {
 		return [
 			{
+				source: "/join",
+				destination: "/discord",
+				permanent: true,
+			},
+			{
 				source: "/discord",
 				destination: "https://discord.gg/s6HAveWMCg",
 				permanent: true,
@@ -16,11 +21,6 @@ module.exports = {
 				source: "/instagram",
 				destination:
 					"https://www.instagram.com/programmsimplified",
-				permanent: true,
-			},
-			{
-				source: "/join",
-				destination: "/discord",
 				permanent: true,
 			},
 			{
