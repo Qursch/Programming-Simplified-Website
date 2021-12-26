@@ -107,8 +107,7 @@ export class CourseService {
 		const lessons: Lesson[] = courseRef.lessons.map((lesson, i) => ({
 			id: i,
 			progress: 0,
-			name: lesson.name,
-			length: lesson.length,
+			name: lesson,
 		}));
 		const inserted = await this.userCourseModel.insertMany([
 			{

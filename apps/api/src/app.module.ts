@@ -19,7 +19,7 @@ import { SuggestionsController } from './suggestions/suggestions.controller';
 		}),
 		AuthModule,
 		UsersModule,
-		MongooseModule.forRoot('mongodb://localhost/psapi-test'),
+		MongooseModule.forRoot('mongodb://localhost/psapi'),
 		AuthorizationModule,
 		CourseModule
 	],

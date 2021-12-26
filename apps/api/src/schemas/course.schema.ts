@@ -10,7 +10,7 @@ export class Course {
 	@Prop()
 		name: string;
 	@Prop()
-		lessons: {name: string; length: number;}[]; // length in seconds
+		lessons: string[]; // lesson names
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
