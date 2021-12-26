@@ -15,7 +15,7 @@ module.exports = {
 			{
 				source: "/instagram",
 				destination:
-					"https://www.instagram.com/programming.simplifiedorg/",
+					"https://www.instagram.com/programmsimplified",
 				permanent: true,
 			},
 			{
