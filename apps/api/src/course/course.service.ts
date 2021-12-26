@@ -134,7 +134,7 @@ export class CourseService {
 	) {
 		const user = await this.userModel.findOne({ email });
 		if (!user)
-      /* wtf */ throw new InternalServerErrorException('buy a lottery ticket');
+		/* wtf */ throw new InternalServerErrorException('buy a lottery ticket');
 		const userCourse = await this.findOne_UserCourse(user, courseId);
 		if (!userCourse) throw new NotFoundException('Course not found');
 
