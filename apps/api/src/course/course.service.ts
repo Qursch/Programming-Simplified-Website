@@ -22,7 +22,10 @@ export class CourseService {
 		private courseModel: Model<CourseDocument>,
 
 		@InjectModel(thing.name)
-		private userCourseModel: Model<UserCourseDocument>
+		private userCourseModel: Model<UserCourseDocument>,
+
+		@InjectModel(Lesson.name)
+		private lessonModel: Model<LessonDocument>,
 	) { }
 
 	/* Lookups */
@@ -176,23 +179,23 @@ export class CourseService {
 		// });
 	}
 
-	// public async getProgress(user: User) {
-	// 	const courses = (await Promise.all(
-	// 		user.courses.map(async (i) => this.userCourseModel.findById(i)),
-	// 	)) as thing[];
+	public async getProgress(user: User) {
+		const courses = (await Promise.all(
+			user.courses.map(async (i) => this.userCourseModel.findById(i)),
+		)) as thing[];
 
-	// 	const lessons = new Map<thing, Lesson[]>();
-	// 	courses.forEach((i) => lessons.set(i, i.lessons));
-	// 	const nextLessons: Record<string, Lesson> = {};
+		const lessons = new Map<thing, Lesson[]>();
+		courses.forEach((i) => lessons.set(i, i.lessons));
+		const nextLessons: Record<string, Lesson> = {};
 
-	// 	for (const [k, v] of lessons) {
-	// 		if (!k.completed) {
-	// 			nextLessons[k.id] = (
-	// 				await Promise.all(v.map((i) => this.lessonModel.findById(i)))
-	// 			).find((i) => i.progress < 1);
-	// 		}
-	// 	}
+		for (const [k, v] of lessons) {
+			if (!k.completed) {
+				nextLessons[k.id] = (
+					await Promise.all(v.map((i) => this.lessonModel.findById(i)))
+				).find((i) => i.progress < 1);
+			}
+		}
 
-	// 	return nextLessons;
-	// }
+		return nextLessons;
+	}
 }
