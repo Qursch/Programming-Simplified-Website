@@ -9,7 +9,7 @@ import { Model } from 'mongoose';
 import EnrollDto from 'src/dto/enroll.dto';
 import { Course, CourseDocument } from 'src/schemas/course.schema';
 import { User, UserDocument } from 'src/schemas/user.schema';
-import { thing, UserCourseDocument } from 'src/schemas/userCourse.schema';
+import { UserCourse, UserCourseDocument } from 'src/schemas/userCourse.schema';
 import { Lesson, LessonDocument } from 'src/schemas/userLesson.schema';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class CourseService {
 		@InjectModel(Course.name)
 		private courseModel: Model<CourseDocument>,
 
-		@InjectModel(thing.name)
+		@InjectModel(UserCourse.name)
 		private userCourseModel: Model<UserCourseDocument>,
 
 		@InjectModel(Lesson.name)
@@ -137,7 +137,7 @@ export class CourseService {
 	) {
 		const user = await this.userModel.findOne({ email });
 		if (!user)
-		/* wtf */ throw new InternalServerErrorException('buy a lottery ticket');
+      /* wtf */ throw new InternalServerErrorException('buy a lottery ticket');
 		const userCourse = await this.findOne_UserCourse(user, courseId);
 		if (!userCourse) throw new NotFoundException('Course not found');
 
@@ -182,9 +182,9 @@ export class CourseService {
 	public async getProgress(user: User) {
 		const courses = (await Promise.all(
 			user.courses.map(async (i) => this.userCourseModel.findById(i)),
-		)) as thing[];
+		)) as UserCourse[];
 
-		const lessons = new Map<thing, Lesson[]>();
+		const lessons = new Map<UserCourse, Lesson[]>();
 		courses.forEach((i) => lessons.set(i, i.lessons));
 		const nextLessons: Record<string, Lesson> = {};
 
