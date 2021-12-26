@@ -24,6 +24,7 @@ import {
 import { useRouter } from "next/router";
 import { enrollInCourse, getUserCourse, updateCourse } from "api";
 import { useEffect, useState } from "react";
+import { getInfo } from "react-mediainfo";
 
 export default function CoursePage({ course }: { course?: Course }) {
 	if (typeof window === "undefined") return null;
@@ -215,6 +216,17 @@ export async function getStaticProps({ params }) {
 		id: course.id,
 		name: course.name,
 		lessons: course.lessons.map((lesson) => lesson.name),
+		// TODO: Promise.all for performance
+		// lessons: course.lessons.map((lesson) => {
+		// 	console.log(lesson.videoUrl);
+		// 	return {
+		// 		name: lesson.name,
+				
+		// 		// find length of video
+		// 		// getSeconds(lesson.videoUrl)
+		// 		length: 3600,
+		// 	};
+		// }),
 	}).then(({ data }) => console.log(data));
 
 	return {
