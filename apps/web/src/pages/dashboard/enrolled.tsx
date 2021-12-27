@@ -27,6 +27,9 @@ export default function Enrolled() {
 			.then(({ data }) => {
 				setIsLoading(false);
 				if (!data) return;
+				if (data.status === 401) {
+					window.location.href = "/login";
+				}
 				data.forEach((course, index) => {
 					let completedLessons = 0;
 					course.lessons.forEach((lesson) => {
@@ -41,7 +44,8 @@ export default function Enrolled() {
 				});
 				setUserCourses(data);
 			})
-			.catch(() => {
+			.catch((res) => {
+				console.log(res);
 				setIsLoading(false);
 			});
 	}, []);

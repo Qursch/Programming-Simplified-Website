@@ -29,6 +29,9 @@ export default function Dashboard() {
 		// setTimeout(() => {
 		getUserCourses()
 			.then(({ data }) => {
+				if (data.status === 401) {
+					window.location.href = "/login";
+				}
 				data.forEach((course, index) => {
 					let completedLessons = 0;
 					course.lessons.forEach((lesson) => {
@@ -42,7 +45,9 @@ export default function Dashboard() {
 				});
 				setCourses(data);
 			})
-			.catch(() => {});
+			.catch((res) => {
+				console.log(res);
+			});
 		setIsLoaded(true);
 		// }, 1000);
 	}, []);
@@ -109,7 +114,7 @@ export default function Dashboard() {
 							gap={10}
 						>
 							{courses.map((course) => (
-								<Stat course={course} />
+								<Stat key={course.id} course={course} />
 							))}
 							{[0, 1, 2].map(
 								(num) => courses.length <= num && <EnrollMore />

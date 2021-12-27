@@ -32,9 +32,16 @@ export default function CoursePage({ course }: { course?: Course }) {
 	useEffect(() => {
 		getUserCourse(course.id)
 			.then(({ data }) => {
+				if (data.status === 401) {
+					window.location.href = "/login";
+				}
 				setUserCourse(data);
 			})
-			.catch(() => {});
+			.catch((res) => {
+				if (res.response.status === 401) {
+					window.location.href = "/login";
+				}
+			});
 	}, []);
 
 	const router = useRouter();
@@ -220,7 +227,7 @@ export async function getStaticProps({ params }) {
 		// 	console.log(lesson.videoUrl);
 		// 	return {
 		// 		name: lesson.name,
-				
+
 		// 		// find length of video
 		// 		// getSeconds(lesson.videoUrl)
 		// 		length: 3600,
