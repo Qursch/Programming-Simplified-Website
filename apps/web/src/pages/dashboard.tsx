@@ -160,7 +160,7 @@ function Stat({ course }) {
 				size="120px"
 			>
 				<CircularProgressLabel>
-					{course.progress * 100}%
+					{parseFloat((course.progress * 100).toFixed(0))}%
 				</CircularProgressLabel>
 			</CircularProgress>
 			<Stack>

@@ -93,8 +93,12 @@ export default function Enrolled() {
 											<Stat
 												label="Course Progress"
 												value={
-													userCourse.progress * 100 +
-													"%"
+													parseFloat(
+														(
+															userCourse.progress *
+															100
+														).toFixed(0)
+													) + "%"
 												}
 											/>,
 											<Stat
