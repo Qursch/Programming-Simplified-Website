@@ -23,6 +23,7 @@ export default function Adsense({slot}) {
 			data-ad-client="ca-pub-8350269166887594"
 			data-ad-slot={slot}
 			data-ad-format="auto"
+			data-adtest={process.env.NODE_ENV === "development" ? "on" : "off"}
 			data-full-width-responsive="true"
 		/>
 	);
