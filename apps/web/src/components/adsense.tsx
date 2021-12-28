@@ -4,7 +4,7 @@ export default function Adsense({slot}) {
 	const loadAds = () => {
 		try {
 			if (typeof window !== "undefined") {
-				// @ts-ignore
+				// @ts-ignore gets injected by adsense
 				(window.adsbygoogle = window.adsbygoogle || []).push({});
 			}
 		} catch (error) {
