@@ -22,15 +22,6 @@ export default function Layout({ children = null }) {
 		router.events.on("routeChangeComplete", progress.finish);
 		router.events.on("routeChangeError", progress.finish);
 	}, [router.events]);
-	useEffect(() => {
-		var ads = document.getElementsByClassName("adsbygoogle").length;
-
-		for (var i = 0; i < ads; i++) {
-			if (typeof window !== "undefined")
-				// @ts-ignore
-				(window.adsbygoogle = window.adsbygoogle || []).push({});
-		}
-	}, []);
 
 	const themeCookie =
 		(themes[getCookie("theme")] && getCookie("theme")) || "default";

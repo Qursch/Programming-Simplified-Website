@@ -31,6 +31,7 @@ import confetti from "canvas-confetti";
 import { API_URL } from "config";
 import { io } from "socket.io-client";
 import { enrollInCourse, getUserCourse, setCurrentLesson } from "api";
+import Adsense from "@components/adsense";
 
 let socket;
 if (typeof window !== "undefined") {
@@ -304,17 +305,7 @@ export default function LessonPage({
 						</VStack>
 						<Stack pb="25px" maxW="1000px">
 							<Text>{blog?.blocks && parsePage(blog)}</Text>
-							<ins
-								className="adsbygoogle"
-								style={{
-									display: "block",
-									textAlign: "center",
-								}}
-								data-ad-layout="in-article"
-								data-ad-format="fluid"
-								data-ad-client="ca-pub-8350269166887594"
-								data-ad-slot="2190090661"
-							/>
+							<Adsense slot="2190090661" />
 						</Stack>
 						<HStack
 							p={{ base: "20px", md: "30px" }}
