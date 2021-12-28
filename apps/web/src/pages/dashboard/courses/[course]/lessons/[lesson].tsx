@@ -308,7 +308,7 @@ export default function LessonPage({
 								async
 								src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8350269166887594"
 								crossOrigin="anonymous"
-							></script>
+							/>
 							<ins
 								className="adsbygoogle"
 								style={{
@@ -319,7 +319,7 @@ export default function LessonPage({
 								data-ad-format="fluid"
 								data-ad-client="ca-pub-8350269166887594"
 								data-ad-slot="2190090661"
-							></ins>
+							/>
 							<script>
 								(adsbygoogle = window.adsbygoogle || []).push({}
 								);
