@@ -2,10 +2,10 @@ import { Box, Divider, Flex, Spacer, Stack } from "@chakra-ui/react";
 import {
 	FaBook,
 	FaBug,
-	FaCertificate,
 	FaClipboard,
 	FaDiscord,
 	// FaHandsHelping,
+	// FaCertificate,
 	FaHome,
 	FaInstagram,
 	FaYoutube,
@@ -62,11 +62,11 @@ export default function Sidebar(props) {
 								icon={FaHandsHelping}
 								href="/dashboard/help"
 							/> */}
-							<NavLink
+							{/* <NavLink
 								label="Request Certificate"
 								icon={FaCertificate}
 								href="/dashboard/certificate"
-							/>
+							/> */}
 							<NavLink
 								label="Report Bug"
 								icon={FaBug}
