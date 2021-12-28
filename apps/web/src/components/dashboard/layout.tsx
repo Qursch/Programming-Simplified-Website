@@ -22,6 +22,15 @@ export default function Layout({ children = null }) {
 		router.events.on("routeChangeComplete", progress.finish);
 		router.events.on("routeChangeError", progress.finish);
 	}, [router.events]);
+	useEffect(() => {
+		var ads = document.getElementsByClassName("adsbygoogle").length;
+
+		for (var i = 0; i < ads; i++) {
+			if (typeof window !== "undefined")
+				// @ts-ignore
+				(window.adsbygoogle = window.adsbygoogle || []).push({});
+		}
+	}, []);
 
 	const themeCookie =
 		(themes[getCookie("theme")] && getCookie("theme")) || "default";
@@ -46,11 +55,7 @@ export default function Layout({ children = null }) {
 					theme={theme}
 					setTheme={setTheme}
 				/>
-				<Box
-					bg="background"
-					boxSize="100%"
-					minH="100vh"
-				>
+				<Box bg="background" boxSize="100%" minH="100vh">
 					{children}
 				</Box>
 			</Flex>

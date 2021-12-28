@@ -304,11 +304,6 @@ export default function LessonPage({
 						</VStack>
 						<Stack pb="25px" maxW="1000px">
 							<Text>{blog?.blocks && parsePage(blog)}</Text>
-							<script
-								async
-								src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8350269166887594"
-								crossOrigin="anonymous"
-							/>
 							<ins
 								className="adsbygoogle"
 								style={{
@@ -320,10 +315,6 @@ export default function LessonPage({
 								data-ad-client="ca-pub-8350269166887594"
 								data-ad-slot="2190090661"
 							/>
-							<script>
-								(adsbygoogle = window.adsbygoogle || []).push({}
-								);
-							</script>
 						</Stack>
 						<HStack
 							p={{ base: "20px", md: "30px" }}
