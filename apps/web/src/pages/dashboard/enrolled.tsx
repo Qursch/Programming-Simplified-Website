@@ -104,7 +104,7 @@ export default function Enrolled() {
 														parseInt(
 															userCourse.currentLesson
 														) + 1
-													].name
+													]?.name
 												}
 											/>,
 											<Stat
