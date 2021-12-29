@@ -305,7 +305,7 @@ export default function LessonPage({
 						</VStack>
 						<Stack pb="25px" maxW="1000px">
 							<Text>{blog?.blocks && parsePage(blog)}</Text>
-							<Adsense slot="2190090661" />
+							{false && <Adsense slot="2190090661" />}
 						</Stack>
 						<HStack
 							p={{ base: "20px", md: "30px" }}
