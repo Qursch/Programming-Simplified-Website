@@ -8,6 +8,10 @@ import {
 	OrderedList,
 	Text,
 	UnorderedList,
+	Alert,
+	AlertIcon,
+	AlertTitle,
+	AlertDescription,
 } from "@chakra-ui/react";
 import { hexToRgb } from "@components/dashboard/layout";
 import NextChakraLink from "@components/nextChakraLink";
@@ -189,19 +193,27 @@ export function parseBlock(block: any): JSX.Element {
 					/>
 				</Box>
 			);
-
+		case "callout":
+			return (
+				<Alert status="warning" color="black" mt={5}>
+					<Box pr={5}>
+						<Text fontSize={30}>{block.callout.icon.emoji}</Text>
+					</Box>
+					{block.callout.text.map((item: any, idx: number) =>
+						cloneElement(parseText(item), { key: "quote_" + idx })
+					)}
+				</Alert>
+			);
 		case "video":
 		case "file":
 		case "pdf":
 		case "table_of_contents":
-		case "callout":
 		case "bookmark":
 		case "breadcrumb":
 		case "embed":
 		case "child_page":
 		case "child_database":
 		case "toggle":
-		case "unsupported":
 		default:
 			return (
 				<Text as="i" color="red">
