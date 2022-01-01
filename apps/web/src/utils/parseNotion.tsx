@@ -57,7 +57,7 @@ export function parseText(text: any) {
 
 	const plainText = replaceNewlines(text.plain_text);
 
-	if (text.href && !/^[\s\n]+$/g.test(text.plain_text)) {
+	if (text.href && !/^[\s]+$/g.test(text.plain_text)) {
 		return (
 			<NextChakraLink
 				href={text.href}
@@ -165,7 +165,7 @@ export function parseBlock(block: any): JSX.Element {
 				>
 					<CopyBlock
 						text={block.code.text
-							.map((block) => block.plain_text)
+							.map((b) => b.plain_text)
 							.join(", ")}
 						language={block.code.language}
 						theme={atomOneDark}
