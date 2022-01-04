@@ -1,6 +1,4 @@
-import {
-	ChakraProvider,
-} from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { pageview } from "@lib/gtag";
 import theme from "@styles/theme";
 import { META } from "config";
