@@ -1,9 +1,5 @@
 import {
 	ChakraProvider,
-	Alert,
-	AlertIcon,
-	AlertTitle,
-	AlertDescription,
 } from "@chakra-ui/react";
 import { pageview } from "@lib/gtag";
 import theme from "@styles/theme";
@@ -44,30 +40,6 @@ export default function MyApp({
 			</Head>
 			<ChakraProvider theme={theme}>
 				<AuthProvider>
-					{router.asPath.split("dashboard").length == 1 && (
-						<Alert
-							position="sticky"
-							top="0"
-							zIndex="100"
-							color="black"
-						>
-							<AlertIcon />
-							<AlertTitle>
-								<strong>
-									<span role="img" aria-label="warning">
-										⚠️
-									</span>
-								</strong>
-							</AlertTitle>
-							<AlertDescription>
-								The database was wiped entirely, we could not
-								retrieve user data. This won't happen again as
-								we will in the future have multiple layers of
-								redundancy. To access courses, you simply have
-								to make a new account.
-							</AlertDescription>
-						</Alert>
-					)}
 					<Component {...pageProps} />
 				</AuthProvider>
 			</ChakraProvider>
