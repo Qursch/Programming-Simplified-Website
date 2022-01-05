@@ -26,6 +26,7 @@ export default function MyApp({
 
 	const titleArray = router.asPath.split("/");
 	const title = titleArray[titleArray.length - 1];
+	
 	return (
 		<>
 			<Head>
