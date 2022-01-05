@@ -6,8 +6,8 @@ import { UsersService } from 'src/users/users.service';
 import { config } from 'dotenv';
 config();
 
-// import * as sgMail from '@sendgrid/mail';
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import * as sgMail from '@sendgrid/mail';
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 @Controller('auth')
 export class AuthController {
@@ -35,19 +35,19 @@ export class AuthController {
 		};
 	}
 
-@Post('resetpassword')
-        async resetPassword(@Body() body: {email: string}) {
-            
-        if(body.email) {
-            let user = await this.usersService.findOneByEmail(body.email);
-            if(user) {
-                let token = await this.authService.login(user)
-                await sgMail.send({ to: user.email, from: 'reset@programmingsimplified.org', subject: 'reset your programming simplified password', text: 'reset your programming simplified password at https://programmingsimplified.org/reset/' + token + '\nignore this message if you did not request it.'})
-	    }
-        }
-}
+	// @Post('resetpassword')
+	// async resetPassword(@Body() body: { email: string; }) {
 
-// if(await this.usersService.userExists(dto.username, dto.email)) throw new ConflictException({message: 'CONFLICT'});
+	// 	if (body.email) {
+	// 		let user = await this.usersService.findOneByEmail(body.email);
+	// 		if (user) {
+	// 			let token = await this.authService.login(user);
+	// 			await sgMail.send({ to: user.email, from: 'reset@programmingsimplified.org', subject: 'reset your programming simplified password', text: 'reset your programming simplified password at https://programmingsimplified.org/reset/' + token + '\nignore this message if you did not request it.' });
+	// 		}
+	// 	}
+	// }
+
+	// if(await this.usersService.userExists(dto.username, dto.email)) throw new ConflictException({message: 'CONFLICT'});
 	// const token = await this.jwtService.sign({
 	// 	username: dto.username,
 	// 	email: dto.email
