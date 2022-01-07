@@ -75,7 +75,7 @@ export default function Enrolled() {
 														parseInt(
 															userCourse.currentLesson
 														)
-													].name
+													]?.name
 												}
 											/>,
 											<Stat
@@ -86,7 +86,7 @@ export default function Enrolled() {
 															parseInt(
 																userCourse.currentLesson
 															)
-														].progress * 100
+														]?.progress * 100
 													) + "%"
 												}
 											/>,
