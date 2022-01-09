@@ -21,7 +21,7 @@ const META = {
 };
 
 const API_URL = IS_PRODUCTION
-	? "https://b7b9-72-193-196-156.ngrok.io"
+	? "https://2ca4-72-193-196-156.ngrok.io"
 	: "http://localhost:8081";
 
 export { GA_TRACKING_ID, IS_PRODUCTION, META, API_URL };
