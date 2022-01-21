@@ -21,7 +21,7 @@ export default function Header() {
 			<ContainerInside>
 				<HStack spacing="0" justify="space-between">
 					<HStack spacing={5}>
-						<NextChakraLink href="/" isExternal>
+						<NextChakraLink href="https://schoolsimplified.org" isExternal>
 							<NextImage
 								width={50}
 								height={50}
