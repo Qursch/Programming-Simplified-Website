@@ -1,4 +1,4 @@
-import { Box, Divider, HStack } from "@chakra-ui/react";
+import { Divider, HStack } from "@chakra-ui/react";
 import Container from "@components/container";
 import ContainerInside from "@components/containerInside";
 import Button from "@components/home/button";
@@ -21,14 +21,16 @@ export default function Header() {
 			<ContainerInside>
 				<HStack spacing="0" justify="space-between">
 					<HStack spacing={5}>
-						<NextImage
-							width={50}
-							height={50}
-							src="/ss_logo.png"
-							alt="dark logo"
-							className="circle"
-							quality={95}
-						/>
+						<NextChakraLink href="/" isExternal>
+							<NextImage
+								width={50}
+								height={50}
+								src="/ss_logo.png"
+								alt="dark logo"
+								className="circle"
+								quality={95}
+							/>
+						</NextChakraLink>
 
 						<Divider
 							orientation="vertical"
