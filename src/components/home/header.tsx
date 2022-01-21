@@ -21,16 +21,15 @@ export default function Header() {
 			<ContainerInside>
 				<HStack spacing="0" justify="space-between">
 					<HStack spacing={5}>
-						<Box bg="black" rounded="50%" boxSize="50px">
-							<NextImage
-								width={50}
-								height={50}
-								src="/ss_logo.png"
-								alt="dark logo"
-								className="circle"
-								quality={95}
-							/>
-						</Box>
+						<NextImage
+							width={50}
+							height={50}
+							src="/ss_logo.png"
+							alt="dark logo"
+							className="circle"
+							quality={95}
+						/>
+
 						<Divider
 							orientation="vertical"
 							color="black"
