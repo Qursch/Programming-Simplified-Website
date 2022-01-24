@@ -8,13 +8,8 @@ module.exports = {
 	async redirects() {
 		return [
 			{
-				source: "/join",
-				destination: "/discord",
-				permanent: true,
-			},
-			{
 				source: "/discord",
-				destination: "https://discord.gg/s6HAveWMCg",
+				destination: "https://discord.gg/VdvsGJrDZZ",
 				permanent: true,
 			},
 			{
