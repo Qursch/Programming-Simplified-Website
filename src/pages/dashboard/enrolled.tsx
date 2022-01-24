@@ -34,12 +34,12 @@ export default function Enrolled() {
 				data.forEach((course, index) => {
 					let completedLessons = 0;
 					course.lessons.forEach((lesson) => {
-						if (lesson.progress == 1) {
+						if (lesson?.progress == 1) {
 							completedLessons++;
 						}
 					});
 
-					data[index].progress = parseFloat(
+					data[index]?.progress = parseFloat(
 						(completedLessons / course.lessons.length).toFixed(4)
 					);
 				});
@@ -87,14 +87,14 @@ export default function Enrolled() {
 															parseInt(
 																userCourse.currentLesson
 															)
-														].progress * 100
+														]?.progress * 100
 													) + "%"
 												}
 											/>,
 											<Stat
 												label="Course Progress"
 												value={
-													userCourse.progress * 100 +
+													userCourse?.progress * 100 +
 													"%"
 												}
 											/>,
