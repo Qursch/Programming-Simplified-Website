@@ -129,7 +129,7 @@ export default function Footer() {
 							<FaDiscord size="25px" />
 						</NextChakraLink>
 					</HStack>
-					<Text size="md">
+					<Text fontSize="md">
 						©️ 2021 Copyright.{" "}
 						<span style={{ color: primary }}>
 							Programming Simplified
