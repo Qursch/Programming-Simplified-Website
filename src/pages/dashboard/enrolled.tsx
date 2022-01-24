@@ -39,7 +39,7 @@ export default function Enrolled() {
 						}
 					});
 
-					data[index]?.progress = parseFloat(
+					data[index].progress = parseFloat(
 						(completedLessons / course.lessons.length).toFixed(4)
 					);
 				});
