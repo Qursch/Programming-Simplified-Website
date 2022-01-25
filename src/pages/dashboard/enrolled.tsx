@@ -67,7 +67,7 @@ export default function Enrolled() {
 									{userCourses.map((userCourse) => {
 										const sections = [
 											<Heading size="md">
-												{userCourse.name}
+												{userCourse?.name}
 											</Heading>,
 											<Stat
 												label="Lesson"
@@ -105,7 +105,7 @@ export default function Enrolled() {
 														parseInt(
 															userCourse.currentLesson
 														) + 1
-													].name
+													]?.name
 												}
 											/>,
 											<Stat
