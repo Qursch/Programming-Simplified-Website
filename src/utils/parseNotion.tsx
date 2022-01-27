@@ -9,9 +9,6 @@ import {
 	Text,
 	UnorderedList,
 	Alert,
-	AlertIcon,
-	AlertTitle,
-	AlertDescription,
 } from "@chakra-ui/react";
 import { hexToRgb } from "@components/dashboard/layout";
 import NextChakraLink from "@components/nextChakraLink";
