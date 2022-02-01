@@ -53,7 +53,7 @@ export async function getCourse(page_id: string) {
 			database_id: blockChildren.results[0].id,
 		});
 		course = {
-			id: page_id,
+			id: page_id.split("-").join(""),
 			//@ts-ignore
 			name: coursePage.properties?.Name?.title?.[0]?.plain_text || null,
 			authors:
@@ -70,7 +70,7 @@ export async function getCourse(page_id: string) {
 				coursePage.properties?.CompletionTime?.rich_text?.[0]?.plain_text ||
 				null,
 			//@ts-ignore
-			image: `/courses/${page_id}.png`,
+			image: `/courses/${page_id.split("-").join("")}.png`,
 
 			lessons: parseLessons(lessonPages),
 		};
