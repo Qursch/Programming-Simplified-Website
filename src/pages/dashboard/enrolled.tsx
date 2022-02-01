@@ -116,7 +116,9 @@ export default function Enrolled() {
 										return (
 											<Stack
 												key={userCourse.id}
-												bgImage={`linear-gradient(0deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)), url('/courses/${userCourse?.id}.png')`}
+												bgImage={`linear-gradient(0deg,rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)), url('/courses/${userCourse?.id
+													.split("-")
+													.join("")}.png')`}
 												bgSize="cover"
 												bgPosition="center"
 												rounded={rounded}

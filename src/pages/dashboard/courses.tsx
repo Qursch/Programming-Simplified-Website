@@ -70,7 +70,7 @@ function CourseCard({ name, authors, image }) {
 			<Center rounded={rounded} pos="relative" maxW="300px" h="200px">
 				<NextImage
 					className="rounded"
-					src={image || "/logo_secondary.png"}
+					src={image.split("-").join("") || "/logo_secondary.png"}
 					alt={`${name} banner`}
 					layout="fill"
 					objectFit="cover"
