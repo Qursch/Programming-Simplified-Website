@@ -13,7 +13,7 @@ export async function getCourses() {
 	// @ts-ignore
 	return coursesDatabase?.results?.map((course) => {
 		return {
-			id: course?.id,
+			id: course?.id.split("-").join(""),
 			//@ts-ignore
 			name: course.properties?.Name?.title[0]?.plain_text || null,
 			//@ts-ignore
