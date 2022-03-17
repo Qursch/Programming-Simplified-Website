@@ -1,6 +1,7 @@
 import { Course, Lesson } from "types";
 import { Client } from "@notionhq/client";
 
+// console.log("NOTION_TOKEN:", process.env.NOTION_TOKEN);
 const notion = new Client({
 	auth: process.env.NOTION_TOKEN,
 });
@@ -28,7 +29,8 @@ export async function getCourses() {
 				null,
 			description:
 				//@ts-ignore
-				course.properties.Description?.rich_text?.[0]?.plain_text || null,
+				course.properties.Description?.rich_text?.[0]?.plain_text ||
+				null,
 		};
 	});
 }
@@ -41,14 +43,17 @@ export async function getCourse(page_id: string) {
 		description: "",
 		difficulty: "",
 		completionTime: "",
-		lessons: []
+		lessons: [],
 	};
 
-	await Promise.all([await notion.pages.retrieve({
-		page_id,
-	}), await notion.blocks.children.list({
-		block_id: page_id,
-	})]).then(async ([coursePage, blockChildren]) => {
+	await Promise.all([
+		await notion.pages.retrieve({
+			page_id,
+		}),
+		await notion.blocks.children.list({
+			block_id: page_id,
+		}),
+	]).then(async ([coursePage, blockChildren]) => {
 		const { results: lessonPages } = await notion.databases.query({
 			database_id: blockChildren.results[0].id,
 		});
@@ -61,14 +66,14 @@ export async function getCourse(page_id: string) {
 				coursePage.properties?.Author?.people || null,
 			description:
 				//@ts-ignore
-				coursePage.properties?.Description?.rich_text?.[0]?.plain_text ||
-				null,
+				coursePage.properties?.Description?.rich_text?.[0]
+					?.plain_text || null,
 			//@ts-ignore
 			difficulty: coursePage.properties?.Difficulty?.select?.name || null,
 			completionTime:
 				//@ts-ignore
-				coursePage.properties?.CompletionTime?.rich_text?.[0]?.plain_text ||
-				null,
+				coursePage.properties?.CompletionTime?.rich_text?.[0]
+					?.plain_text || null,
 			//@ts-ignore
 			image: `/courses/${page_id.split("-").join("")}.png`,
 
@@ -101,28 +106,26 @@ export function parseLessons(lessonPages) {
 		const previousLesson =
 			lessonPages?.[lessonPages.indexOf(lessonPage) - 1];
 		return {
-			id: (lessonPages.indexOf(lessonPage)).toString(),
+			id: lessonPages.indexOf(lessonPage).toString(),
 			blockId: lessonPage.id,
 			name: lessonPage.properties?.Name?.title?.[0]?.plain_text || null,
 			videoUrl:
 				lessonPage.properties.Video?.files?.[0]?.file?.url || null,
 			nextLesson: nextLesson
 				? {
-					id: (lessonPages.indexOf(nextLesson)).toString(),
-					name:
-						nextLesson?.properties?.Name?.title?.[0]
-							?.plain_text || null,
-				}
+						id: lessonPages.indexOf(nextLesson).toString(),
+						name:
+							nextLesson?.properties?.Name?.title?.[0]
+								?.plain_text || null,
+				  }
 				: null,
 			previousLesson: previousLesson
 				? {
-					id: (
-						lessonPages.indexOf(previousLesson)
-					).toString(),
-					name:
-						previousLesson?.properties?.Name?.title?.[0]
-							?.plain_text || null,
-				}
+						id: lessonPages.indexOf(previousLesson).toString(),
+						name:
+							previousLesson?.properties?.Name?.title?.[0]
+								?.plain_text || null,
+				  }
 				: null,
 		};
 	});
@@ -131,10 +134,12 @@ export function parseLessons(lessonPages) {
 export async function getLesson(page_id: string, lessonId: number) {
 	let lessons = [];
 	let course = {};
-	await Promise.all([getLessons(page_id), getCourse(page_id)]).then(([lessonsResolved, courseResolved]) => {
-		lessons = lessonsResolved;
-		course = courseResolved;
-	});
+	await Promise.all([getLessons(page_id), getCourse(page_id)]).then(
+		([lessonsResolved, courseResolved]) => {
+			lessons = lessonsResolved;
+			course = courseResolved;
+		}
+	);
 
 	const lesson: Lesson = {
 		id: lessonId,
