@@ -1,5 +1,6 @@
 const GA_TRACKING_ID = "G-50YH3YHM77";
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
+// const IS_PRODUCTION = true;
 
 const META = {
 	title: "Programming Simplified",
@@ -21,7 +22,9 @@ const META = {
 };
 
 const API_URL = IS_PRODUCTION
-	? "https://cb9f-34-125-114-154.ngrok.io"
-	: "http://localhost:8080";
+	? // ? "https://programming-simplified-api.herokuapp.com"
+	  "http://api.programmingsimplified.org" // DANGEROUS!?
+	: "http://localhost:7071/api";
+//   "http://localhost:8080";
 
 export { GA_TRACKING_ID, IS_PRODUCTION, META, API_URL };
