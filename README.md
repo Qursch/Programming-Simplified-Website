@@ -16,9 +16,6 @@ Proper Readme will follow
 
 ## Setup
 
-Click use this template or clone with
-`git clone https://github.com/HazimAr/Nextjs-ChakraUI-Boilerplate`
-
 install dependencies `npm i` or `yarn`
 
 install prettier globally `npm i -g prettier`
