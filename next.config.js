@@ -9,13 +9,12 @@ module.exports = {
 		return [
 			{
 				source: "/discord",
-				destination: "https://discord.gg/VdvsGJrDZZ",
+				destination: "https://discord.gg/WFBZkktt9Y",
 				permanent: true,
 			},
 			{
 				source: "/instagram",
-				destination:
-					"https://www.instagram.com/programmsimplified",
+				destination: "https://www.instagram.com/programmsimplified",
 				permanent: true,
 			},
 			{
