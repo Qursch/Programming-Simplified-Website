@@ -54,9 +54,9 @@ export default function Header() {
 						/>
 					</HStack>
 					<HStack spacing={{ base: "10px", md: "25px" }}>
-						<NextChakraLink href="/discord" isExternal>
+						{/* <NextChakraLink href="/discord" isExternal>
 							Discord
-						</NextChakraLink>
+						</NextChakraLink> */}
 						<NextChakraLink href="/dashboard/courses">
 							Courses
 						</NextChakraLink>
