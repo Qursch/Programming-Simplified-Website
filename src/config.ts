@@ -23,7 +23,7 @@ const META = {
 
 const API_URL = IS_PRODUCTION
 	? // ? "https://programming-simplified-api.herokuapp.com"
-	  "http://api.programmingsimplified.org" // DANGEROUS!?
+	  "https://programming-simplified-api.herokuapp.com/" // CORS issue incoming?
 	: "http://localhost:7071/api";
 //   "http://localhost:8080";
 
