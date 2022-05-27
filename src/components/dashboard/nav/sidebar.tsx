@@ -7,10 +7,7 @@ import {
 	FaDiscord,
 	// FaHandsHelping,
 	FaHome,
-	FaInstagram,
-	FaYoutube,
 } from "react-icons/fa";
-
 import Logo from "./logo";
 import NavLink from "./navlink";
 import UserProfile from "./userprofile";
@@ -88,7 +85,7 @@ export default function Sidebar(props) {
 								href="/discord"
 								isExternal
 							/>
-							<NavLink
+							{/* <NavLink
 								label="Instagram"
 								icon={FaInstagram}
 								href="/instagram"
@@ -99,7 +96,7 @@ export default function Sidebar(props) {
 								icon={FaYoutube}
 								href="https://www.youtube.com/channel/UC8ab5wEC09GfgwCUxisUB1g"
 								isExternal
-							/>
+							/> */}
 						</Stack>
 					</Stack>
 					<Spacer />

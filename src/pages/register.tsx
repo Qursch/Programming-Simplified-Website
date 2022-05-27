@@ -82,7 +82,7 @@ export default function Register() {
 															{...field}
 															type="firstName"
 															id="firstName"
-															placeholder="Hazim"
+															placeholder="Timmy"
 														/>
 													</InputGroup>
 													<FormErrorMessage>
@@ -113,7 +113,7 @@ export default function Register() {
 															{...field}
 															type="lastName"
 															id="lastName"
-															placeholder="Arafa"
+															placeholder="Turner"
 														/>
 													</InputGroup>
 													<FormErrorMessage>

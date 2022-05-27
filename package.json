@@ -1,11 +1,11 @@
 {
 	"name": "web",
 	"version": "0.1.0",
-	"author": "Hazim Arafa <hazimarafa80@gmail.com>",
+	"author": "School Simplified <support@schoolsimplified.org>",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/HazimAr/"
+		"url": "https://github.com/LeftistTachyon/Programming-Simplified-Website"
 	},
 	"keywords": [
 		"NextJS",

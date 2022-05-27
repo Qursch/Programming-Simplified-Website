@@ -1,4 +1,4 @@
-const GA_TRACKING_ID = "G-50YH3YHM77";
+const GA_TRACKING_ID = "G-QTX75YG2JF";
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 // const IS_PRODUCTION = true;
 
@@ -22,9 +22,7 @@ const META = {
 };
 
 const API_URL = IS_PRODUCTION
-	? // ? "https://programming-simplified-api.herokuapp.com"
-	  "https://programming-simplified-api.herokuapp.com/" // CORS issue incoming?
-	: "http://localhost:7071/api";
-//   "http://localhost:8080";
+	? "https://programming-simplified-api.herokuapp.com/"
+	: "http://localhost:8080";
 
 export { GA_TRACKING_ID, IS_PRODUCTION, META, API_URL };

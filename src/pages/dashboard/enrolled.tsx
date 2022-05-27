@@ -108,10 +108,10 @@ export default function Enrolled() {
 													]?.name
 												}
 											/>,
-											<Stat
-												label="Amount of Students"
-												value={userCourse.students}
-											/>,
+											// <Stat
+											// 	label="Amount of Students"
+											// 	value={userCourse.students}
+											// />,
 										];
 										return (
 											<Stack
