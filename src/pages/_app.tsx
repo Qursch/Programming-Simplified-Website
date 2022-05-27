@@ -1,8 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { pageview } from "@lib/gtag";
+import { AuthProvider } from "@providers/authContext";
 import theme from "@styles/theme";
 import { META } from "config";
-import { AuthProvider } from "@providers/authContext";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";

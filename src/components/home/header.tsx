@@ -1,25 +1,60 @@
-import { Center, Divider, HStack } from "@chakra-ui/react";
+import {
+	Button as SimpleButton,
+	Center,
+	Divider,
+	Flex,
+	HStack,
+	Spacer,
+	Text,
+} from "@chakra-ui/react";
 import Container from "@components/container";
 import ContainerInside from "@components/containerInside";
 import Button from "@components/home/button";
 import NextChakraLink from "@components/nextChakraLink";
 import { useAuth } from "@providers/authContext";
 import NextImage from "next/image";
+import { useState } from "react";
 
 export default function Header() {
 	const { user } = useAuth();
+	const [bannerVisible, setBannerVisible] = useState(true);
 
 	return (
-		<Container
-			shadow="md"
-			position="sticky"
-			top="0"
-			py="16px"
-			zIndex="10"
-			bg="white"
-		>
-			<ContainerInside>
-				<HStack spacing="0" justify="space-between">
+		<Container shadow="md" position="sticky" top={0} zIndex="10" bg="white">
+			<ContainerInside mx={0}>
+				{bannerVisible && (
+					<Flex
+						bgColor="#FFAC33"
+						color="black"
+						py={1}
+						px={2}
+						w="100%"
+						zIndex={1000}
+					>
+						<Spacer />
+						<Text as="b" fontWeight={700}>
+							SimpliHacks 2.0 Registration is Officially Open!{" "}
+							<NextChakraLink
+								href="/simplihacks"
+								_hover={{ color: "white" }}
+							>
+								<Text as="u">Click here to sign up!</Text>
+							</NextChakraLink>
+						</Text>
+						<Spacer />
+						<SimpleButton
+							justifySelf="flex-end"
+							bgColor="transparent"
+							p={0}
+							style={{ aspectRatio: "1" }}
+							size="xs"
+							onClick={() => setBannerVisible(false)}
+						>
+							X
+						</SimpleButton>
+					</Flex>
+				)}
+				<HStack spacing="0" justify="space-between" py={4} px={6}>
 					<HStack spacing={5}>
 						<NextChakraLink
 							href="https://schoolsimplified.org"
