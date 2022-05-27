@@ -46,11 +46,7 @@ export default function Layout({ children = null }) {
 					theme={theme}
 					setTheme={setTheme}
 				/>
-				<Box
-					bg="background"
-					boxSize="100%"
-					minH="100vh"
-				>
+				<Box bg="background" boxSize="100%" minH="100vh">
 					{children}
 				</Box>
 			</Flex>

@@ -1,24 +1,23 @@
 import {
+	CircularProgress,
+	CircularProgressLabel,
 	Heading,
 	HStack,
+	SimpleGrid,
+	Skeleton,
 	SkeletonText,
 	Stack,
 	Text,
-	Center,
 	VStack,
-	CircularProgress,
-	CircularProgressLabel,
-	Skeleton,
-	SimpleGrid,
 } from "@chakra-ui/react";
-import Layout from "@components/dashboard/layout";
-import { useAuth } from "@providers/authContext";
-import { FaFire } from "react-icons/fa";
-import { rounded, shadow } from "@styles/theme";
-import { useState, useEffect } from "react";
-import { getUserCourses } from "api/index";
 import Button from "@components/button";
+import Layout from "@components/dashboard/layout";
 import NextChakraLink from "@components/nextChakraLink";
+import { useAuth } from "@providers/authContext";
+import { rounded, shadow } from "@styles/theme";
+import { getUserCourses } from "api/index";
+import { useEffect, useState } from "react";
+import { FaFire } from "react-icons/fa";
 
 export default function Dashboard() {
 	const { user, isAuthenticated } = useAuth();
@@ -61,8 +60,10 @@ export default function Dashboard() {
 				w="100%"
 			>
 				<Card href="/dashboard/courses">
-					<Heading size="md">Enroll in more courses.</Heading>
-					<Button>Enroll</Button>
+					<VStack spacing={3}>
+						<Heading size="md">Enroll in more courses.</Heading>
+						<Button>Enroll</Button>
+					</VStack>
 				</Card>
 			</Skeleton>
 		);
@@ -70,7 +71,11 @@ export default function Dashboard() {
 
 	return (
 		<Layout>
-			<Center as={VStack} px={{ base: 4, md: 8 }}>
+			<VStack
+				px={{ base: 4, md: 8 }}
+				pt={{ base: 5, md: 10 }}
+				spacing={{ base: 5, md: 10 }}
+			>
 				<HStack spacing={20}>
 					<Stack>
 						<SkeletonText
@@ -117,12 +122,15 @@ export default function Dashboard() {
 								<Stat key={course.id} course={course} />
 							))}
 							{[0, 1, 2].map(
-								(num) => courses.length <= num && <EnrollMore />
+								(num) =>
+									courses.length <= num && (
+										<EnrollMore key={num} />
+									)
 							)}
 						</SimpleGrid>
 					</Stack>
 				</HStack>
-			</Center>
+			</VStack>
 		</Layout>
 	);
 }
@@ -138,7 +146,7 @@ function Card({ children, href, ...props }) {
 				shadow={shadow}
 				w="100%"
 				h="250px"
-				justify="space-between"
+				justify="center"
 				transition="all 0.2s ease"
 				_hover={{ transform: "scale(1.05)", cursor: "pointer" }}
 				{...props}

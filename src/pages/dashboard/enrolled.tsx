@@ -1,22 +1,21 @@
 import {
 	Center,
 	Heading,
-	Stack,
-	Text,
-	SimpleGrid,
-	Divider,
-	Box,
-	HStack,
-	VStack,
-	Spinner,
 	Link,
+	SimpleGrid,
+	Spinner,
+	Stack,
+	Table,
+	Td,
+	Text,
+	Tr,
+	VStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
 import NextChakraLink from "@components/nextChakraLink";
 import { rounded, shadow } from "@styles/theme";
 import { getUserCourses } from "api";
-
 import { useEffect, useState } from "react";
 
 export default function Enrolled() {
@@ -26,7 +25,6 @@ export default function Enrolled() {
 	useEffect(() => {
 		getUserCourses()
 			.then(({ data }) => {
-				setIsLoading(false);
 				if (!data) return;
 				if (data.status === 401) {
 					window.location.href = "/login";
@@ -44,6 +42,7 @@ export default function Enrolled() {
 					);
 				});
 				setUserCourses(data);
+				setIsLoading(false);
 			})
 			.catch((res) => {
 				console.log(res);
@@ -66,11 +65,9 @@ export default function Enrolled() {
 								>
 									{userCourses.map((userCourse) => {
 										const sections = [
-											<Heading size="md">
-												{userCourse?.name}
-											</Heading>,
 											<Stat
 												label="Lesson"
+												key="Lesson"
 												value={
 													userCourse.lessons[
 														parseInt(
@@ -81,6 +78,7 @@ export default function Enrolled() {
 											/>,
 											<Stat
 												label="Lesson Progress"
+												key="Lesson Progress"
 												value={
 													Math.round(
 														userCourse.lessons[
@@ -93,6 +91,7 @@ export default function Enrolled() {
 											/>,
 											<Stat
 												label="Course Progress"
+												key="Course Progress"
 												value={
 													userCourse?.progress * 100 +
 													"%"
@@ -100,6 +99,7 @@ export default function Enrolled() {
 											/>,
 											<Stat
 												label="Next Lesson"
+												key="Next Lesson"
 												value={
 													userCourse.lessons[
 														parseInt(
@@ -123,24 +123,25 @@ export default function Enrolled() {
 												bgPosition="center"
 												rounded={rounded}
 												shadow={shadow}
-												py="25px"
+												py={6}
 												px={{
-													base: "25px",
-													lg: "50px",
+													base: 6,
+													lg: 12,
 												}}
+												spacing={4}
 											>
-												{sections.map((section) => (
-													<>
-														{section}
-														<Box py={0.25} w="100%">
-															<Divider />
-														</Box>
-													</>
-												))}
+												<Heading size="md">
+													{userCourse?.name}
+												</Heading>
+												<Table
+													borderTopWidth={1}
+													borderTopColor="gray.100"
+												>
+													{sections}
+												</Table>
 												<Center>
 													<Link
 														href={`/dashboard/courses/${userCourse.id}/lessons/${userCourse?.currentLesson}`}
-														pt={4}
 													>
 														<Button>
 															Continue
@@ -165,7 +166,10 @@ export default function Enrolled() {
 											<Heading>
 												Enroll In More Courses
 											</Heading>
-											<NextChakraLink href="/dashboard/courses">
+											<NextChakraLink
+												href="/dashboard/courses"
+												pt={4}
+											>
 												<Button>
 													Enroll in a course
 												</Button>
@@ -194,12 +198,24 @@ export default function Enrolled() {
 }
 
 function Stat({ label, value }) {
+	// return (
+	// 	<HStack>
+	// 		<Text color="darkgrey">{label}</Text>
+	// 		<Heading fontSize={{ base: "lg", lg: "3xl" }} display="inline">
+	// 			{value}
+	// 		</Heading>
+	// 	</HStack>
+	// );
 	return (
-		<HStack>
-			<Text color="darkgrey">{label}</Text>
-			<Heading fontSize={{ base: "lg", lg: "3xl" }} display="inline">
-				{value}
-			</Heading>
-		</HStack>
+		<Tr>
+			<Td>
+				<Text color="darkgrey">{label}</Text>
+			</Td>
+			<Td>
+				<Heading fontSize={{ base: "lg", lg: "3xl" }} display="inline">
+					{value}
+				</Heading>
+			</Td>
+		</Tr>
 	);
 }
