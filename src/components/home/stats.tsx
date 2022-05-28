@@ -37,7 +37,7 @@ export default function Stats() {
 						animate="animation"
 						transition={{ duration: 1, delay: 0.5 }}
 					>
-						<Stat stat={400} title="Students" suffix="+" />
+						<Stat stat={140} title="Students" suffix="+" />
 					</motion.div>
 					<motion.div
 						variants={statsVariants}
@@ -46,7 +46,7 @@ export default function Stats() {
 						transition={{ duration: 1, delay: 0.75 }}
 					>
 						<Stat
-							stat={40}
+							stat={10}
 							title="Dedicated staff members"
 							suffix="+"
 						/>
@@ -57,7 +57,7 @@ export default function Stats() {
 						animate="animation"
 						transition={{ duration: 1, delay: 1 }}
 					>
-						<Stat stat={7} title="Instructors" />
+						<Stat stat={2} title="Instructors" />
 					</motion.div>
 				</HStack>
 			</ContainerInside>
