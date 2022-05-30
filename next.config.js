@@ -18,6 +18,11 @@ module.exports = {
 				permanent: true,
 			},
 			{
+				source: "/simplihacks",
+				destination: "https://www.schoolsimplified.org/simplihacks",
+				permanent: true,
+			},
+			{
 				source: "/dashboard/courses/:course/lessons",
 				destination: "/dashboard/courses/:course/lessons/0",
 				permanent: true,
