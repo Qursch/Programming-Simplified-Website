@@ -93,8 +93,10 @@ export default function Enrolled() {
 												label="Course Progress"
 												key="Course Progress"
 												value={
-													userCourse?.progress * 100 +
-													"%"
+													Math.round(
+														userCourse?.progress *
+															100
+													) + "%"
 												}
 											/>,
 											<Stat
