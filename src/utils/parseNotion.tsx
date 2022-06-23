@@ -295,3 +295,7 @@ export function parsePage(page) {
 	}
 	return <>{elementList}</>;
 }
+
+export function getFile(block: any): FileObj {
+	return block[block.type];
+}
