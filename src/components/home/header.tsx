@@ -1,28 +1,19 @@
-import {
-	Button as SimpleButton,
-	Center,
-	Divider,
-	Flex,
-	HStack,
-	Spacer,
-	Text,
-} from "@chakra-ui/react";
+import { Center, Divider, HStack } from "@chakra-ui/react";
 import Container from "@components/container";
 import ContainerInside from "@components/containerInside";
 import Button from "@components/home/button";
 import NextChakraLink from "@components/nextChakraLink";
 import { useAuth } from "@providers/authContext";
 import NextImage from "next/image";
-import { useState } from "react";
 
 export default function Header() {
 	const { user } = useAuth();
-	const [bannerVisible, setBannerVisible] = useState(true);
+	// const [bannerVisible, setBannerVisible] = useState(true);
 
 	return (
 		<Container shadow="md" position="sticky" top={0} zIndex="10" bg="white">
 			<ContainerInside mx={0}>
-				{bannerVisible && (
+				{/* {bannerVisible && (
 					<Flex
 						bgColor="#FFAC33"
 						color="black"
@@ -53,7 +44,7 @@ export default function Header() {
 							X
 						</SimpleButton>
 					</Flex>
-				)}
+				)} */}
 				<HStack spacing="0" justify="space-between" py={4} px={6}>
 					<HStack spacing={5}>
 						<NextChakraLink
