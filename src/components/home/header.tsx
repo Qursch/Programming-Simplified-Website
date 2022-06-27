@@ -96,6 +96,10 @@ export default function Header() {
 							Courses
 						</NextChakraLink>
 
+						<NextChakraLink href="/volunteer">
+							Volunteer
+						</NextChakraLink>
+
 						{user ? (
 							<NextChakraLink href="/dashboard">
 								Dashboard
