@@ -16,7 +16,6 @@ import Button from "@components/button";
 import Container from "@components/container";
 import Footer from "@components/home/footer";
 import Header from "@components/home/header";
-import ContainerBackground from "@components/containerBackground";
 import ContainerInside from "@components/containerInside";
 import NextChakraLink from "@components/nextChakra";
 import { AnimatePresence, motion } from "framer-motion";
@@ -46,199 +45,208 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 	// console.log("isAnimated:", isAnimated);
 
 	return (
-		<main style={{ color: "#fff" }}>
+		<>
 			<Header />
-
-			<Container
-				bg="gradient"
-				pt={{ base: 12, md: 24 }}
-				pb={{ base: 12, md: 24 }}
-				px={{ base: 5, md: 10 }}
-			>
-				<ContainerInside>
-					<Center>
-						<Stack
-							textAlign="left"
-							direction={{ base: "column-reverse", md: "row" }}
-							spacing={{ base: 5, md: 10 }}
-							justifyContent={{ base: "left", md: "center" }}
-							align="center"
+			<main style={{ color: "#fff" }}>
+				<Container
+					bg="gradient"
+					pt={{ base: 12, md: 24 }}
+					pb={{ base: 12, md: 24 }}
+					px={{ base: 5, md: 10 }}
+				>
+					<ContainerInside>
+						<Center>
+							<Stack
+								textAlign="left"
+								direction={{
+									base: "column-reverse",
+									md: "row",
+								}}
+								spacing={{ base: 5, md: 10 }}
+								justifyContent={{ base: "left", md: "center" }}
+								align="center"
+							>
+								<VStack flex={5} align="flex-start">
+									<Heading size="xl">Join Our Team</Heading>
+									<Text fontSize="lg">
+										We are one of the largest student-run
+										nonprofits in the world, and our
+										independence from other organizations
+										and institutions will provide you with
+										unprecedented freedom to create, learn,
+										and contribute. Whether your interests
+										lie in business, community, or
+										academics, join us today and empower our
+										generation to revolutionize our future!
+									</Text>
+								</VStack>
+							</Stack>
+						</Center>
+					</ContainerInside>
+				</Container>
+				<Container
+					pt={20}
+					bg="linear-gradient(180deg, #7683E7 0%, #A8B2FF 100%)"
+				>
+					<ContainerInside>
+						<VStack
+							spacing={10}
+							align="stretch"
+							divider={<StackDivider borderColor="white" />}
 						>
-							<VStack flex={5} align="flex-start">
-								<Heading size="xl">Join Our Team</Heading>
-								<Text fontSize="lg">
-									We are one of the largest student-run
-									nonprofits in the world, and our
-									independence from other organizations and
-									institutions will provide you with
-									unprecedented freedom to create, learn, and
-									contribute. Whether your interests lie in
-									business, community, or academics, join us
-									today and empower our generation to
-									revolutionize our future!
-								</Text>
-							</VStack>
-						</Stack>
-					</Center>
-				</ContainerInside>
-			</Container>
-			<Container
-				pt={20}
-				bg="linear-gradient(180deg, #7683E7 0%, #A8B2FF 100%)"
-			>
-				<ContainerInside>
-					<VStack
-						spacing={10}
-						align="stretch"
-						divider={<StackDivider borderColor="white" />}
-					>
-						<SimpleGrid
-							columns={{ base: 1, md: 2 }}
-							spacing={8}
-							h="90vh"
-							maxW="100%"
-							overflowX={{ base: "hidden", md: null }}
-							position="relative"
-						>
-							<AnimatePresence initial={false}>
-								{!isOpen || !isAnimated ? (
-									<motion.div
-										key="left"
-										style={{
-											overflowY: "scroll",
-											paddingRight: "0.5rem",
-										}}
-										variants={{
-											enter: { x: -1000, opacity: 0 },
-											center: {
-												zIndex: 1,
-												x: 0,
-												opacity: 1,
-											},
-											exit: {
-												zIndex: 0,
-												x: -1000,
-												opacity: 0,
-												position: "absolute",
-											},
-										}}
-										initial="enter"
-										animate="center"
-										exit="exit"
-										transition={transition}
-									>
-										<VStack spacing={5} align="stretch">
-											{postings.map(
-												(posting: JobPosting) => (
-													<VolunteerPosition
-														key={
-															posting.name +
-															posting.area
-														}
-														posting={posting}
-														onSelected={(
-															posting
-														) => {
-															setSelectedPosition(
+							<SimpleGrid
+								columns={{ base: 1, md: 2 }}
+								spacing={8}
+								h="90vh"
+								maxW="100%"
+								overflowX={{ base: "hidden", md: null }}
+								position="relative"
+							>
+								<AnimatePresence initial={false}>
+									{!isOpen || !isAnimated ? (
+										<motion.div
+											key="left"
+											style={{
+												overflowY: "scroll",
+												paddingRight: "0.5rem",
+												scrollbarWidth: "thin",
+											}}
+											variants={{
+												enter: { x: -1000, opacity: 0 },
+												center: {
+													zIndex: 1,
+													x: 0,
+													opacity: 1,
+												},
+												exit: {
+													zIndex: 0,
+													x: -1000,
+													opacity: 0,
+													position: "absolute",
+												},
+											}}
+											initial="enter"
+											animate="center"
+											exit="exit"
+											transition={transition}
+										>
+											<VStack spacing={5} align="stretch">
+												{postings.map(
+													(posting: JobPosting) => (
+														<VolunteerPosition
+															key={
+																posting.name +
+																posting.area
+															}
+															posting={posting}
+															onSelected={(
 																posting
-															);
-															onOpen();
-														}}
-														h="100%"
-													/>
-												)
-											)}
-										</VStack>
-									</motion.div>
-								) : null}
-								{selectedPosition && (isOpen || !isAnimated) ? (
-									<motion.div
-										key="right"
-										variants={{
-											enter: { x: 1000, opacity: 0 },
-											center: {
-												zIndex: 1,
-												x: 0,
-												opacity: 1,
-											},
-											exit: {
-												zIndex: 0,
-												x: 1000,
-												opacity: 0,
-												position: "absolute",
-											},
-										}}
-										initial="enter"
-										animate="center"
-										exit="exit"
-										transition={transition}
-									>
-										<VStack spacing={8} align="stretch">
-											{isAnimated ? (
-												<Button onClick={onClose}>
-													Back
-												</Button>
-											) : null}
-											<Stack
-												direction={{
-													base: "column",
-													lg: "row",
-												}}
-												bg="brand.darkerBlue"
-												rounded={25}
-												px={10}
-												py={6}
-											>
-												<VStack
-													align="stretch"
-													textAlign="left"
-													flex={1}
+															) => {
+																setSelectedPosition(
+																	posting
+																);
+																onOpen();
+															}}
+															h="100%"
+														/>
+													)
+												)}
+											</VStack>
+										</motion.div>
+									) : null}
+									{selectedPosition &&
+									(isOpen || !isAnimated) ? (
+										<motion.div
+											key="right"
+											variants={{
+												enter: { x: 1000, opacity: 0 },
+												center: {
+													zIndex: 1,
+													x: 0,
+													opacity: 1,
+												},
+												exit: {
+													zIndex: 0,
+													x: 1000,
+													opacity: 0,
+													position: "absolute",
+												},
+											}}
+											initial="enter"
+											animate="center"
+											exit="exit"
+											transition={transition}
+										>
+											<VStack spacing={8} align="stretch">
+												{isAnimated ? (
+													<Button onClick={onClose}>
+														Back
+													</Button>
+												) : null}
+												<Stack
+													direction={{
+														base: "column",
+														lg: "row",
+													}}
+													bg="#5A60ADCC"
+													rounded={25}
+													px={10}
+													py={6}
 												>
-													<Text fontSize="sm">
-														{selectedPosition.area}
-													</Text>
-													<Heading fontSize="lg">
-														{selectedPosition.name}
-													</Heading>
-												</VStack>
-												<NextChakraLink
-													href={
-														selectedPosition.form ??
-														""
-													}
-												>
-													<Button
-														timmysrc="/timmy/10.png"
+													<VStack
+														align="stretch"
+														textAlign="left"
 														flex={1}
 													>
-														Apply Now
-													</Button>
-												</NextChakraLink>
-											</Stack>
-											<Box
-												bg="brand.darkerBlue"
-												rounded={25}
-												px={10}
-												py={6}
-												textAlign="left"
-											>
-												{selectedPosition.description}
-											</Box>
-										</VStack>
-									</motion.div>
-								) : null}
-							</AnimatePresence>
-						</SimpleGrid>
-					</VStack>
-				</ContainerInside>
-			</Container>
-			<Box
-				h={100}
-				bg="linear-gradient(180deg, #A8B2FF 20%, transparent 100%)"
-			/>
+														<Text fontSize="sm">
+															{
+																selectedPosition.area
+															}
+														</Text>
+														<Heading fontSize="lg">
+															{
+																selectedPosition.name
+															}
+														</Heading>
+													</VStack>
+													<NextChakraLink
+														href={
+															selectedPosition.form ??
+															""
+														}
+													>
+														<Button flex={1}>
+															Apply Now
+														</Button>
+													</NextChakraLink>
+												</Stack>
+												<Box
+													bg="#5A60ADCC"
+													rounded={25}
+													px={10}
+													py={6}
+													textAlign="left"
+												>
+													{
+														selectedPosition.description
+													}
+												</Box>
+											</VStack>
+										</motion.div>
+									) : null}
+								</AnimatePresence>
+							</SimpleGrid>
+						</VStack>
+					</ContainerInside>
+				</Container>
+				<Box
+					h={100}
+					bg="linear-gradient(180deg, #A8B2FF 20%, transparent 100%)"
+				/>
 
-			<Footer />
-		</main>
+				<Footer />
+			</main>
+		</>
 	);
 }
 
