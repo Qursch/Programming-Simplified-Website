@@ -69,7 +69,7 @@ export default function Header() {
 							h="50px"
 							w={5}
 						/>
-						<NextChakraLink href="/">
+						<NextChakraLink href="/" style={{ marginLeft: 0 }}>
 							<Center>
 								<NextImage
 									width={50}
