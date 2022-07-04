@@ -15,6 +15,10 @@ const theme = extendTheme({
 	},
 	styles: {
 		global: () => ({
+			html: {
+				scrollbarColor: "#6C7DFE #f8f8f8",
+				scrollbarWidth: "thin",
+			},
 			body: {
 				fontFamily:
 					"-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",

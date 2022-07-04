@@ -69,15 +69,18 @@ export default function Header() {
 							h="50px"
 							w={5}
 						/>
-
-						<NextImage
-							width={50}
-							height={50}
-							src="/logo_secondary.png"
-							alt="dark logo"
-							className="circle"
-							quality={95}
-						/>
+						<NextChakraLink href="/" style={{ marginLeft: 0 }}>
+							<Center>
+								<NextImage
+									width={50}
+									height={50}
+									src="/logo_secondary.png"
+									alt="dark logo"
+									className="circle"
+									quality={95}
+								/>
+							</Center>
+						</NextChakraLink>
 					</HStack>
 					<HStack spacing={{ base: "10px", md: "25px" }}>
 						{/* <NextChakraLink href="/discord" isExternal>
@@ -85,6 +88,10 @@ export default function Header() {
 						</NextChakraLink> */}
 						<NextChakraLink href="/dashboard/courses">
 							Courses
+						</NextChakraLink>
+
+						<NextChakraLink href="/volunteer">
+							Volunteer
 						</NextChakraLink>
 
 						{user ? (
