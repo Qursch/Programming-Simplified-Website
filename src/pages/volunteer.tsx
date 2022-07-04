@@ -10,6 +10,7 @@ import {
 	Text,
 	useBreakpointValue,
 	useDisclosure,
+	useToken,
 	VStack,
 } from "@chakra-ui/react";
 import Button from "@components/button";
@@ -39,6 +40,7 @@ const transition = {
  */
 export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 	const [selectedPosition, setSelectedPosition] = useState<JobPosting>(null);
+	const [primary] = useToken("colors", ["primary"]);
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const isAnimated = useBreakpointValue({ base: true, md: false });
@@ -49,7 +51,6 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 			<Header />
 			<main style={{ color: "#fff" }}>
 				<Container
-					bg="gradient"
 					pt={{ base: 12, md: 24 }}
 					pb={{ base: 12, md: 24 }}
 					px={{ base: 5, md: 10 }}
@@ -67,8 +68,16 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 								align="center"
 							>
 								<VStack flex={5} align="flex-start">
-									<Heading size="xl">Join Our Team</Heading>
-									<Text fontSize="lg">
+									<Heading
+										style={{ color: primary }}
+										size="xl"
+									>
+										Join Our Team
+									</Heading>
+									<Text
+										fontSize="lg"
+										style={{ color: "#000" }}
+									>
 										We are one of the largest student-run
 										nonprofits in the world, and our
 										independence from other organizations
@@ -84,10 +93,7 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 						</Center>
 					</ContainerInside>
 				</Container>
-				<Container
-					pt={20}
-					bg="linear-gradient(180deg, #7683E7 0%, #A8B2FF 100%)"
-				>
+				<Container pt={20} bg="white">
 					<ContainerInside>
 						<VStack
 							spacing={10}
@@ -97,7 +103,7 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 							<SimpleGrid
 								columns={{ base: 1, md: 2 }}
 								spacing={8}
-								h="90vh"
+								maxH="90vh"
 								maxW="100%"
 								overflowX={{ base: "hidden", md: null }}
 								position="relative"
@@ -107,7 +113,6 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 										<motion.div
 											key="left"
 											style={{
-												overflowY: "scroll",
 												paddingRight: "0.5rem",
 												scrollbarWidth: "thin",
 											}}
@@ -188,7 +193,7 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 														base: "column",
 														lg: "row",
 													}}
-													bg="#5A60ADCC"
+													bg="gradient"
 													rounded={25}
 													px={10}
 													py={6}
@@ -221,7 +226,7 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 													</NextChakraLink>
 												</Stack>
 												<Box
-													bg="#5A60ADCC"
+													bg="gradient"
 													rounded={25}
 													px={10}
 													py={6}
@@ -240,8 +245,8 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 					</ContainerInside>
 				</Container>
 				<Box
-					h={100}
-					bg="linear-gradient(180deg, #A8B2FF 20%, transparent 100%)"
+					h={10}
+					bg="linear-gradient(180deg, white 20%, transparent 100%)"
 				/>
 
 				<Footer />
@@ -289,7 +294,7 @@ function VolunteerPosition({
 			transition="all 0.15s ease-in"
 			borderRadius="lg"
 			overflow="hidden"
-			bg="#5A60ADCC"
+			bg="gradient"
 			onClick={() => onSelected?.(posting)}
 			_hover={{ transform: "scale(0.97)", cursor: "pointer" }}
 			{...stackProps}
