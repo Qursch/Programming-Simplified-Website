@@ -1,5 +1,5 @@
-import { Course, Lesson, JobPosting } from "types";
 import { Client } from "@notionhq/client";
+import { Course, Lesson, JobPosting } from "types";
 import { getFile } from "utils/parseNotion";
 
 // console.log("NOTION_TOKEN:", process.env.NOTION_TOKEN);
@@ -172,29 +172,35 @@ export async function getJobPostings(): Promise<JobPosting[]> {
 		database_id: "221eb8e2d21b4094976a1038e8e03506",
 	});
 
-	return response.results.map(
-		// @ts-ignore
-		(page: { properties: Record<string, any> }): JobPosting => {
-			const file0 = page.properties.Image.files[0];
-			const programs = page.properties["Program/Org"].multi_select.map(
-				({ name }) => name
-			);
-			return {
-				description:
-					page.properties.Description.rich_text?.[0]?.plain_text ??
-					null,
-				rank: page.properties["Volunteer Type"].select?.name ?? null,
-				form: page.properties.Form.url ?? null,
-				programs,
-				image: file0 ? getFile(file0) : null,
-				area: page.properties["Area of Work"].select?.name ?? null,
-				name: page.properties.Name.title?.[0]?.plain_text ?? null,
-			};
-		}
-	).filter((posting) => {
-		for (let i = 0; i < posting.programs.length; i++) {
-			if (posting.programs[i] === "Organization: Programming Simplified")
-				return true;
-		}
-	});
+	return response.results
+		.map(
+			// @ts-ignore
+			(page: { properties: Record<string, any> }): JobPosting => {
+				const file0 = page.properties.Image.files[0];
+				const programs = page.properties[
+					"Program/Org"
+				].multi_select.map(({ name }) => name);
+				return {
+					description:
+						page.properties.Description.rich_text?.[0]
+							?.plain_text ?? null,
+					rank:
+						page.properties["Volunteer Type"].select?.name ?? null,
+					form: page.properties.Form.url ?? null,
+					programs,
+					image: file0 ? getFile(file0) : null,
+					area: page.properties["Area of Work"].select?.name ?? null,
+					name: page.properties.Name.title?.[0]?.plain_text ?? null,
+				};
+			}
+		)
+		.filter((posting) => {
+			for (let i = 0; i < posting.programs.length; i++) {
+				if (
+					posting.programs[i] ===
+					"Organization: Programming Simplified"
+				)
+					return true;
+			}
+		});
 }

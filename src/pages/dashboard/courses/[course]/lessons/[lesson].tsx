@@ -268,7 +268,7 @@ export default function LessonPage({
 									bg="black"
 								>
 									<Heading textAlign="center">
-										Stay tuned for the video
+										Stay tuned for the video!
 									</Heading>
 								</Center>
 							)}

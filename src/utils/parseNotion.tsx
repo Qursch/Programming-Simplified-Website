@@ -100,7 +100,7 @@ export function parseBlock(block: any): JSX.Element {
 		case "paragraph":
 			return (
 				<Text mt="15px">
-					{block.paragraph.text.map((item: any, idx: number) =>
+					{block.paragraph.rich_text.map((item: any, idx: number) =>
 						cloneElement(parseText(item), { key: "text_" + idx })
 					)}
 				</Text>
@@ -108,7 +108,7 @@ export function parseBlock(block: any): JSX.Element {
 		case "heading_1":
 			return (
 				<Heading as="h1" mt="40px">
-					{block.heading_1.text.map((item: any, idx: number) =>
+					{block.heading_1.rich_text.map((item: any, idx: number) =>
 						cloneElement(parseText(item), { key: "text_" + idx })
 					)}
 				</Heading>
@@ -116,7 +116,7 @@ export function parseBlock(block: any): JSX.Element {
 		case "heading_2":
 			return (
 				<Heading as="h2" pt={2} size="lg">
-					{block.heading_2.text.map((item: any, idx: number) =>
+					{block.heading_2.rich_text.map((item: any, idx: number) =>
 						cloneElement(parseText(item), { key: "text_" + idx })
 					)}
 				</Heading>
@@ -124,7 +124,7 @@ export function parseBlock(block: any): JSX.Element {
 		case "heading_3":
 			return (
 				<Heading as="h3" pt={1} size="md">
-					{block.heading_3.text.map((item: any, idx: number) =>
+					{block.heading_3.rich_text.map((item: any, idx: number) =>
 						cloneElement(parseText(item), { key: "text_" + idx })
 					)}
 				</Heading>
@@ -133,7 +133,7 @@ export function parseBlock(block: any): JSX.Element {
 		case "numbered_list_item":
 			return (
 				<ListItem>
-					{block[block.type].text.map((item: any, idx: number) =>
+					{block[block.type].rich_text.map((item: any, idx: number) =>
 						cloneElement(parseText(item), { key: "text_" + idx })
 					)}
 				</ListItem>
@@ -141,7 +141,7 @@ export function parseBlock(block: any): JSX.Element {
 		case "to_do":
 			return (
 				<Checkbox defaultChecked={block.checked} disabled>
-					{block.to_do.text.map((item: any, idx: number) =>
+					{block.to_do.rich_text.map((item: any, idx: number) =>
 						cloneElement(parseText(item), { key: "text_" + idx })
 					)}
 				</Checkbox>
@@ -151,7 +151,7 @@ export function parseBlock(block: any): JSX.Element {
 		case "quote":
 			return (
 				<Box borderLeftColor="white" borderLeftWidth={3} pl={5}>
-					{block.quote.text.map((item: any, idx: number) =>
+					{block.quote.rich_text.map((item: any, idx: number) =>
 						cloneElement(parseText(item), { key: "quote_" + idx })
 					)}
 				</Box>
@@ -164,7 +164,7 @@ export function parseBlock(block: any): JSX.Element {
 					style={{ tabSize: 2 }}
 				>
 					<CopyBlock
-						text={block.code.text
+						text={block.code.rich_text
 							.map((block) => block.plain_text)
 							.join(", ")}
 						language={block.code.language}
@@ -196,7 +196,7 @@ export function parseBlock(block: any): JSX.Element {
 					<Box pr={5}>
 						<Text fontSize={30}>{block.callout.icon.emoji}</Text>
 					</Box>
-					{block.callout.text.map((item: any, idx: number) =>
+					{block.callout.rich_text.map((item: any, idx: number) =>
 						cloneElement(parseText(item), { key: "quote_" + idx })
 					)}
 				</Alert>
