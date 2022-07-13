@@ -1,4 +1,4 @@
-import { Button as ChakraButton} from "@chakra-ui/react";
+import { Button as ChakraButton } from "@chakra-ui/react";
 import { rounded, shadow } from "@styles/theme";
 
 export default function Button({
@@ -24,8 +24,9 @@ export default function Button({
 			_hover={
 				!isSubmitting && {
 					// transform: "scale(0.95)",
-					background: "transparent",
+					background: "white",
 					color: "primary",
+					borderColor: "white",
 				}
 			}
 			_active={
