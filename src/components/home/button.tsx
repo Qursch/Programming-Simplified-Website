@@ -2,8 +2,8 @@ import { Button as ChakraButton } from "@chakra-ui/react";
 import { rounded, shadow } from "@styles/theme";
 
 export default function Button({ type = "black", children, ...props }) {
-	let bg;
-	let color;
+	let bg: string;
+	let color: string;
 	switch (type) {
 		case "primary":
 			bg = "primary";

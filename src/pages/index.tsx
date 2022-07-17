@@ -9,13 +9,17 @@ import Language from "@components/home/language";
 import Testimonials from "@components/home/testimonials";
 import { Course } from "types";
 import { getCourses } from "api/notion";
-
+import configureGA from "hooks/configureGA";
+import { useAuth } from "@providers/authContext";
 
 export default function Home({ courses }: { courses: Course[] }) {
+	const { user } = useAuth();
+	configureGA(user);
+
 	return (
 		<main style={{ color: "#101010" }}>
 			<Header />
-			
+
 			<Hero />
 			<Stats />
 			<Features />
