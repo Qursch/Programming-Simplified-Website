@@ -19,21 +19,19 @@ export function AuthProvider({ children }) {
 	const [isLoading, setIsLoading] = useState(true);
 	const router = useRouter();
 
-	// @ts-ignore
-	useEffect(async () => {
+	useEffect(() => {
 		const token = localStorage.getItem("token");
 		if (token) {
 			axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-			await axios
+			axios
 				.get("/users/profile")
 				.then(({ data }) => {
 					setUser(data);
 					setIsAuthenticated(true);
+					setIsLoading(false);
 				})
 				.catch(() => {});
-			// @ts-ignore
-		}
-		setIsLoading(false);
+		} else setIsLoading(false);
 	}, []);
 
 	const logout = () => {

@@ -29,10 +29,10 @@ import Head from "next/head";
 import LessonsMenu from "@components/dashboard/lessonsMenu";
 import confetti from "canvas-confetti";
 import { API_URL } from "config";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { enrollInCourse, getUserCourse, setCurrentLesson } from "api";
 
-let socket;
+let socket: Socket | undefined;
 if (typeof window !== "undefined") {
 	socket = io(API_URL);
 }
@@ -164,10 +164,7 @@ export default function LessonPage({
 							</Button>
 							{lesson?.nextLesson?.id && (
 								<Link
-									href={`/dashboard/courses/${
-										router.query.course
-										// @ts-ignore
-									}/lessons/${lesson?.nextLesson?.id}`}
+									href={`/dashboard/courses/${router.query.course}/lessons/${lesson?.nextLesson?.id}`}
 									onClick={() => setFinished(false)}
 								>
 									<Button
@@ -366,10 +363,7 @@ export default function LessonPage({
 									</Stack>
 
 									<Link
-										href={`/dashboard/courses/${
-											router.query.course
-											// @ts-ignore
-										}/lessons/${lesson?.nextLesson?.id}`}
+										href={`/dashboard/courses/${router.query.course}/lessons/${lesson?.nextLesson?.id}`}
 									>
 										<Button
 											isSecondary
