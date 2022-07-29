@@ -30,47 +30,47 @@ export async function getStudents(courseId) {
 export async function enrollInCourse(body) {
 	return axios.put("/course/enroll", body, {
 		headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`,
-		},
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
 	});
 }
 
 export async function updateCourse(course) {
 	return axios.put("/course", course, {
 		headers: {
-			Authorization: `Bearer ${process.env.API_TOKEN}`,
-		},
+			"Authorization": `Bearer ${process.env.API_TOKEN}`
+		}
 	});
 }
 
 export async function setCurrentLesson(body) {
 	return axios.put("/course/currentLesson", body, {
 		headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`,
-		},
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
 	});
 }
 
 export async function getUserCourse(courseId) {
 	return axios.get(`/course/${courseId}`, {
 		headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`,
-		},
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
 	});
 }
 
 export async function getUserCourses() {
 	return axios.get("/course/all", {
 		headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`,
-		},
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
 	});
 }
 
 export async function getIsRegistered(courseId) {
 	return axios.get(`/codePost/registered/${courseId}`, {
 		headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`,
+			"Authorization": `Bearer ${localStorage.getItem("token")}`,
 		},
 	});
 }
@@ -78,7 +78,7 @@ export async function getIsRegistered(courseId) {
 export async function getHasSubmitted(assignmentId) {
 	return axios.get(`/codePost/submitted/${assignmentId}`, {
 		headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`,
+			"Authorization": `Bearer ${localStorage.getItem("token")}`,
 		},
 	});
 }

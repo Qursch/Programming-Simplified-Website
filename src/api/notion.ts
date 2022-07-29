@@ -32,6 +32,18 @@ export async function getCourses() {
 				//@ts-ignore
 				course.properties.Description?.rich_text?.[0]?.plain_text ||
 				null,
+			codePostId:
+				//@ts-ignore
+				course.properties.codePostId?.rich_text?.[0]?.plain_text ||
+				null,
+			codePostInvite:
+				//@ts-ignore
+				course.properties.codePostId?.rich_text?.[0]?.plain_text ||
+				null,
+			codePostUrl:
+				//@ts-ignore
+				course.properties.codePostId?.rich_text?.[0]?.plain_text ||
+				null,
 		};
 	});
 }
@@ -45,6 +57,9 @@ export async function getCourse(page_id: string) {
 		difficulty: "",
 		completionTime: "",
 		lessons: [],
+		codePostId: "",
+		codePostInvite: "",
+		codePostUrl: "",
 	};
 
 	await Promise.all([
@@ -77,6 +92,18 @@ export async function getCourse(page_id: string) {
 					?.plain_text || null,
 			//@ts-ignore
 			image: `/courses/${page_id.split("-").join("")}.png`,
+			codePostId:
+				//@ts-ignore
+				coursePage.properties?.codePostId?.rich_text?.[0]?.plain_text ||
+				null,
+			codePostInvite:
+				//@ts-ignore
+				coursePage.properties?.codePostInvite?.rich_text?.[0]
+					?.plain_text || null,
+			codePostUrl:
+				//@ts-ignore
+				coursePage.properties?.codePostUrl?.rich_text?.[0]
+					?.plain_text || null,
 
 			lessons: parseLessons(lessonPages),
 		};
