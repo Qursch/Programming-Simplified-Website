@@ -25,6 +25,9 @@ export type Course = {
 	completionTime: string;
 	image?: string;
 	lessons: Lesson[];
+	codePostId?: Object;
+	codePostInvite?: Object;
+	codePostUrl?: Object;
 };
 
 export type Author = {
@@ -49,6 +52,7 @@ export type Lesson = {
 	videoUrl: string;
 	nextLesson: Lesson;
 	previousLesson: Lesson;
+	assignmentId?: string;
 };
 
 export type FileObj = {
