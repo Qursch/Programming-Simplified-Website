@@ -31,6 +31,7 @@ import confetti from "canvas-confetti";
 import { API_URL } from "config";
 import { io, Socket } from "socket.io-client";
 import { enrollInCourse, getUserCourse, setCurrentLesson } from "api";
+import { getIsRegistered } from "api";
 
 let socket: Socket | undefined;
 if (typeof window !== "undefined") {
@@ -52,6 +53,7 @@ export default function LessonPage({
 	const [animationId, setAnimationId] = useState(0);
 	const [finished, setFinished] = useState(false);
 	const [courseState, setCourseState] = useState(null);
+	const [isRegistered, setIsRegistered] = useState(false);
 
 	useEffect(() => {
 		if (finished) {
@@ -108,6 +110,28 @@ export default function LessonPage({
 		socket.on("progress", (data: any) => {
 			console.log("Lesson Progress Updated", data);
 		});
+	}, []);
+
+	useEffect(() => {
+		if (course.codePostId !== null) {
+			if (!isRegistered) {
+				getIsRegistered(course.codePostId)
+					.then(({ data }) => {
+						setIsRegistered(data);
+						if (data == false) {
+							router.push(
+								`/dashboard/courses/${course.id}/codepost/join`
+							);
+						}
+					})
+					.catch(() => {
+						setIsRegistered(false);
+						router.push(
+							`/dashboard/courses/${course.id}/codepost/join`
+						);
+					});
+			}
+		}
 	}, []);
 
 	return (

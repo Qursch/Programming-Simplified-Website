@@ -1,27 +1,51 @@
-import {
-	Center,
-	Circle,
-	Heading,
-	HStack,
-	SimpleGrid,
-	Skeleton,
-	Stack,
-	Text,
-	VStack,
-	Link,
-	Button,
-} from "@chakra-ui/react";
+import { Center, Heading, Text, VStack, Link, Button } from "@chakra-ui/react";
 import Layout from "@components/dashboard/layout";
-import NextChakraLink from "@components/nextChakraLink";
-import { useAuth } from "@providers/authContext";
-import { rounded, shadow } from "@styles/theme";
 import { RiShareBoxFill } from "react-icons/ri";
 import { getCourse, getCourses } from "api/notion";
 import {} from "react-icons/fa";
-import NextImage from "next/image";
-import { getIsRegistered } from "api";
+import { getIsRegistered, getUserCourse } from "api";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Join({ course }: { course: any }) {
+	const router = useRouter();
+	const [userCourse, setUserCourse] = useState(null);
+	const [msg, setMsg] = useState("");
+
+	useEffect(() => {
+		getUserCourse(course.id)
+			.then(({ data }) => {
+				if (data.status === 401) {
+					window.location.href = "/login";
+				}
+				setUserCourse(data);
+			})
+			.catch((res) => {
+				if (res.response.status === 401) {
+					window.location.href = "/login";
+				}
+			});
+	}, []);
+
+	const checkHasRegistered = () => {
+		getIsRegistered(course.codePostId)
+			.then(({ data }) => {
+				if (data.status == 401) {
+					window.location.href = "/login";
+				} else if (data == true) {
+					setMsg("Success! Loading the course...");
+					router.push(
+						`/dashboard/courses/${course.id}/lessons/${userCourse?.currentLesson}`
+					);
+				} else {
+					setMsg("You have not registered for this course yet.");
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	return (
 		// Display the course's codepost invite link
 		// Add verify button to verify the user has joined the codepost
@@ -63,12 +87,11 @@ export default function Join({ course }: { course: any }) {
 						bg="primary"
 						p="30px"
 						_hover={{}}
-						onClick={() => {
-							checkHasRegistered(course.codePostId);
-						}}
+						onClick={checkHasRegistered}
 					>
 						Verify
 					</Button>
+					<Text id="msg">{msg}</Text>
 				</VStack>
 			</Center>
 		</Layout>
@@ -77,7 +100,6 @@ export default function Join({ course }: { course: any }) {
 
 export async function getStaticProps({ params }) {
 	const course = await getCourse(params.course);
-	console.log(course);
 	return {
 		props: {
 			course,
@@ -93,16 +115,4 @@ export async function getStaticPaths() {
 		),
 		fallback: "blocking",
 	};
-}
-
-function checkHasRegistered(codePostId) {
-	getIsRegistered(codePostId)
-		.then((res) => {
-			if (res.data == true) {
-				// Continue here
-			}
-		})
-		.catch((err) => {
-			console.log(err);
-		});
 }
