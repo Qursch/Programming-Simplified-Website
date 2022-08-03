@@ -82,3 +82,23 @@ export async function getHasSubmitted(assignmentId) {
 		},
 	});
 }
+
+export async function getComments(courseId, discussionId) {
+	return axios.get(`/discussion/${courseId}/${discussionId}`, {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("token")}`,
+		},
+	});
+}
+
+export async function createComment(content, courseId, discussionId) {
+	return axios.post(
+		"/discussion/comment",
+		{ content, courseId, discussionId },
+		{
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+		}
+	);
+}

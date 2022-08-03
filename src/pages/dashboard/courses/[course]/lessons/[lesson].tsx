@@ -14,6 +14,8 @@ import {
 	Flex,
 	Link,
 	Skeleton,
+	Box,
+	Textarea,
 } from "@chakra-ui/react";
 import Button from "@components/button";
 import Layout from "@components/dashboard/layout";
@@ -31,7 +33,8 @@ import confetti from "canvas-confetti";
 import { API_URL } from "config";
 import { io, Socket } from "socket.io-client";
 import { enrollInCourse, getUserCourse, setCurrentLesson } from "api";
-import { getIsRegistered } from "api";
+import { getIsRegistered, getComments, createComment } from "api";
+import { Form, Formik } from "formik";
 
 let socket: Socket | undefined;
 if (typeof window !== "undefined") {
@@ -54,6 +57,8 @@ export default function LessonPage({
 	const [finished, setFinished] = useState(false);
 	const [courseState, setCourseState] = useState(null);
 	const [isRegistered, setIsRegistered] = useState(false);
+	const [comments, setComments] = useState([]);
+	const [content, setContent] = useState("");
 
 	useEffect(() => {
 		if (finished) {
@@ -131,6 +136,33 @@ export default function LessonPage({
 						);
 					});
 			}
+		}
+	}, []);
+
+	useEffect(() => {
+		if (lesson.name.startsWith("Discussion") && comments.length == 0) {
+			getComments(course.id, lesson.id)
+				.then(({ data }) => {
+					if (data == "No comments found") return setComments(null);
+
+					const comments = data.map((comment: any) => {
+						comment.replies = [];
+						return comment;
+					});
+					for (let i = 0; i < comments.length; i++) {
+						if (comments[i].replyTo) {
+							for (let j = 0; j < comments.length; j++) {
+								if (comments[j]._id == comments[i].replyTo) {
+									comments[j].replies.push(comments[i]);
+									delete comments[i];
+									break;
+								}
+							}
+						}
+					}
+					setComments(comments);
+				})
+				.catch(() => {});
 		}
 	}, []);
 
@@ -323,9 +355,86 @@ export default function LessonPage({
 								{/* <Heading>14m 5s</Heading> */}
 							</Center>
 						</VStack>
+
 						<Stack pb="25px" maxW="1000px">
 							<Text>{blog?.blocks && parsePage(blog)}</Text>
 						</Stack>
+						{lesson?.name.startsWith("Discussion") && (
+							<>
+								<HStack
+									p={{ base: "20px", md: "30px" }}
+									spacing={{ base: 0, lg: "10px" }}
+									bg="primary"
+									maxW="1000px"
+									w="100%"
+									rounded={rounded}
+									shadow={shadow}
+									justify="space-between"
+									flexDir={{
+										base: "column",
+										lg: "row",
+									}}
+								>
+									<Formik
+										initialValues={{}}
+										onSubmit={() => {
+											createComment(
+												content,
+												course.id,
+												lesson.id
+											)
+												.then(({ data }) => {
+													setContent("");
+													setComments(
+														comments.concat(
+															data.comment
+														)
+													);
+												})
+												.catch((err) => {
+													alert(err.message);
+												});
+										}}
+									>
+										{({ handleSubmit }) => (
+											<Form onSubmit={handleSubmit}>
+												<Box>
+													<Text>
+														Enter Your Response
+													</Text>
+
+													<Textarea
+														name="content"
+														id="content"
+														onChange={(e) => {
+															setContent(
+																e.target.value
+															);
+														}}
+													></Textarea>
+												</Box>
+												<Button
+													type="submit"
+													borderRadius={rounded}
+													borderColor="primary"
+													backgroundColor="white"
+													borderWidth="1px"
+													borderStyle="solid"
+													px="20px"
+													py="10px"
+													fontSize="lg"
+													fontWeight="bold"
+													color="primary"
+												>
+													Post
+												</Button>
+											</Form>
+										)}
+									</Formik>
+								</HStack>
+								{loadDiscussion(comments)}
+							</>
+						)}
 						<HStack
 							p={{ base: "20px", md: "30px" }}
 							spacing={{ base: 0, lg: "10px" }}
@@ -449,4 +558,26 @@ export async function getStaticPaths() {
 		paths,
 		fallback: "blocking",
 	};
+}
+
+function loadDiscussion(comments) {
+	if (comments == null || comments.length === 0) {
+		return (
+			<Text pt={50} pb={50}>
+				There are no responses. Be the first to respond!
+			</Text>
+		);
+	}
+
+	console.log(comments);
+	return comments.map((comment) => (
+		<>
+			<VStack id={comment._id}>
+				<Text>{comment.user.firstName + ": " + comment.content}</Text>
+			</VStack>
+			{comment.replies &&
+				comment.replies.length > 0 &&
+				loadDiscussion(comment.replies)}
+		</>
+	));
 }
