@@ -13,6 +13,7 @@ import NextChakraLink from "@components/nextChakraLink";
 import { rounded } from "@styles/theme";
 import { FaDiscord, FaInstagram } from "react-icons/fa";
 import NextImage from "next/image";
+import ReactGA from "react-ga4";
 
 export default function Footer() {
 	const [primary] = useToken("colors", ["primary"]);
@@ -116,6 +117,13 @@ export default function Footer() {
 							href="/instagram"
 							fontSize="0px"
 							isExternal
+							onClick={() => {
+								ReactGA.event({
+									category: "navigation",
+									action: "socials",
+									label: "instagram",
+								});
+							}}
 						>
 							Instagram
 							<FaInstagram size="25px" />
@@ -124,6 +132,13 @@ export default function Footer() {
 							href="/discord"
 							fontSize="0px"
 							isExternal
+							onClick={() => {
+								ReactGA.event({
+									category: "navigation",
+									action: "discord",
+									label: "Homepage",
+								});
+							}}
 						>
 							Discord
 							<FaDiscord size="25px" />

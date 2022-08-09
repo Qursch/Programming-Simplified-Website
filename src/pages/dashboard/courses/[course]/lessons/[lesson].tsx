@@ -35,6 +35,7 @@ import { io, Socket } from "socket.io-client";
 import { enrollInCourse, getUserCourse, setCurrentLesson } from "api";
 import { getIsRegistered, getComments, createComment } from "api";
 import { Form, Formik } from "formik";
+import ReactGA from "react-ga4";
 
 let socket: Socket | undefined;
 if (typeof window !== "undefined") {
@@ -298,7 +299,14 @@ export default function LessonPage({
 											)
 										}
 										controls
-										onEnded={() => setFinished(true)}
+										onEnded={() => {
+											setFinished(true);
+											ReactGA.event({
+												category: "course",
+												action: "completed_section",
+												label: `${course.name} - ${lesson.id}`,
+											});
+										}}
 										onProgress={(e) => {
 											socket?.emit("progress", {
 												courseId: router.query.course,
@@ -461,6 +469,13 @@ export default function LessonPage({
 										p="30px"
 										_hover={{}}
 										leftIcon={<FaArrowLeft />}
+										onclick={() => {
+											ReactGA.event({
+												category: "course",
+												action: "previous",
+												label: `${course.name} - ${lesson.previousLesson.id}`,
+											});
+										}}
 									>
 										Previous
 									</Button>
@@ -512,6 +527,11 @@ export default function LessonPage({
 													token: localStorage.getItem(
 														"token"
 													),
+												});
+												ReactGA.event({
+													category: "course",
+													action: "next",
+													label: `${course.name} - ${lesson.nextLesson.id}`,
 												});
 											}}
 										>

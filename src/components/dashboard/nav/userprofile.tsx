@@ -19,6 +19,7 @@ import { useAuth } from "@providers/authContext";
 import { rounded, themes } from "@styles/theme";
 import { FaCheck } from "react-icons/fa";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import ReactGA from "react-ga4";
 
 export default function UserProfile({ theme, setTheme }) {
 	const { user, isAuthenticated, logout } = useAuth(true);
@@ -44,6 +45,11 @@ export default function UserProfile({ theme, setTheme }) {
 				onClick={() => {
 					setTheme(text);
 					setCookie("theme", text, 365);
+					ReactGA.event({
+						category: "preferences",
+						action: "change_theme",
+						label: text,
+					});
 				}}
 			>
 				<HStack>
@@ -169,6 +175,10 @@ export default function UserProfile({ theme, setTheme }) {
 				icon={<CLogOut />}
 				onClick={() => {
 					logout();
+					ReactGA.event({
+						category: "navigation",
+						action: "logout",
+					});
 				}}
 			/>
 		</HStack>

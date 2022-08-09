@@ -14,6 +14,7 @@ import { useAuth } from "@providers/authContext";
 import { rounded, shadow } from "@styles/theme";
 import { getCourses } from "api/notion";
 import NextImage from "next/image";
+import ReactGA from "react-ga4";
 
 export default function Courses({ courses }) {
 	const { isAuthenticated } = useAuth();
@@ -31,6 +32,13 @@ export default function Courses({ courses }) {
 						>
 							<NextChakraLink
 								href={`/dashboard/courses/${course.id}`}
+								onClick={() => {
+									ReactGA.event({
+										category: "navigation",
+										action: "course_homepage",
+										label: course.name,
+									});
+								}}
 							>
 								<CourseCard {...course} />
 							</NextChakraLink>

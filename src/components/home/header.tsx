@@ -5,6 +5,7 @@ import Button from "@components/home/button";
 import NextChakraLink from "@components/nextChakraLink";
 import { useAuth } from "@providers/authContext";
 import NextImage from "next/image";
+import ReactGA from "react-ga4";
 
 export default function Header() {
 	const { user } = useAuth();
@@ -86,7 +87,16 @@ export default function Header() {
 						{/* <NextChakraLink href="/discord" isExternal>
 							Discord
 						</NextChakraLink> */}
-						<NextChakraLink href="/dashboard/courses">
+						<NextChakraLink
+							href="/dashboard/courses"
+							onClick={() => {
+								ReactGA.event({
+									category: "navigation",
+									action: "all_courses",
+									label: "Public",
+								});
+							}}
+						>
 							Courses
 						</NextChakraLink>
 
@@ -95,7 +105,15 @@ export default function Header() {
 						</NextChakraLink>
 
 						{user ? (
-							<NextChakraLink href="/dashboard">
+							<NextChakraLink
+								href="/dashboard"
+								onClick={() => {
+									ReactGA.event({
+										category: "navigation",
+										action: "dashboard",
+									});
+								}}
+							>
 								Dashboard
 							</NextChakraLink>
 						) : (

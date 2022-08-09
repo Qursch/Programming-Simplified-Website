@@ -11,6 +11,7 @@ import {
 import Logo from "./logo";
 import NavLink from "./navlink";
 import UserProfile from "./userprofile";
+import ReactGA from "react-ga4";
 
 export default function Sidebar(props) {
 	const { theme, setTheme, ...rest } = props;
@@ -48,11 +49,24 @@ export default function Sidebar(props) {
 								label="Enrolled Courses"
 								icon={FaBook}
 								href="/dashboard/enrolled"
+								onClick={() => {
+									ReactGA.event({
+										category: "navigation",
+										action: "enrolled_courses",
+									});
+								}}
 							/>
 							<NavLink
 								label="All Courses"
 								icon={FaBook}
 								href="/dashboard/courses"
+								onClick={() => {
+									ReactGA.event({
+										category: "navigation",
+										action: "all_courses",
+										label: "Dashboard",
+									});
+								}}
 							/>
 							{/* <NavLink
 								label="Request Help"
@@ -63,16 +77,34 @@ export default function Sidebar(props) {
 								label="Request Certificate"
 								icon={FaCertificate}
 								href="/dashboard/certificate"
+								onClick={() => {
+									ReactGA.event({
+										category: "navigation",
+										action: "request_certificate",
+									});
+								}}
 							/>
 							<NavLink
 								label="Report Bug"
 								icon={FaBug}
 								href="/dashboard/bug"
+								onClick={() => {
+									ReactGA.event({
+										category: "navigation",
+										action: "bug_report",
+									});
+								}}
 							/>
 							<NavLink
 								label="Submit Feedback"
 								icon={FaClipboard}
 								href="/dashboard/feedback"
+								onClick={() => {
+									ReactGA.event({
+										category: "navigation",
+										action: "submit_feedback",
+									});
+								}}
 							/>
 						</Stack>
 
@@ -84,6 +116,13 @@ export default function Sidebar(props) {
 								icon={FaDiscord}
 								href="/discord"
 								isExternal
+								onClick={() => {
+									ReactGA.event({
+										category: "navigation",
+										action: "discord",
+										label: "Dashboard",
+									});
+								}}
 							/>
 							{/* <NavLink
 								label="Instagram"

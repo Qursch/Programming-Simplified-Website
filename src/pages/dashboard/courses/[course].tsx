@@ -24,6 +24,7 @@ import {
 import { useRouter } from "next/router";
 import { enrollInCourse, getUserCourse, updateCourse } from "api";
 import { useEffect, useState } from "react";
+import ReactGA from "react-ga4";
 
 export default function CoursePage({ course }: { course?: Course }) {
 	if (typeof window === "undefined") return null;
@@ -186,6 +187,11 @@ export default function CoursePage({ course }: { course?: Course }) {
 											lessons: course?.lessons,
 										})
 											.then(() => {
+												ReactGA.event({
+													category: "course",
+													action: "enroll",
+													label: course?.name,
+												});
 												router.push(
 													`/dashboard/courses/${course.id}/lessons/0`
 												);

@@ -3,6 +3,7 @@ import Layout from "@components/dashboard/layout";
 import FormBuilder from "@components/form/formBuilder";
 import { useAuth } from "@providers/authContext";
 import { submitFeedback } from "api/index";
+import ReactGA from "react-ga4";
 
 export default function Feedback() {
 	const { user } = useAuth();
@@ -26,6 +27,10 @@ export default function Feedback() {
 								status: "success",
 								duration: 5000,
 								isClosable: true,
+							});
+							ReactGA.event({
+								category: "submission",
+								action: "feedback",
 							});
 							location.reload();
 						})
