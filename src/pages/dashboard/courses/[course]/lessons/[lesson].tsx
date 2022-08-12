@@ -167,6 +167,11 @@ export default function LessonPage({
 		}
 	}, []);
 
+	const eventBeforeRedirect = async (event, url) => {
+		ReactGA.event(event);
+		router.push(url);
+	};
+
 	return (
 		<>
 			<Head>
@@ -458,28 +463,25 @@ export default function LessonPage({
 							}}
 						>
 							{lesson?.previousLesson && (
-								<Link
-									href={`/dashboard/courses/${
-										router.query.course
-										// @ts-ignore
-									}/lessons/${lesson?.previousLesson.id}`}
-								>
-									<Button
-										isSecondary
-										p="30px"
-										_hover={{}}
-										leftIcon={<FaArrowLeft />}
-										onclick={() => {
-											ReactGA.event({
+								<Button
+									isSecondary
+									p="30px"
+									_hover={{}}
+									leftIcon={<FaArrowLeft />}
+									onclick={(e) => {
+										e.preventDefault();
+										eventBeforeRedirect(
+											{
 												category: "course",
 												action: "previous",
 												label: `${course.name} - ${lesson.previousLesson.id}`,
-											});
-										}}
-									>
-										Previous
-									</Button>
-								</Link>
+											},
+											`/dashboard/courses/${router.query.course}/lessons/${lesson?.previousLesson.id}`
+										);
+									}}
+								>
+									Previous
+								</Button>
 							)}
 							{lesson?.nextLesson && (
 								<>
@@ -510,34 +512,33 @@ export default function LessonPage({
 										</Heading>
 									</Stack>
 
-									<Link
-										href={`/dashboard/courses/${router.query.course}/lessons/${lesson?.nextLesson?.id}`}
-									>
-										<Button
-											isSecondary
-											p="30px"
-											_hover={{}}
-											leftIcon={<FaCheck />}
-											onClick={() => {
-												socket?.emit("progress", {
-													courseId:
-														router.query.course,
-													lessonId: lesson.id,
-													progress: 1,
-													token: localStorage.getItem(
-														"token"
-													),
-												});
-												ReactGA.event({
+									<Button
+										isSecondary
+										p="30px"
+										_hover={{}}
+										leftIcon={<FaCheck />}
+										onClick={(e) => {
+											e.preventDefault();
+											socket?.emit("progress", {
+												courseId: router.query.course,
+												lessonId: lesson.id,
+												progress: 1,
+												token: localStorage.getItem(
+													"token"
+												),
+											});
+											eventBeforeRedirect(
+												{
 													category: "course",
 													action: "next",
 													label: `${course.name} - ${lesson.nextLesson.id}`,
-												});
-											}}
-										>
-											Complete & Continue
-										</Button>
-									</Link>
+												},
+												`/dashboard/courses/${router.query.course}/lessons/${lesson?.nextLesson?.id}`
+											);
+										}}
+									>
+										Complete & Continue
+									</Button>
 								</>
 							)}
 						</HStack>
