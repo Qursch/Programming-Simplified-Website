@@ -208,8 +208,11 @@ export async function getJobPostings(): Promise<JobPosting[]> {
 					"Program/Org"
 				].multi_select.map(({ name }) => name);
 				return {
-					description:
-						page.properties.Description.rich_text?.[0]
+					responsibilities:
+						page.properties.Responsibilities.rich_text?.[0]
+							?.plain_text ?? null,
+					requirements:
+						page.properties.Requirements.rich_text?.[0]
 							?.plain_text ?? null,
 					rank:
 						page.properties["Volunteer Type"].select?.name ?? null,

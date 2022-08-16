@@ -233,12 +233,17 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 															onClick={(e) => {
 																e.preventDefault();
 																ReactGA.event({
-																	category: "volunteer",
+																	category:
+																		"volunteer",
 																	action: "apply_clicked",
 																	label: selectedPosition.name,
 																});
-																if (selectedPosition.form) {
-																	router.push(selectedPosition.form);
+																if (
+																	selectedPosition.form
+																) {
+																	router.push(
+																		selectedPosition.form
+																	);
 																}
 															}}
 															flex={1}
@@ -254,8 +259,23 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 													py={6}
 													textAlign="left"
 												>
+													<Text>
+														Responsibilities
+													</Text>
 													{
-														selectedPosition.description
+														selectedPosition.responsibilities
+													}
+												</Box>
+												<Box
+													bg="gradient"
+													rounded={25}
+													px={10}
+													py={6}
+													textAlign="left"
+												>
+													<Text>Requirements</Text>
+													{
+														selectedPosition.requirements
 													}
 												</Box>
 											</VStack>
