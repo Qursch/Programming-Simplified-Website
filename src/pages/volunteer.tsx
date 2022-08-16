@@ -21,6 +21,8 @@ import ContainerInside from "@components/containerInside";
 import NextChakraLink from "@components/nextChakra";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import ReactGA from "react-ga4";
+import { useRouter } from "next/router";
 
 import { JobPosting } from "types";
 
@@ -39,6 +41,7 @@ const transition = {
  * @returns the Volunteering page
  */
 export default function Volunteering({ postings }: { postings: JobPosting[] }) {
+	const router = useRouter();
 	const [selectedPosition, setSelectedPosition] = useState<JobPosting>(null);
 	const [primary] = useToken("colors", ["primary"]);
 
@@ -150,6 +153,12 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 																setSelectedPosition(
 																	posting
 																);
+																ReactGA.event({
+																	category:
+																		"Volunteer",
+																	action: "view_role",
+																	label: posting.name,
+																});
 																onOpen();
 															}}
 															h="100%"
@@ -220,7 +229,20 @@ export default function Volunteering({ postings }: { postings: JobPosting[] }) {
 															""
 														}
 													>
-														<Button flex={1}>
+														<Button
+															onClick={(e) => {
+																e.preventDefault();
+																ReactGA.event({
+																	category: "volunteer",
+																	action: "apply_clicked",
+																	label: selectedPosition.name,
+																});
+																if (selectedPosition.form) {
+																	router.push(selectedPosition.form);
+																}
+															}}
+															flex={1}
+														>
 															Apply Now
 														</Button>
 													</NextChakraLink>
@@ -287,6 +309,7 @@ function VolunteerPosition({
 	...stackProps
 }: VolunteerPositionProps): JSX.Element {
 	const { area, name } = posting;
+
 	return (
 		<Stack
 			spacing={0}

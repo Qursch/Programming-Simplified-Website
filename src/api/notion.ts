@@ -223,10 +223,7 @@ export async function getJobPostings(): Promise<JobPosting[]> {
 		)
 		.filter((posting) => {
 			for (let i = 0; i < posting.programs.length; i++) {
-				if (
-					posting.programs[i] ===
-					"Organization: Programming Simplified"
-				)
+				if (posting.programs[i] === "Programming Simplified")
 					return true;
 			}
 		});
