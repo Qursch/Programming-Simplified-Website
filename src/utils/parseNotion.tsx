@@ -9,14 +9,15 @@ import {
 	Text,
 	UnorderedList,
 	Alert,
+	Button,
 } from "@chakra-ui/react";
 import { hexToRgb } from "@components/dashboard/layout";
-import NextChakraLink from "@components/nextChakraLink";
 import { getCookie } from "@lib/cookie";
 import { shadow, themes } from "@styles/theme";
 import { cloneElement } from "react";
 import { atomOneDark, CopyBlock } from "react-code-blocks";
 import { FileObj } from "types";
+import ReactGA from "react-ga4";
 
 export function parseText(text: any) {
 	if (!text.plain_text?.length) {
@@ -59,15 +60,26 @@ export function parseText(text: any) {
 
 	if (text.href && !/^[\s\n]+$/g.test(text.plain_text)) {
 		return (
-			<NextChakraLink
-				href={text.href}
+			<Button
 				{...textProps}
+				backgroundColor="transparent"
+				pl="2px"
+				pr="2px"
+				pb="5px"
+				_hover={{ backgroundColor: "transparent" }}
 				color="primary"
 				style={{ whiteSpace: "pre-line" }}
-				isExternal
+				onClick={() => {
+					ReactGA.event({
+						category: "navigation",
+						action: "course_hyperklink",
+						label: text.href,
+					});
+					window.open(text.href, "_blank").focus();
+				}}
 			>
 				{plainText}
-			</NextChakraLink>
+			</Button>
 		);
 	} else if (Object.keys(textProps).length) {
 		return (
