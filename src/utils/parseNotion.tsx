@@ -67,6 +67,7 @@ export function parseText(text: any) {
 				pr="2px"
 				pb="5px"
 				_hover={{ backgroundColor: "transparent" }}
+				_active={{ backgroundColor: "transparent" }}
 				color="primary"
 				style={{ whiteSpace: "pre-line" }}
 				onClick={() => {
