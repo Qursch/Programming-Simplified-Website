@@ -385,11 +385,17 @@ export default function LessonPage({
 											)
 												.then(({ data }) => {
 													setContent("");
-													setComments(
-														comments.concat(
-															data.comment
-														)
-													);
+													if (
+														comments == null ||
+														comments.length === 0
+													) {
+														setComments([data]);
+													} else {
+														setComments([
+															data,
+															...comments,
+														]);
+													}
 												})
 												.catch((err) => {
 													alert(err.message);
@@ -568,12 +574,12 @@ function loadDiscussion(comments) {
 			</Text>
 		);
 	}
-
 	console.log(comments);
+
 	return comments.map((comment) => (
 		<>
 			<VStack id={comment._id}>
-				<Text>{comment.user.firstName + ": " + comment.content}</Text>
+				<Text>{`${comment.firstName} ${comment.lastName}: ${comment.content}`}</Text>
 			</VStack>
 			{comment.replies &&
 				comment.replies.length > 0 &&
